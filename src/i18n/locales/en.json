@@ -1,0 +1,51 @@
+{
+  "title": "Global Homestay & Stay Portal",
+  "labels": {
+    "guestName": "Guest full name",
+    "email": "Contact email",
+    "nights": "Number of nights",
+    "roomType": "Room category",
+    "passportPhoto": "Passport / National ID photo",
+    "specialNotes": "Special requests (Pure useState re-render test)"
+  },
+  "placeholders": {
+    "guestName": "e.g., John Doe",
+    "email": "guest@example.com",
+    "nights": "Enter nights (min 1)",
+    "specialNotes": "Type here to see controlled state re-rendering in DevTools..."
+  },
+  "rooms": {
+    "standard_room": "Standard Room",
+    "vip_studio": "VIP Studio Suite"
+  },
+  "buttons": {
+    "submit": "Confirm Booking",
+    "processing": "Checking room availability...",
+    "testCrash": "Simulate crash"
+  },
+  "messages": {
+    "success": "Booking confirmed! Reservation code has been sent to your email.",
+    "apiError": "This room was booked by someone else for this period (Error 409 Conflict)"
+  },
+  "dynamicGreeting": "Welcome {{name}}, this property has {{count}} guest bookings today!",
+
+  "priceEstimate": "Estimated Total Price",
+  "checkinDate": "Estimated Check-in Date",
+  "language": "Language",
+  "renderCountBadge": "Form Re-render count",
+  "passportPreview": "Document Photo Preview",
+  "passportUploadHint": "Accepted formats: JPG, PNG (maximum 2MB)",
+  "apiErrorHint": "Tip: Enter nights > 10 to simulate server 409 Conflict (booked room).",
+
+  "val_guest_name_required": "Please enter guest full name.",
+  "val_guest_name_min": "Guest name must be at least 2 characters.",
+  "val_email_required": "Please enter your contact email.",
+  "val_email_invalid": "Please provide a valid email address (e.g. guest@example.com).",
+  "val_nights_required": "Please specify the number of nights.",
+  "val_nights_min": "Minimum length of stay is 1 night.",
+  "val_nights_invalid": "Number of nights must be a valid positive number.",
+  "val_room_type_required": "Please select a room category.",
+  "val_passport_required": "Please upload a passport or national ID photo.",
+  "val_passport_max_size": "Photo size exceeds the 2MB limit.",
+  "val_passport_invalid_type": "Only JPEG and PNG image formats are supported."
+}

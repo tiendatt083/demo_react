@@ -1,0 +1,52 @@
+{
+  "title": "全球民宿与客房预订平台",
+  "labels": {
+    "guestName": "住客姓名",
+    "email": "联系邮箱",
+    "nights": "入住晚数",
+    "roomType": "房间类型",
+    "passportPhoto": "护照 / 身份证照片",
+    "specialNotes": "特别说明 (useState 对照输入框)"
+  },
+  "placeholders": {
+    "guestName": "例如：张三",
+    "email": "guest@example.com",
+    "nights": "请输入入住晚数 (最少 1 晚)",
+    "specialNotes": "在此输入以测试受控状态的重复渲染..."
+  },
+  "rooms": {
+    "standard_room": "标准间 (Standard)",
+    "vip_studio": "VIP 单身公寓 (Studio)"
+  },
+  "buttons": {
+    "submit": "确认预订",
+    "processing": "正在查询房态...",
+    "testCrash": "模拟页面崩溃"
+  },
+  "messages": {
+    "success": "预订成功！预订凭据已发送至您的邮箱。",
+    "apiError": "该房间在所选时段已被预订 (409 Conflict 冲突错误)"
+  },
+  "dynamicGreeting": "欢迎 {{name}}，该房源今日已有 {{count}} 位客人成功预订！",
+
+  "priceEstimate": "预估总额",
+  "checkinDate": "预计入住日期",
+  "language": "语言",
+  "renderCountBadge": "表单渲染次数",
+  "passportPreview": "证件照片预览",
+  "passportUploadHint": "仅支持 JPG、PNG 格式图片 (不超过 2MB)",
+  "apiErrorHint": "提示：输入晚数大于 10 可触发满房冲突模拟错误 (409 Conflict)。",
+
+  "val_guest_name_required": "请输入住客姓名。",
+  "val_guest_name_min": "住客姓名至少需要 2 个字符。",
+  "val_email_required": "请输入联系邮箱地址。",
+  "val_email_invalid": "邮箱格式不正确 (例如: guest@example.com)。",
+  "val_nights_required": "请输入入住晚数。",
+  "val_nights_min": "入住天数最少为 1 晚。",
+  "val_nights_invalid": "入住晚数必须为正整数。",
+  "val_room_type_required": "请选择房间类型。",
+  "val_passport_required": "请上传护照或身份证照片。",
+  "val_passport_max_size": "照片文件大小不能超过 2MB。",
+  "val_passport_invalid_type": "仅支持 JPEG 或 PNG 格式图片。"
+}
+

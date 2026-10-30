@@ -1,0 +1,51 @@
+{
+  "title": "Hệ Thống Đặt Homestay & Phòng Trọ Quốc Tế",
+  "labels": {
+    "guestName": "Họ và tên khách",
+    "email": "Email liên hệ",
+    "nights": "Số đêm lưu trú",
+    "roomType": "Hạng phòng",
+    "passportPhoto": "Ảnh hộ chiếu / CCCD",
+    "specialNotes": "Ghi chú đặc biệt (Ô đối chứng Re-render useState)"
+  },
+  "placeholders": {
+    "guestName": "Ví dụ: Nguyễn Văn A",
+    "email": "guest@example.com",
+    "nights": "Nhập số đêm (tối thiểu 1)",
+    "specialNotes": "Gõ vào đây để kiểm tra Re-render bằng React DevTools..."
+  },
+  "rooms": {
+    "standard_room": "Phòng Tiêu Chuẩn (Standard)",
+    "vip_studio": "Căn Hộ VIP Studio"
+  },
+  "buttons": {
+    "submit": "Xác Nhận Đặt Phòng",
+    "processing": "Đang kiểm tra phòng trống...",
+    "testCrash": "Mô phỏng sập trang"
+  },
+  "messages": {
+    "success": "Đặt phòng thành công! Mã phòng đã gửi vào email.",
+    "apiError": "Phòng đã bị người khác đặt trước trong khoảng thời gian này (Lỗi 409 Conflict)"
+  },
+  "dynamicGreeting": "Chào mừng {{name}}, phòng trọ này đã có {{count}} lượt khách đặt hôm nay!",
+
+  "priceEstimate": "Ước tính tổng tiền",
+  "checkinDate": "Ngày nhận phòng dự kiến",
+  "language": "Ngôn ngữ",
+  "renderCountBadge": "Số lần Form Re-render",
+  "passportPreview": "Xem trước ảnh giấy tờ",
+  "passportUploadHint": "Chỉ nhận định dạng ảnh JPG, PNG (tối đa 2MB)",
+  "apiErrorHint": "Gợi ý: Nhập số đêm > 10 để kích hoạt giả lập lỗi phòng kín (409 Conflict).",
+
+  "val_guest_name_required": "Vui lòng nhập họ và tên khách.",
+  "val_guest_name_min": "Tên khách thuê phải có ít nhất 2 ký tự.",
+  "val_email_required": "Vui lòng nhập địa chỉ email liên hệ.",
+  "val_email_invalid": "Địa chỉ email không hợp lệ (ví dụ: guest@example.com).",
+  "val_nights_required": "Vui lòng nhập số đêm lưu trú.",
+  "val_nights_min": "Số đêm lưu trú tối thiểu phải từ 1 đêm.",
+  "val_nights_invalid": "Số đêm phải là một số nguyên dương hợp lệ.",
+  "val_room_type_required": "Vui lòng chọn hạng phòng mong muốn.",
+  "val_passport_required": "Vui lòng tải lên ảnh hộ chiếu hoặc CCCD.",
+  "val_passport_max_size": "Dung lượng ảnh vượt quá giới hạn cho phép (tối đa 2MB).",
+  "val_passport_invalid_type": "Chỉ chấp nhận file ảnh định dạng JPEG hoặc PNG."
+}
