@@ -1,0 +1,2379 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Form Handling, Error Handling & Internationalization (i18n) - Slide Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-canvas: #f8fafc;
+      --bg-card: #ffffff;
+      --border-subtle: #e2e8f0;
+      --border-focus: #cbd5e1;
+      
+      --text-main: #0f172a;
+      --text-sub: #334155;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      
+      --speaker1-color: #2563eb;
+      --speaker1-bg: #eff6ff;
+      --speaker1-border: #bfdbfe;
+
+      --speaker2-color: #db2777;
+      --speaker2-bg: #fdf2f8;
+      --speaker2-border: #fbcfe8;
+
+      --both-color: #7c3aed;
+      --both-bg: #f5f3ff;
+      --both-border: #ddd6fe;
+
+      --emerald-color: #059669;
+      --emerald-bg: #ecfdf5;
+      --emerald-border: #a7f3d0;
+
+      --amber-color: #d97706;
+      --amber-bg: #fffbeb;
+      --amber-border: #fde68a;
+
+      --rose-color: #e11d48;
+      --rose-bg: #fff1f2;
+      --rose-border: #fecdd3;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-canvas);
+      background-image: 
+        radial-gradient(at 10% 10%, rgba(37, 99, 235, 0.05) 0px, transparent 50%),
+        radial-gradient(at 90% 90%, rgba(124, 58, 237, 0.05) 0px, transparent 50%);
+      color: var(--text-main);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    /* Top Navigation Bar */
+    header.deck-header {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 1.75rem;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      height: 60px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .react-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #0284c7;
+      background: #f0f9ff;
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      border: 1px solid #bae6fd;
+    }
+    .react-badge svg {
+      animation: spin 16s linear infinite;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    .deck-title-mini {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 420px;
+    }
+
+    .top-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .timer-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: #f8fafc;
+      border: 1px solid var(--border-subtle);
+      padding: 0.35rem 0.8rem;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--amber-color);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .timer-badge:hover {
+      background: #f1f5f9;
+      border-color: var(--border-focus);
+    }
+
+    .speaker-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+    .speaker-pill.sp-both {
+      color: var(--both-color);
+      background: var(--both-bg);
+      border: 1px solid var(--both-border);
+    }
+    .speaker-pill.sp-1 {
+      color: var(--speaker1-color);
+      background: var(--speaker1-bg);
+      border: 1px solid var(--speaker1-border);
+    }
+    .speaker-pill.sp-2 {
+      color: var(--speaker2-color);
+      background: var(--speaker2-bg);
+      border: 1px solid var(--speaker2-border);
+    }
+
+    .icon-btn {
+      background: #f8fafc;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-sub);
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .icon-btn:hover, .icon-btn.active {
+      color: var(--text-main);
+      background: #e2e8f0;
+      border-color: #cbd5e1;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: #e2e8f0;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #7c3aed, #db2777);
+      transition: width 0.3s ease;
+    }
+
+    /* Main Stage */
+    main.stage {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem 2.5rem;
+      z-index: 10;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      width: 94%;
+      max-width: 1380px;
+      height: 90%;
+      max-height: 840px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 2.2rem 2.8rem;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.97) translateY(10px);
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                  visibility 0.3s;
+      box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08), 
+                  0 1px 3px 0 rgba(15, 23, 42, 0.04);
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      z-index: 5;
+    }
+
+    /* Slide Header */
+    .slide-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.85rem;
+    }
+
+    .module-tag {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .module-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--speaker1-color);
+    }
+    .slide[data-speaker="sp-2"] .module-dot { background: var(--speaker2-color); }
+    .slide[data-speaker="sp-both"] .module-dot { background: var(--both-color); }
+
+    .slide-number-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      font-weight: 700;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      padding: 0.2rem 0.65rem;
+      border-radius: 6px;
+    }
+
+    .slide-title {
+      font-size: 2.1rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 0.35rem;
+      color: var(--text-main);
+    }
+
+    .slide-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+      line-height: 1.45;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+
+    /* Grids */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      flex: 1;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.15rem;
+      flex: 1;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      flex: 1;
+    }
+
+    /* Cards */
+    .content-card {
+      background: #f8fafc;
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 1.25rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s;
+    }
+    .content-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 8px 20px -8px rgba(15, 23, 42, 0.08);
+    }
+    .content-card.highlight {
+      background: #f0f7ff;
+      border-color: #bae6fd;
+    }
+    .content-card.warning {
+      background: #fffbeb;
+      border-color: #fde68a;
+    }
+    .content-card.danger {
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+    .content-card.success {
+      background: #ecfdf5;
+      border-color: #a7f3d0;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      align-self: flex-start;
+    }
+    .card-badge.blue { background: #dbeafe; color: #1d4ed8; }
+    .card-badge.purple { background: #ede9fe; color: #6d28d9; }
+    .card-badge.rose { background: #ffe4e6; color: #be123c; }
+    .card-badge.amber { background: #fef3c7; color: #b45309; }
+    .card-badge.emerald { background: #d1fae5; color: #047857; }
+
+    /* Crisp Bullet List */
+    ul.bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    ul.bullet-list li {
+      position: relative;
+      padding-left: 1.35rem;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      color: var(--text-sub);
+    }
+    ul.bullet-list li::before {
+      content: "▪";
+      position: absolute;
+      left: 0.2rem;
+      top: -0.1rem;
+      font-size: 1.1rem;
+      color: var(--speaker1-color);
+    }
+    .slide[data-speaker="sp-2"] ul.bullet-list li::before { color: var(--speaker2-color); }
+    .slide[data-speaker="sp-both"] ul.bullet-list li::before { color: var(--both-color); }
+    ul.bullet-list li strong { color: var(--text-main); }
+
+    /* Code Block Display - High Contrast Dark Slate inside Light Card */
+    .code-container {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    }
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.4rem 0.85rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      font-size: 0.72rem;
+    }
+    .code-dots {
+      display: flex;
+      gap: 5px;
+    }
+    .code-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #475569;
+    }
+    .code-body {
+      padding: 0.85rem 1.1rem;
+      line-height: 1.55;
+      color: #f1f5f9;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .code-token-kw { color: #f472b6; font-weight: 600; }
+    .code-token-fn { color: #60a5fa; }
+    .code-token-str { color: #34d399; }
+    .code-token-cm { color: #64748b; font-style: italic; }
+    .code-token-type { color: #fbbf24; }
+    .code-token-prop { color: #c084fc; }
+
+    /* Tables */
+    .spec-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.88rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+    .spec-table th, .spec-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .spec-table th {
+      background: #f8fafc;
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .spec-table tr:last-child td { border-bottom: none; }
+    .spec-table tr:hover td { background: #f8fafc; }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    .badge-bad { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
+    .badge-good { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+    .badge-info { background: #dbeafe; color: #1d4ed8; border: 1px solid #93c5fd; }
+
+    /* Demo Transitions */
+    .demo-hero {
+      background: linear-gradient(135deg, #eff6ff 0%, #faf5ff 100%);
+      border: 2px dashed #93c5fd;
+      border-radius: 16px;
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.1rem;
+    }
+    .demo-pulse-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #ef4444;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 0.8rem;
+      border-radius: 9999px;
+      box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+    }
+    .demo-btn {
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.65rem 1.6rem;
+      border-radius: 10px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s;
+    }
+    .demo-btn:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+    }
+
+    /* Bottom Footer Bar */
+    footer.deck-footer {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 2rem;
+      border-top: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      height: 60px;
+    }
+
+    .slide-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .slide-counter span:first-child { color: var(--text-main); }
+
+    .slide-dots-rail {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      max-width: 50vw;
+      padding: 4px;
+    }
+    .slide-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #cbd5e1;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .slide-dot:hover { background: #94a3b8; transform: scale(1.2); }
+    .slide-dot.active {
+      background: #2563eb;
+      width: 22px;
+      border-radius: 9999px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.45rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      background: #ffffff;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover {
+      background: #f1f5f9;
+      border-color: var(--border-focus);
+    }
+    .nav-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    /* Overview Modal */
+    .overview-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(12px);
+      z-index: 150;
+      display: none;
+      flex-direction: column;
+      padding: 2.5rem;
+      overflow-y: auto;
+    }
+    .overview-modal.open { display: flex; }
+    .overview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .overview-item {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .overview-item:hover, .overview-item.current {
+      border-color: #2563eb;
+      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.2);
+      transform: translateY(-2px);
+    }
+    .overview-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: #64748b;
+      font-weight: 700;
+    }
+    .overview-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .overview-speaker {
+      font-size: 0.72rem;
+      color: #64748b;
+    }
+
+    /* Shortcuts Help Modal */
+    .help-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .help-modal.open { display: flex; }
+    .help-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 2rem;
+      width: 90%;
+      max-width: 480px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
+    }
+    .kbd-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 0.88rem;
+      color: #334155;
+    }
+    kbd {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    @media (max-width: 1024px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .slide-title { font-size: 1.8rem; }
+      .slide { padding: 1.5rem 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="deck-header">
+    <div class="brand-group">
+      <div class="react-badge">
+        <svg width="18" height="18" viewBox="0 0 115.3 100" fill="#0284c7">
+          <path d="M57.7,0C25.8,0,0,22.4,0,50s25.8,50,57.7,50c31.9,0,57.7-22.4,57.7-50S89.5,0,57.7,0z M57.7,85.2c-23.7,0-43-15.8-43-35.2s19.3-35.2,43-35.2c23.7,0,43,15.8,43,35.2S81.4,85.2,57.7,85.2z"/>
+          <ellipse cx="57.7" cy="50" rx="14.3" ry="12.5"/>
+        </svg>
+        React Advanced
+      </div>
+      <div class="deck-title-mini">Global Checkout & Profile Portal • 24 Slides</div>
+    </div>
+
+    <div class="top-controls">
+      <!-- Timer -->
+      <div class="timer-badge" id="deckTimer" title="Bắt đầu / Tạm dừng bấm giờ (45 phút)">
+        <span id="timerIcon">⏱️</span>
+        <span id="timerDisplay">45:00</span>
+      </div>
+
+      <!-- Speaker Badge -->
+      <div class="speaker-pill sp-both" id="speakerBadge">
+        Cả 2 Thành Viên
+      </div>
+
+      <!-- Overview Grid Button -->
+      <button class="icon-btn" id="btnOverview" title="Lưới tổng quan 24 Slide (Phím O)">
+        ⊞
+      </button>
+      <!-- Fullscreen Button -->
+      <button class="icon-btn" id="btnFullscreen" title="Toàn màn hình (Phím F)">
+        ⛶
+      </button>
+      <!-- Help Button -->
+      <button class="icon-btn" id="btnHelp" title="Phím tắt hỗ trợ (Phím ?)">
+        ?
+      </button>
+    </div>
+
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </header>
+
+  <!-- Presentation Stage -->
+  <main class="stage" id="deckStage">
+
+    <!-- ==================== SLIDE 1 ==================== -->
+    <section class="slide active" data-slide="1" data-speaker="sp-both" data-module="Phần Mở Đầu">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Khởi Động & Đặt Vấn Đề</div>
+        <div class="slide-number-badge">01 / 24</div>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; text-align:center; max-width:920px; margin:0 auto;">
+        <div>
+          <span class="badge badge-info" style="font-size:0.85rem; padding:0.35rem 0.9rem; margin-bottom:1rem;">CHUYÊN ĐỀ LẬP TRÌNH REACT NÂNG CAO</span>
+        </div>
+        <h1 style="font-size:3rem; font-weight:800; line-height:1.2; margin-bottom:0.75rem; color:#0f172a;">
+          React Form Handling, Error Handling & Internationalization (i18n)
+        </h1>
+        <p style="font-size:1.25rem; color:#475569; margin-bottom:2.2rem; font-weight:500;">
+          Xây dựng ứng dụng React sẵn sàng cho môi trường Production thực tế
+        </p>
+
+        <!-- Speaker Cards -->
+        <div class="grid-2" style="max-width:760px; margin:0 auto; text-align:left;">
+          <div class="content-card highlight">
+            <span class="card-badge blue">Speaker 1 • Lead</span>
+            <div style="font-size:1.15rem; font-weight:700; color:#0f172a; margin-bottom:0.4rem;">Module 1: React Form Handling</div>
+            <ul class="bullet-list" style="font-size:0.86rem;">
+              <li><strong>Uncontrolled Form:</strong> React Hook Form v7+ cô lập render</li>
+              <li><strong>Zod Schema:</strong> Validation tự động & Coercion</li>
+              <li><strong>File & Memory:</strong> Blob preview & dọn dẹp RAM</li>
+            </ul>
+          </div>
+
+          <div class="content-card" style="background:#fdf2f8; border-color:#fbcfe8;">
+            <span class="card-badge rose">Speaker 2 • Lead</span>
+            <div style="font-size:1.15rem; font-weight:700; color:#0f172a; margin-bottom:0.4rem;">Module 2 & 3: Error & i18n</div>
+            <ul class="bullet-list" style="font-size:0.86rem;">
+              <li><strong>Error Boundary:</strong> Ngăn chặn White Screen of Death</li>
+              <li><strong>Async State:</strong> Xử lý lỗi API (402, 500, mạng)</li>
+              <li><strong>i18n & RTL:</strong> react-i18next + Native Intl + CSS Logical</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top:2rem; font-size:0.85rem; color:#64748b; font-family:'JetBrains Mono', monospace; font-weight:600;">
+          Thời lượng: 40 – 45 phút • Demo Thực Chiến • Mini-game 20 Quizz • Tháng 10/2026
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 2 ==================== -->
+    <section class="slide" data-slide="2" data-speaker="sp-both" data-module="Phần Mở Đầu">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Bối Cảnh Kiến Trúc</div>
+        <div class="slide-number-badge">02 / 24</div>
+      </div>
+      <h2 class="slide-title">Vị Trí Chuyên Đề Trong Hệ Sinh Thái React</h2>
+      <p class="slide-subtitle">Bức tranh 4 giai đoạn phát triển để hoàn thiện một ứng dụng React Production</p>
+      
+      <div class="slide-body">
+        <div class="grid-4">
+          <div class="content-card">
+            <span class="card-badge">Nhóm 1 • Nền Tảng</span>
+            <h3 class="card-title" style="font-size:1rem;">React Core & TS</h3>
+            <ul class="bullet-list" style="font-size:0.84rem;">
+              <li>JSX, Props & State</li>
+              <li>Component Hierarchy</li>
+              <li>Lifting State Up</li>
+              <li>TypeScript Typing</li>
+            </ul>
+            <div style="margin-top:auto; font-size:0.75rem; color:#64748b; padding-top:0.6rem; border-top:1px solid #e2e8f0; font-weight:600;">
+              ✅ Cú pháp & Khung sườn
+            </div>
+          </div>
+
+          <div class="content-card">
+            <span class="card-badge">Nhóm 2 • Dữ Liệu</span>
+            <h3 class="card-title" style="font-size:1rem;">Hooks & Lifecycle</h3>
+            <ul class="bullet-list" style="font-size:0.84rem;">
+              <li>useState, useEffect</li>
+              <li>Virtual DOM & Fiber</li>
+              <li>Parent/Child Re-renders</li>
+              <li>Custom Hooks</li>
+            </ul>
+            <div style="margin-top:auto; font-size:0.75rem; color:#64748b; padding-top:0.6rem; border-top:1px solid #e2e8f0; font-weight:600;">
+              ✅ Luồng state & render
+            </div>
+          </div>
+
+          <div class="content-card">
+            <span class="card-badge">Nhóm 3 • Tối Ưu</span>
+            <h3 class="card-title" style="font-size:1rem;">Styling & Perf</h3>
+            <ul class="bullet-list" style="font-size:0.84rem;">
+              <li>Tailwind CSS, Modules</li>
+              <li>React.memo, useMemo</li>
+              <li>useCallback caching</li>
+              <li>Lazy load & Splitting</li>
+            </ul>
+            <div style="margin-top:auto; font-size:0.75rem; color:#64748b; padding-top:0.6rem; border-top:1px solid #e2e8f0; font-weight:600;">
+              ✅ Tốc độ & Giao diện
+            </div>
+          </div>
+
+          <div class="content-card highlight" style="border:2px solid #3b82f6; box-shadow:0 8px 20px -6px rgba(37,99,235,0.2);">
+            <span class="card-badge blue">Nhóm 4 • Hôm Nay</span>
+            <h3 class="card-title" style="color:#1d4ed8; font-size:1rem;">Production Ready</h3>
+            <ul class="bullet-list" style="font-size:0.84rem;">
+              <li><strong>Forms:</strong> Thu nhận dữ liệu 2 chiều không giật lag</li>
+              <li><strong>Error:</strong> Phòng thủ sập trang</li>
+              <li><strong>i18n:</strong> Toàn cầu hóa ngôn ngữ & giao diện RTL</li>
+            </ul>
+            <div style="margin-top:auto; font-size:0.75rem; color:#1d4ed8; font-weight:800; padding-top:0.6rem; border-top:1px solid #bfdbfe;">
+              🚀 Mảnh ghép hoàn thiện
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 3 ==================== -->
+    <section class="slide" data-slide="3" data-speaker="sp-both" data-module="Phần Mở Đầu">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Dự Án Thực Chiến</div>
+        <div class="slide-number-badge">03 / 24</div>
+      </div>
+      <h2 class="slide-title">Dự Án Demo: "Global Checkout & Profile Portal"</h2>
+      <p class="slide-subtitle">Ứng dụng thực tế xuyên suốt bài giảng tích hợp 3 tầng kiến trúc sống còn</p>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="content-card highlight">
+            <span class="card-badge blue">Tầng 1 • Speaker 1</span>
+            <div class="card-title">Form Handling Layer</div>
+            <ul class="bullet-list">
+              <li><strong>React Hook Form:</strong> Uncontrolled, zero re-render lag.</li>
+              <li><strong>Zod Schema:</strong> Phân tách validation logic độc lập.</li>
+              <li><strong>Custom Controller:</strong> Adapter cho React-Select/MUI.</li>
+              <li><strong>File Upload & RAM:</strong> Blob preview & revokeObjectURL.</li>
+            </ul>
+          </div>
+
+          <div class="content-card danger">
+            <span class="card-badge rose">Tầng 2 • Speaker 2</span>
+            <div class="card-title">Error Protection Layer</div>
+            <ul class="bullet-list">
+              <li><strong>Async State Machine:</strong> status 'idle' | 'loading' | 'error'.</li>
+              <li><strong>API Error Handling:</strong> Bắt mã lỗi 402, 500, mất mạng.</li>
+              <li><strong>Class Error Boundary:</strong> Cô lập lỗi JavaScript Virtual DOM.</li>
+              <li><strong>Fallback UI:</strong> Header/Form vẫn hoạt động khi sub-tree vỡ.</li>
+            </ul>
+          </div>
+
+          <div class="content-card success">
+            <span class="card-badge emerald">Tầng 3 • Speaker 2</span>
+            <div class="card-title">Localization Layer</div>
+            <ul class="bullet-list">
+              <li><strong>react-i18next:</strong> Đa ngôn ngữ (VI, EN, AR) thời gian thực.</li>
+              <li><strong>Native Intl API:</strong> Chuẩn hóa tiền tệ (₫, $, €) & ngày tháng.</li>
+              <li><strong>CSS Logical Properties:</strong> Tự động lật giao diện RTL 180°.</li>
+              <li><strong>Zero Bundle Overhead:</strong> Tận dụng sẵn API trình duyệt.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 4 ==================== -->
+    <section class="slide" data-slide="4" data-speaker="sp-1" data-module="Module 1: Form Handling">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Module 1: Form Handling</div>
+        <div class="slide-number-badge">04 / 24</div>
+      </div>
+      <h2 class="slide-title">Bản Chất Forms Trong React & Form State</h2>
+      <p class="slide-subtitle">Chuyển từ HTML DOM thuần sang mô hình Two-Way & Nguyên tắc Single Source of Truth</p>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="content-card">
+            <span class="card-badge blue">Nguyên Lý Nền Tảng</span>
+            <h3 class="card-title">Single Source of Truth</h3>
+            <ul class="bullet-list" style="margin-bottom:1rem;">
+              <li><strong>HTML DOM thuần:</strong> Thẻ <code>&lt;input&gt;</code> tự lưu trữ value ngầm trong DOM.</li>
+              <li><strong>React Two-Way Pattern:</strong> React State là nguồn chân lý duy nhất điều khiển giao diện.</li>
+              <li><strong>Thách thức lớn:</strong> Cập nhật state không đúng cách sẽ gây re-render thừa toàn bộ form.</li>
+            </ul>
+
+            <div class="content-card warning" style="padding:0.85rem 1rem;">
+              <strong style="color:#b45309; font-size:0.85rem;">⚠️ Bài toán UX:</strong>
+              <p style="font-size:0.82rem; color:#78350f; margin-top:0.2rem;">
+                Không được báo lỗi đỏ ngay khi user vừa mở trang chưa kịp nhập gì!
+              </p>
+            </div>
+          </div>
+
+          <div class="content-card highlight">
+            <span class="card-badge blue">Cấu Trúc Dữ Liệu</span>
+            <h3 class="card-title">Bóc Tách 6 Thành Phần Của Form State</h3>
+            <div style="display:flex; flex-direction:column; gap:0.45rem; font-size:0.85rem;">
+              <div style="background:#fff; border:1px solid #bfdbfe; padding:0.45rem 0.75rem; border-radius:6px;">
+                <code style="color:#2563eb; font-weight:700;">values</code>: Đối tượng chứa dữ liệu hiện tại của các trường.
+              </div>
+              <div style="background:#fff; border:1px solid #bfdbfe; padding:0.45rem 0.75rem; border-radius:6px;">
+                <code style="color:#dc2626; font-weight:700;">errors</code>: Danh sách vi phạm validation gắn liền với từng ô input.
+              </div>
+              <div style="background:#fff; border:1px solid #bfdbfe; padding:0.45rem 0.75rem; border-radius:6px;">
+                <code style="color:#d97706; font-weight:700;">touched</code>: Cờ xác định user đã focus rồi blur (chặn báo lỗi sớm).
+              </div>
+              <div style="background:#fff; border:1px solid #bfdbfe; padding:0.45rem 0.75rem; border-radius:6px;">
+                <code style="color:#7c3aed; font-weight:700;">dirty / pristine</code>: Xác định dữ liệu đã bị sửa đổi so với mặc định ban đầu.
+              </div>
+              <div style="background:#fff; border:1px solid #bfdbfe; padding:0.45rem 0.75rem; border-radius:6px;">
+                <code style="color:#059669; font-weight:700;">isSubmitting</code>: Đánh dấu request đang gửi để khóa nút bấm.
+              </div>
+              <div style="background:#fff; border:1px solid #bfdbfe; padding:0.45rem 0.75rem; border-radius:6px;">
+                <code style="color:#0284c7; font-weight:700;">isValid</code>: Cờ tổng thể xác định form hợp lệ 100% để submit.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 5 ==================== -->
+    <section class="slide" data-slide="5" data-speaker="sp-1" data-module="Module 1: Form Handling">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Module 1: Form Handling</div>
+        <div class="slide-number-badge">05 / 24</div>
+      </div>
+      <h2 class="slide-title">Controlled vs. Uncontrolled Components</h2>
+      <p class="slide-subtitle">So sánh hai trường phái thiết kế biểu mẫu & Bẫy cảnh báo kinh điển</p>
+
+      <div class="slide-body">
+        <table class="spec-table" style="margin-bottom:1rem;">
+          <thead>
+            <tr>
+              <th>Tiêu chí so sánh</th>
+              <th>Controlled Components</th>
+              <th>Uncontrolled Components</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Nơi lưu state</strong></td>
+              <td>React State (<code>useState</code> / <code>useReducer</code>)</td>
+              <td>DOM Tree tự nhiên (<code>HTMLInputElement</code>)</td>
+            </tr>
+            <tr>
+              <td><strong>Cách truy xuất</strong></td>
+              <td><code>value={state}</code> &amp; <code>onChange={...}</code></td>
+              <td><code>useRef()</code> hoặc <code>new FormData()</code></td>
+            </tr>
+            <tr>
+              <td><strong>Re-render Impact</strong></td>
+              <td><span class="badge badge-bad">Re-render trên MỌI phím gõ</span> (10 phím = 10 lần render)</td>
+              <td><span class="badge badge-good">ZERO Re-render khi gõ phím</span> (Đọc ref khi cần)</td>
+            </tr>
+            <tr>
+              <td><strong>Mục đích tối ưu</strong></td>
+              <td>Form nhỏ 1-3 ô, format tức thời (số thẻ)</td>
+              <td>Form vừa &amp; lớn, Form nghiệp vụ phức tạp</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Trap Box -->
+        <div class="content-card danger">
+          <div class="card-title" style="color:#b91c1c;">
+            🚨 Bẫy Cảnh Báo: "Changing an uncontrolled input to be controlled"
+          </div>
+          <div class="grid-2" style="font-size:0.86rem; align-items:center;">
+            <div>
+              <p style="color:#334155; line-height:1.5;">
+                <strong>Nguyên nhân:</strong> Khởi tạo <code>useState()</code> trống (nhận <code>undefined</code>). Frame 1 React coi là <em>Uncontrolled</em>. Khi gõ phím, state thành string, ép input biến thành <em>Controlled</em> ➔ Gây bất đồng bộ kiến trúc!
+              </p>
+            </div>
+            <div class="code-container">
+              <div class="code-body">// ❌ SAI:
+const [name, setName] = useState(); // undefined!
+&lt;input value={name} onChange={...} /&gt;
+
+// ✅ ĐÚNG: Luôn khởi tạo chuỗi rỗng
+const [name, setName] = useState('');</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 6 ==================== -->
+    <section class="slide" data-slide="6" data-speaker="sp-1" data-module="Module 1: Form Handling">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Thực Hành Trực Tiếp</div>
+        <div class="slide-number-badge">06 / 24</div>
+      </div>
+      <h2 class="slide-title">[DEMO 1] Controlled vs. Uncontrolled & Profiler</h2>
+      <p class="slide-subtitle">Mục tiêu: Quan sát trực quan hiện tượng Re-render trên React DevTools Profiler</p>
+
+      <div class="slide-body">
+        <div class="demo-hero">
+          <div class="demo-pulse-badge">🔴 THAO TÁC LIVE CODE</div>
+          <h3 style="font-size:1.6rem; font-weight:800; color:#0f172a;">
+            Chuyển Sang Trình Duyệt & Bật React DevTools Profiler
+          </h3>
+          <p style="font-size:0.95rem; color:#475569; max-width:700px;">
+            Bật tùy chọn <em>"Highlight updates when components render"</em> trong tab Profiler để so sánh 2 ô input đối chứng.
+          </p>
+
+          <div class="grid-3" style="width:100%; text-align:left; margin-top:0.4rem;">
+            <div class="content-card" style="background:#ffffff;">
+              <span class="card-badge rose">Bước 1: Controlled</span>
+              <p style="font-size:0.85rem; color:#334155;">Gõ ô "Ghi chú đặc biệt" ➔ Khung viền xanh lá nháy sáng liên tục trên toàn form.</p>
+            </div>
+            <div class="content-card" style="background:#ffffff;">
+              <span class="card-badge emerald">Bước 2: Uncontrolled</span>
+              <p style="font-size:0.85rem; color:#334155;">Gõ ô "Họ tên / Email" (RHF Register) ➔ Không nháy sáng, Zero Re-render component cha!</p>
+            </div>
+            <div class="content-card" style="background:#ffffff;">
+              <span class="card-badge amber">Bước 3: Warning Test</span>
+              <p style="font-size:0.85rem; color:#334155;">Xóa default value về <code>undefined</code> ➔ Xem cảnh báo đỏ xuất hiện ngay trong Console.</p>
+            </div>
+          </div>
+
+          <a href="http://localhost:5173" target="_blank" class="demo-btn">
+            🚀 Mở Demo Portal (localhost:5173)
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 7 ==================== -->
+    <section class="slide" data-slide="7" data-speaker="sp-1" data-module="Module 1: Form Handling">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Module 1: Form Handling</div>
+        <div class="slide-number-badge">07 / 24</div>
+      </div>
+      <h2 class="slide-title">Form Validation, A11y & Submit Handling</h2>
+      <p class="slide-subtitle">Chiến lược kích hoạt validation, chuẩn Screen Reader & Chống Double Submit</p>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <!-- Col 1 -->
+          <div class="content-card">
+            <span class="card-badge blue">Chiến Lược Bắt Lỗi</span>
+            <ul class="bullet-list" style="margin-bottom:1.1rem;">
+              <li>
+                <strong>Instant (onChange):</strong> Validate trên từng phím gõ (Kiểm tra độ mạnh Password).
+              </li>
+              <li>
+                <strong>Afterward (onBlur) - <span class="badge badge-good">Chuẩn Vàng UX</span>:</strong> Báo lỗi khi rời ô nhập. Không làm gián đoạn lúc đang gõ.
+              </li>
+              <li>
+                <strong>On Submit:</strong> Kiểm tra tổng thể trước khi gửi dữ liệu.
+              </li>
+            </ul>
+
+            <span class="card-badge rose">Chống Thảm Họa Double Submit</span>
+            <p style="font-size:0.85rem; color:#334155; line-height:1.5;">
+              Gọi <code>e.preventDefault()</code> chặn reload trang. Bắt buộc khóa nút bấm với <code>disabled={isSubmitting}</code> để ngăn người dùng bấm nhiều lần khi mạng lag làm trừ tiền thẻ lặp lại!
+            </p>
+          </div>
+
+          <!-- Col 2: A11y -->
+          <div class="content-card highlight">
+            <span class="card-badge blue">Chuẩn Accessibility (A11y)</span>
+            <p style="font-size:0.84rem; color:#334155; margin-bottom:0.6rem;">
+              Screen Reader cho người khiếm thị bắt buộc cần các thuộc tính ARIA:
+            </p>
+            <div class="code-container">
+              <div class="code-header">AccessibleField.jsx</div>
+              <div class="code-body">&lt;label htmlFor="email-input"&gt;Địa chỉ Email&lt;/label&gt;
+&lt;input
+  id="email-input"
+  type="email"
+  <span class="code-token-prop">aria-invalid</span>={errors.email ? <span class="code-token-str">"true"</span> : <span class="code-token-str">"false"</span>}
+  <span class="code-token-prop">aria-describedby</span>={errors.email ? <span class="code-token-str">"email-err"</span> : undefined}
+  {...register(<span class="code-token-str">"email"</span>)}
+/&gt;
+
+{errors.email &amp;&amp; (
+  &lt;p id=<span class="code-token-str">"email-err"</span> <span class="code-token-prop">role</span>=<span class="code-token-str">"alert"</span> <span class="code-token-prop">aria-live</span>=<span class="code-token-str">"assertive"</span>&gt;
+    {errors.email.message}
+  &lt;/p&gt;
+)}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 8 ==================== -->
+    <section class="slide" data-slide="8" data-speaker="sp-1" data-module="Module 1: Form Handling">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Module 1: Form Handling</div>
+        <div class="slide-number-badge">08 / 24</div>
+      </div>
+      <h2 class="slide-title">Chuẩn Công Nghiệp: React Hook Form + Zod</h2>
+      <p class="slide-subtitle">Đăng ký Uncontrolled Ref v7+ & Tách biệt toàn bộ Business Logic vào Zod Schema</p>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <!-- Left -->
+          <div class="content-card">
+            <span class="card-badge blue">Cú Pháp RHF v7+</span>
+            <p style="font-size:0.85rem; color:#334155; margin-bottom:0.6rem;">
+              Destructuring props tiêm trực tiếp ref vào thẻ input native:
+            </p>
+            <div class="code-container" style="margin-bottom:0.85rem;">
+              <div class="code-body"><span class="code-token-kw">const</span> { register, handleSubmit, formState: { errors } } = <span class="code-token-fn">useForm</span>({
+  resolver: <span class="code-token-fn">zodResolver</span>(bookingSchema),
+  mode: <span class="code-token-str">'onBlur'</span>
+});
+
+&lt;input {...register(<span class="code-token-str">'guestName'</span>)} /&gt;</div>
+            </div>
+
+            <span class="card-badge purple">Cầu Nối &lt;Controller /&gt;</span>
+            <p style="font-size:0.82rem; color:#334155;">
+              Adapter điều phối dữ liệu cho các custom component không hỗ trợ native DOM ref (React-Select, MUI, AntD).
+            </p>
+          </div>
+
+          <!-- Right -->
+          <div class="content-card highlight">
+            <span class="card-badge amber">Zod Validation Schema</span>
+            <div class="code-container">
+              <div class="code-header">bookingSchema.ts</div>
+              <div class="code-body"><span class="code-token-kw">export const</span> bookingSchema = z.object({
+  guestName: z.string().min(2, <span class="code-token-str">'val_guest_name_min'</span>),
+  
+  <span class="code-token-cm">// 1. Tự động ép kiểu chuỗi HTML sang number</span>
+  nights: z.coerce.number().min(1, <span class="code-token-str">'val_nights_min'</span>),
+  
+  roomType: z.enum([<span class="code-token-str">'standard_room'</span>, <span class="code-token-str">'vip_studio'</span>]),
+  password: z.string().min(8),
+  confirmPassword: z.string()
+})
+<span class="code-token-cm">// 2. Dependent Validation: Kiểm tra logic chéo giữa 2 trường</span>
+.refine((data) =&gt; data.password === data.confirmPassword, {
+  message: <span class="code-token-str">'Mật khẩu không khớp'</span>,
+  path: [<span class="code-token-str">'confirmPassword'</span>]
+});</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 9 ==================== -->
+    <section class="slide" data-slide="9" data-speaker="sp-1" data-module="Module 1: Form Handling">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Thực Hành Trực Tiếp</div>
+        <div class="slide-number-badge">09 / 24</div>
+      </div>
+      <h2 class="slide-title">[DEMO 2] Form Validation với RHF + Zod</h2>
+      <p class="slide-subtitle">Mục tiêu: Kiểm chứng submit validation, ép kiểu số và logic phụ thuộc chéo</p>
+
+      <div class="slide-body">
+        <div class="demo-hero">
+          <div class="demo-pulse-badge">🔴 THAO TÁC LIVE CODE</div>
+          <h3 style="font-size:1.6rem; font-weight:800; color:#0f172a;">
+            Kiểm Chứng Quy Trình Bắt Lỗi Thời Gian Thực
+          </h3>
+          <p style="font-size:0.95rem; color:#475569; max-width:720px;">
+            Thử nghiệm submit form trống, kiểm tra ép kiểu số đêm ở và quan sát tính toán tổng tiền ước tính tự động.
+          </p>
+
+          <div class="grid-3" style="width:100%; text-align:left; margin-top:0.4rem;">
+            <div class="content-card" style="background:#ffffff;">
+              <span class="card-badge rose">1. Submit Trống</span>
+              <p style="font-size:0.85rem; color:#334155;">Bấm "Xác nhận đặt phòng" ➔ Toàn bộ lỗi validation xuất hiện tức thì theo chuẩn A11y.</p>
+            </div>
+            <div class="content-card" style="background:#ffffff;">
+              <span class="card-badge amber">2. Coerce & Calculation</span>
+              <p style="font-size:0.85rem; color:#334155;">Nhập số đêm "3" ➔ <code>z.coerce</code> ép sang number, tổng tiền tự cập nhật không lag.</p>
+            </div>
+            <div class="content-card" style="background:#ffffff;">
+              <span class="card-badge purple">3. Custom Controller</span>
+              <p style="font-size:0.85rem; color:#334155;">Đổi loại phòng từ Standard sang VIP Studio ➔ Controller đồng bộ dữ liệu chuẩn xác.</p>
+            </div>
+          </div>
+
+          <a href="http://localhost:5173" target="_blank" class="demo-btn">
+            🚀 Mở Demo Portal (localhost:5173)
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 10 ==================== -->
+    <section class="slide" data-slide="10" data-speaker="sp-1" data-module="Module 1: Form Handling">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Module 1: Form Handling</div>
+        <div class="slide-number-badge">10 / 24</div>
+      </div>
+      <h2 class="slide-title">Xử Lý Tải File & Quản Lý Bộ Nhớ (RAM)</h2>
+      <p class="slide-subtitle">Validation kích thước/MIME, tạo Blob Preview & Nguy cơ rò rỉ bộ nhớ (Memory Leak)</p>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <!-- Left -->
+          <div class="content-card">
+            <span class="card-badge blue">Quy Trình Kiểm Tra File</span>
+            <ul class="bullet-list" style="margin-bottom:1rem;">
+              <li><strong>Truy xuất File:</strong> Đọc đối tượng từ <code>e.target.files[0]</code> (FileList).</li>
+              <li><strong>Client Validation:</strong> Chặn ngay nếu <code>file.size &gt; 2MB</code> hoặc MIME không phải JPG/PNG.</li>
+              <li><strong>Xem trước tức thì:</strong> <code>URL.createObjectURL(file)</code> tạo URL tạm trỏ vào RAM.</li>
+            </ul>
+
+            <div class="content-card danger" style="padding:0.85rem 1rem;">
+              <strong style="color:#b91c1c; font-size:0.85rem;">🧠 Cơ Chế Gây Rò Rỉ Bộ Nhớ (Memory Leak):</strong>
+              <p style="font-size:0.82rem; color:#7f1d1d; margin-top:0.25rem; line-height:1.45;">
+                Blob URL neo trực tiếp vào RAM trình duyệt. Garbage Collector <strong>KHÔNG THỂ</strong> tự thu hồi nếu lập trình viên không chủ động gọi lệnh hủy!
+              </p>
+            </div>
+          </div>
+
+          <!-- Right -->
+          <div class="content-card highlight">
+            <span class="card-badge emerald">Giải Pháp Dọn Dẹp Bắt Buộc</span>
+            <div class="code-container">
+              <div class="code-header">AvatarUpload.tsx</div>
+              <div class="code-body"><span class="code-token-kw">const</span> [previewUrl, setPreviewUrl] = <span class="code-token-fn">useState</span>&lt;<span class="code-token-type">string | null</span>&gt;(<span class="code-token-kw">null</span>);
+
+<span class="code-token-kw">const</span> handleFileChange = (e) =&gt; {
+  <span class="code-token-kw">const</span> file = e.target.files?.[0];
+  <span class="code-token-kw">if</span> (file) {
+    <span class="code-token-cm">// 1. Thu hồi URL cũ trước khi tạo URL mới</span>
+    <span class="code-token-kw">if</span> (previewUrl) URL.<span class="code-token-fn">revokeObjectURL</span>(previewUrl);
+    setPreviewUrl(URL.<span class="code-token-fn">createObjectURL</span>(file));
+  }
+};
+
+<span class="code-token-cm">// 2. Cleanup function khi unmount component</span>
+<span class="code-token-fn">useEffect</span>(() =&gt; {
+  <span class="code-token-kw">return</span> () =&gt; {
+    <span class="code-token-kw">if</span> (previewUrl) URL.<span class="code-token-fn">revokeObjectURL</span>(previewUrl);
+  };
+}, [previewUrl]);</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 11 ==================== -->
+    <section class="slide" data-slide="11" data-speaker="sp-1" data-module="Module 1: Form Handling">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Thực Hành Trực Tiếp</div>
+        <div class="slide-number-badge">11 / 24</div>
+      </div>
+      <h2 class="slide-title">[DEMO 3] Upload Avatar & Memory Cleanup</h2>
+      <p class="slide-subtitle">Mục tiêu: Kiểm tra chặn file sai chuẩn, hiển thị ảnh tròn và thu hồi bộ nhớ RAM</p>
+
+      <div class="slide-body">
+        <div class="demo-hero">
+          <div class="demo-pulse-badge">🔴 THAO TÁC LIVE CODE</div>
+          <h3 style="font-size:1.6rem; font-weight:800; color:#0f172a;">
+            Tải Ảnh CCCD / Hộ Chiếu & Thu Hồi URL Blob
+          </h3>
+          <p style="font-size:0.95rem; color:#475569; max-width:700px;">
+            Quan sát Zod chặn file &gt; 2MB ngay từ client và kiểm tra hàm dọn dẹp revokeObjectURL khi chọn ảnh khác hoặc xóa ảnh.
+          </p>
+
+          <div class="grid-3" style="width:100%; text-align:left; margin-top:0.4rem;">
+            <div class="content-card" style="background:#ffffff;">
+              <span class="card-badge rose">1. Chặn File &gt; 2MB</span>
+              <p style="font-size:0.85rem; color:#334155;">Chọn file quá 2MB ➔ Zod chặn tức thì, không tốn băng thông gửi lên server.</p>
+            </div>
+            <div class="content-card" style="background:#ffffff;">
+              <span class="card-badge emerald">2. Instant Preview</span>
+              <p style="font-size:0.85rem; color:#334155;">Chọn ảnh JPG/PNG hợp lệ ➔ Render bản xem trước hình tròn với animation mượt mà.</p>
+            </div>
+            <div class="content-card" style="background:#ffffff;">
+              <span class="card-badge blue">3. Revoke Memory</span>
+              <p style="font-size:0.85rem; color:#334155;">Bấm nút "Xóa ảnh" hoặc unmount ➔ Gọi <code>revokeObjectURL</code> giải phóng RAM.</p>
+            </div>
+          </div>
+
+          <a href="http://localhost:5173" target="_blank" class="demo-btn">
+            🚀 Mở Demo Portal (localhost:5173)
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 12 ==================== -->
+    <section class="slide" data-slide="12" data-speaker="sp-2" data-module="Module 2: Error Handling">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Module 2: Error Handling</div>
+        <div class="slide-number-badge">12 / 24</div>
+      </div>
+      <h2 class="slide-title">Phân Loại Lỗi & Async State Machine</h2>
+      <p class="slide-subtitle">Kiến trúc phòng thủ đa tầng & Máy trạng thái hữu hạn cho tác vụ bất đồng bộ</p>
+
+      <div class="slide-body">
+        <div class="grid-3" style="margin-bottom:0.85rem;">
+          <div class="content-card highlight">
+            <span class="card-badge blue">1. Validation Error</span>
+            <div class="card-title" style="font-size:1rem;">Lỗi Client Input</div>
+            <p style="font-size:0.84rem; color:#334155; margin-bottom:0.5rem;">User nhập thiếu dữ liệu hoặc sai định dạng.</p>
+            <div style="font-size:0.78rem; color:#2563eb; font-weight:700;">➔ Xử lý inline đỏ dưới ô input bằng Zod.</div>
+          </div>
+
+          <div class="content-card warning">
+            <span class="card-badge amber">2. API / Network Error</span>
+            <div class="card-title" style="font-size:1rem;">Lỗi Server &amp; Mạng</div>
+            <p style="font-size:0.84rem; color:#334155; margin-bottom:0.5rem;">Mã HTTP 400, 401, 402 Hết tiền, 500, rớt mạng.</p>
+            <div style="font-size:0.78rem; color:#d97706; font-weight:700;">➔ Xử lý bằng try...catch + Async Machine.</div>
+          </div>
+
+          <div class="content-card danger">
+            <span class="card-badge rose">3. Runtime Error</span>
+            <div class="card-title" style="font-size:1rem;">Lỗi Virtual DOM</div>
+            <p style="font-size:0.84rem; color:#334155; margin-bottom:0.5rem;">Lỗi logic JS làm sập tiến trình render.</p>
+            <div style="font-size:0.78rem; color:#e11d48; font-weight:700;">➔ Bắt bằng Class Error Boundary.</div>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <span class="card-badge purple">Async State Machine Architecture</span>
+          <p style="font-size:0.85rem; color:#334155; margin-bottom:0.5rem;">
+            Dùng Union Type duy nhất để loại trừ triệt để tình trạng vừa <code>loading=true</code> vừa có <code>error</code>:
+          </p>
+          <div class="code-container">
+            <div class="code-body"><span class="code-token-kw">type</span> <span class="code-token-type">AsyncStatus</span> = <span class="code-token-str">'idle'</span> | <span class="code-token-str">'loading'</span> | <span class="code-token-str">'error'</span> | <span class="code-token-str">'success'</span>;
+
+<span class="code-token-kw">const</span> [status, setStatus] = <span class="code-token-fn">useState</span>&lt;<span class="code-token-type">AsyncStatus</span>&gt;(<span class="code-token-str">'idle'</span>);
+
+<span class="code-token-cm">// Trả về Actionable Feedback rõ ràng cho người dùng thay vì báo chung chung</span>
+<span class="code-token-kw">if</span> (err.status === 402) setApiError(<span class="code-token-str">"Số dư tài khoản không đủ để đặt cọc."</span>);
+<span class="code-token-kw">else if</span> (err.status === 409) setApiError(<span class="code-token-str">"Phòng này vừa được khách khác đặt trước."</span>);</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 13 ==================== -->
+    <section class="slide" data-slide="13" data-speaker="sp-2" data-module="Module 2: Error Handling">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Module 2: Error Handling</div>
+        <div class="slide-number-badge">13 / 24</div>
+      </div>
+      <h2 class="slide-title">Error Boundary & Lá Chắn Chống Sập</h2>
+      <p class="slide-subtitle">Ngăn chặn White Screen of Death & Phân tích 4 trường hợp Error Boundary bất lực</p>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <!-- Left -->
+          <div class="content-card">
+            <span class="card-badge blue">Cấu Trúc Bắt Buộc (Class Component)</span>
+            <p style="font-size:0.83rem; color:#334155; margin-bottom:0.5rem;">
+              React chưa có Hook tương đương cho 2 phương thức vòng đời này:
+            </p>
+            <div class="code-container">
+              <div class="code-body"><span class="code-token-kw">export class</span> <span class="code-token-type">ErrorBoundary</span> <span class="code-token-kw">extends</span> React.Component {
+  state = { hasError: <span class="code-token-kw">false</span>, error: <span class="code-token-kw">null</span> };
+
+  <span class="code-token-cm">// 1. Cập nhật state để render Fallback UI</span>
+  <span class="code-token-kw">static</span> <span class="code-token-fn">getDerivedStateFromError</span>(error) {
+    <span class="code-token-kw">return</span> { hasError: <span class="code-token-kw">true</span>, error };
+  }
+
+  <span class="code-token-cm">// 2. Gửi log lỗi lên hệ thống Sentry/LogRocket</span>
+  <span class="code-token-fn">componentDidCatch</span>(error, info) {
+    <span class="code-token-fn">logToMonitoring</span>(error, info.componentStack);
+  }
+
+  render() {
+    <span class="code-token-kw">if</span> (<span class="code-token-kw">this</span>.state.hasError) {
+      <span class="code-token-kw">return</span> &lt;<span class="code-token-type">ErrorFallbackUI</span> /&gt;;
+    }
+    <span class="code-token-kw">return this</span>.props.children;
+  }
+}</div>
+            </div>
+          </div>
+
+          <!-- Right -->
+          <div class="content-card danger">
+            <span class="card-badge rose">Bẫy Tử Huyệt Kỹ Thuật</span>
+            <div class="card-title" style="color:#b91c1c; font-size:1.02rem;">
+              🛑 4 Lỗi Error Boundary KHÔNG THỂ Bắt Được
+            </div>
+            <ul class="bullet-list" style="font-size:0.85rem;">
+              <li>
+                <strong>1. Event Handlers (onClick, onSubmit):</strong> Chạy ngoài render phase. ➔ Bắt buộc dùng <code>try...catch</code>.
+              </li>
+              <li>
+                <strong>2. Asynchronous Code:</strong> Các lệnh trong <code>setTimeout</code>, <code>fetch().then()</code>, promises.
+              </li>
+              <li>
+                <strong>3. Server-Side Rendering (SSR):</strong> Lỗi phát sinh trong tiến trình server Node.js.
+              </li>
+              <li>
+                <strong>4. Lỗi ngay trong Error Boundary:</strong> Component bảo vệ bị văng lỗi thì không thể tự che chở cho chính nó.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 14 ==================== -->
+    <section class="slide" data-slide="14" data-speaker="sp-2" data-module="Module 2: Error Handling">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Thực Hành Trực Tiếp</div>
+        <div class="slide-number-badge">14 / 24</div>
+      </div>
+      <h2 class="slide-title">[DEMO 4] Bắt Lỗi API & Fault Injection</h2>
+      <p class="slide-subtitle">Mục tiêu: Mô phỏng lỗi API 409 & Kích hoạt sập component phòng có chủ đích</p>
+
+      <div class="slide-body">
+        <div class="demo-hero">
+          <div class="demo-pulse-badge">🔴 THAO TÁC LIVE CODE</div>
+          <h3 style="font-size:1.6rem; font-weight:800; color:#0f172a;">
+            Bắt Lỗi Bất Đồng Bộ & Khoanh Vùng Lỗi Render
+          </h3>
+          <p style="font-size:0.95rem; color:#475569; max-width:720px;">
+            Nhập số đêm &gt; 10 để kích hoạt API 409, sau đó nhấn nút "[Mô phỏng sập UI phòng]" để kiểm tra Fallback UI.
+          </p>
+
+          <div class="grid-3" style="width:100%; text-align:left; margin-top:0.4rem;">
+            <div class="content-card" style="background:#ffffff;">
+              <span class="card-badge amber">1. Test Lỗi API</span>
+              <p style="font-size:0.85rem; color:#334155;">Nhập số đêm &gt; 10 ➔ API trả về mã lỗi 409 ➔ Banner đỏ cảnh báo xuất hiện mà không sập trang.</p>
+            </div>
+            <div class="content-card" style="background:#ffffff;">
+              <span class="card-badge rose">2. Fault Injection</span>
+              <p style="font-size:0.85rem; color:#334155;">Bấm nút sập ➔ Đọc biến <code>undefined.amenities</code> làm vỡ Virtual DOM của component con.</p>
+            </div>
+            <div class="content-card" style="background:#ffffff;">
+              <span class="card-badge emerald">3. Khoanh Vùng Lỗi</span>
+              <p style="font-size:0.85rem; color:#334155;">Fallback UI cô lập đúng ô phòng, thanh Header và Form đặt phòng bên dưới vẫn hoạt động!</p>
+            </div>
+          </div>
+
+          <a href="http://localhost:5173" target="_blank" class="demo-btn">
+            🚀 Mở Demo Portal (localhost:5173)
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 15 ==================== -->
+    <section class="slide" data-slide="15" data-speaker="sp-2" data-module="Module 3: Internationalization">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Module 3: Internationalization</div>
+        <div class="slide-number-badge">15 / 24</div>
+      </div>
+      <h2 class="slide-title">Khái Niệm i18n/l10n & React-i18next</h2>
+      <p class="slide-subtitle">Quốc tế hóa mã nguồn, cấu trúc JSON Namespaces và kỹ thuật Dynamic Translation</p>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <!-- Left -->
+          <div class="content-card">
+            <span class="card-badge blue">Phân Biệt Cốt Lõi</span>
+            <ul class="bullet-list" style="margin-bottom:1rem;">
+              <li>
+                <strong>Internationalization (i18n):</strong> Thiết kế kiến trúc mã nguồn hỗ trợ đa ngôn ngữ mà không cần sửa code logic.
+              </li>
+              <li>
+                <strong>Localization (l10n):</strong> Quá trình dịch thuật nội dung cho từng địa phương cụ thể (VI, EN, AR).
+              </li>
+            </ul>
+
+            <span class="card-badge purple">Cấu Trúc Thư Mục Dịch</span>
+            <div class="code-container">
+              <div class="code-body">src/i18n/locales/
+├── en.json      <span class="code-token-cm">// Tiếng Anh (English)</span>
+├── vi.json      <span class="code-token-cm">// Tiếng Việt</span>
+└── ar.json      <span class="code-token-cm">// Tiếng Ả Rập (Right-to-Left)</span></div>
+            </div>
+          </div>
+
+          <!-- Right -->
+          <div class="content-card highlight">
+            <span class="card-badge emerald">Cơ Chế Dynamic Translation</span>
+            <div class="code-container" style="margin-bottom:0.75rem;">
+              <div class="code-header">UserGreeting.tsx</div>
+              <div class="code-body"><span class="code-token-kw">import</span> { useTranslation, Trans } <span class="code-token-kw">from</span> <span class="code-token-str">'react-i18next'</span>;
+
+<span class="code-token-kw">const</span> { t, i18n } = <span class="code-token-fn">useTranslation</span>();
+
+<span class="code-token-cm">// 1. Interpolation: Chèn biến qua {{name}}</span>
+&lt;h1&gt;{t(<span class="code-token-str">'welcome'</span>, { name: <span class="code-token-str">'Alex'</span> })}&lt;/h1&gt;
+
+<span class="code-token-cm">// 2. Pluralization: Số ít / Số nhiều tự động</span>
+&lt;p&gt;{t(<span class="code-token-str">'nights_count'</span>, { count: 3 })}&lt;/p&gt;
+
+<span class="code-token-cm">// 3. Đổi ngôn ngữ thời gian thực</span>
+&lt;button onClick={() =&gt; i18n.<span class="code-token-fn">changeLanguage</span>(<span class="code-token-str">'ar'</span>)}&gt;العربية&lt;/button&gt;</div>
+            </div>
+            <p style="font-size:0.82rem; color:#475569;">
+              Tự động lưu ngôn ngữ vào <code>localStorage</code> để duy trì khi mở lại trang.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 16 ==================== -->
+    <section class="slide" data-slide="16" data-speaker="sp-2" data-module="Module 3: Internationalization">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Module 3: Internationalization</div>
+        <div class="slide-number-badge">16 / 24</div>
+      </div>
+      <h2 class="slide-title">Định Dạng Bản Địa Hóa Với Native Intl API</h2>
+      <p class="slide-subtitle">Chuẩn hóa tiền tệ, số và ngày tháng chuẩn quốc tế với Zero Bundle Size</p>
+
+      <div class="slide-body">
+        <div class="content-card warning" style="padding:0.75rem 1rem; margin-bottom:0.75rem;">
+          <strong style="color:#b45309; font-size:0.85rem;">⚠️ Tác Hại Của Việc Format Bằng Regex / Nối Chuỗi:</strong>
+          <p style="font-size:0.82rem; color:#78350f; margin-top:0.2rem;">
+            Tại Mỹ, dấu phẩy là phân cách nghìn ($1,500.00). Tại Việt Nam và Đức, dấu chấm mới là phân cách nghìn (1.500.000 ₫). Format thủ công sẽ gây sai lệch tài chính nghiêm trọng!
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <!-- Code -->
+          <div class="content-card highlight">
+            <span class="card-badge blue">Web Native Intl API</span>
+            <div class="code-container">
+              <div class="code-body"><span class="code-token-cm">// 1. Format Tiền Tệ Tự Động Theo Locale</span>
+<span class="code-token-kw">export const</span> <span class="code-token-fn">formatCurrency</span> = (amount, locale, currency) =&gt; {
+  <span class="code-token-kw">return new</span> Intl.<span class="code-token-type">NumberFormat</span>(locale, {
+    style: <span class="code-token-str">'currency'</span>,
+    currency: currency
+  }).<span class="code-token-fn">format</span>(amount);
+};
+
+<span class="code-token-cm">// 2. Format Ngày Tháng Chuẩn Bản Địa</span>
+<span class="code-token-kw">export const</span> <span class="code-token-fn">formatDate</span> = (date, locale) =&gt; {
+  <span class="code-token-kw">return new</span> Intl.<span class="code-token-type">DateTimeFormat</span>(locale, {
+    dateStyle: <span class="code-token-str">'full'</span>
+  }).<span class="code-token-fn">format</span>(date);
+};</div>
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div class="content-card">
+            <span class="card-badge emerald">Bảng So Sánh Hiển Thị</span>
+            <table class="spec-table">
+              <thead>
+                <tr>
+                  <th>Đầu vào</th>
+                  <th>vi-VN (VND)</th>
+                  <th>en-US (USD)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>1500000</strong></td>
+                  <td><code style="color:#059669; font-weight:700;">1.500.000 ₫</code></td>
+                  <td><code style="color:#2563eb; font-weight:700;">$1,500,000.00</code></td>
+                </tr>
+                <tr>
+                  <td><strong>2026-10-30</strong></td>
+                  <td>30 tháng 10, 2026</td>
+                  <td>October 30, 2026</td>
+                </tr>
+                <tr>
+                  <td><strong>Dung lượng thư viện</strong></td>
+                  <td colspan="2" style="text-align:center; color:#d97706; font-weight:800;">
+                    0 KB (Tích hợp sẵn trong trình duyệt)
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 17 ==================== -->
+    <section class="slide" data-slide="17" data-speaker="sp-2" data-module="Module 3: Internationalization">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Module 3: Internationalization</div>
+        <div class="slide-number-badge">17 / 24</div>
+      </div>
+      <h2 class="slide-title">Giao Diện Đảo Chiều (Right-to-Left - RTL)</h2>
+      <p class="slide-subtitle">Hỗ trợ ngôn ngữ tiếng Ả Rập và tư duy bố cục bằng CSS Logical Properties</p>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <!-- Left -->
+          <div class="content-card">
+            <span class="card-badge blue">Nguyên Lý Lật Giao Diện 180°</span>
+            <p style="font-size:0.85rem; color:#334155; margin-bottom:0.75rem; line-height:1.5;">
+              Hơn 300 triệu người đọc từ phải sang trái. Khi chuyển sang RTL, toàn bộ bố cục, icon và luồng đọc phải tự động đảo chiều.
+            </p>
+            <div class="code-container">
+              <div class="code-body"><span class="code-token-cm">// 1. Đổi thuộc tính trên thẻ HTML gốc</span>
+document.documentElement.dir = <span class="code-token-str">'rtl'</span>; <span class="code-token-cm">// hoặc 'ltr'</span>
+
+<span class="code-token-cm">// 2. Lắng nghe tự động trong i18next</span>
+i18n.on(<span class="code-token-str">'languageChanged'</span>, (lng) =&gt; {
+  document.documentElement.dir = i18n.dir(lng);
+});</div>
+            </div>
+          </div>
+
+          <!-- Right -->
+          <div class="content-card highlight">
+            <span class="card-badge amber">CSS Physical vs. CSS Logical Properties</span>
+            <table class="spec-table">
+              <thead>
+                <tr>
+                  <th>CSS Cũ (Physical ❌)</th>
+                  <th>CSS Mới (Logical ✅)</th>
+                  <th>Hành vi khi sang RTL</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>margin-left: 16px;</code></td>
+                  <td><code>margin-inline-start: 16px;</code></td>
+                  <td>Tự đảo thành margin-right</td>
+                </tr>
+                <tr>
+                  <td><code>padding-right: 12px;</code></td>
+                  <td><code>padding-inline-end: 12px;</code></td>
+                  <td>Tự đảo thành padding-left</td>
+                </tr>
+                <tr>
+                  <td><code>left: 0;</code></td>
+                  <td><code>inset-inline-start: 0;</code></td>
+                  <td>Tự neo vào mép phải</td>
+                </tr>
+                <tr>
+                  <td><code>border-left: 4px;</code></td>
+                  <td><code>border-inline-start: 4px;</code></td>
+                  <td>Viền tự nhảy sang bên phải</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 18 ==================== -->
+    <section class="slide" data-slide="18" data-speaker="sp-2" data-module="Module 3: Internationalization">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Thực Hành Trực Tiếp</div>
+        <div class="slide-number-badge">18 / 24</div>
+      </div>
+      <h2 class="slide-title">[DEMO 5] Đổi Ngôn Ngữ, Intl & Giao Diện RTL</h2>
+      <p class="slide-subtitle">Mục tiêu: Chuyển đổi tức thì Tiếng Việt, Tiếng Anh và Tiếng Ả Rập lật 180°</p>
+
+      <div class="slide-body">
+        <div class="demo-hero">
+          <div class="demo-pulse-badge">🔴 THAO TÁC LIVE CODE</div>
+          <h3 style="font-size:1.6rem; font-weight:800; color:#0f172a;">
+            Trải Nghiệm Chuyển Ngôn Ngữ & Lật Bố Cục RTL
+          </h3>
+          <p style="font-size:0.95rem; color:#475569; max-width:720px;">
+            Bấm chọn các nút ngôn ngữ trên navbar để quan sát toàn bộ text, nhãn Zod và đơn vị tiền tệ tự động thích ứng.
+          </p>
+
+          <div class="grid-3" style="width:100%; text-align:left; margin-top:0.4rem;">
+            <div class="content-card" style="background:#ffffff;">
+              <span class="card-badge blue">1. Chuyển Sang English</span>
+              <p style="font-size:0.85rem; color:#334155;">Toàn bộ text và câu thông báo lỗi Zod đổi sang tiếng Anh. Đơn vị tiền đổi sang USD ($).</p>
+            </div>
+            <div class="content-card" style="background:#ffffff;">
+              <span class="card-badge emerald">2. Native Intl Currency</span>
+              <p style="font-size:0.85rem; color:#334155;">Tiền phòng tự động định dạng chuẩn phân cách hàng nghìn theo từng quốc gia được chọn.</p>
+            </div>
+            <div class="content-card" style="background:#ffffff;">
+              <span class="card-badge rose">3. Bấm "العربية (RTL)"</span>
+              <p style="font-size:0.85rem; color:#334155;">Giao diện đảo chiều 180° từ phải sang trái, con trỏ và icon tự đảo vị trí chuẩn xác!</p>
+            </div>
+          </div>
+
+          <a href="http://localhost:5173" target="_blank" class="demo-btn">
+            🚀 Mở Demo Portal (localhost:5173)
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 19 ==================== -->
+    <section class="slide" data-slide="19" data-speaker="sp-both" data-module="Tổng Kết & Mini-Game">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Tổng Kết Chuyên Đề</div>
+        <div class="slide-number-badge">19 / 24</div>
+      </div>
+      <h2 class="slide-title">Ba Quy Tắc Vàng Cần Ghi Nhớ</h2>
+      <p class="slide-subtitle">3 chốt chặn kỹ thuật cốt lõi để xây dựng ứng dụng React cấp Production</p>
+
+      <div class="slide-body">
+        <div class="grid-3" style="height:100%;">
+          <div class="content-card highlight" style="border:2px solid #93c5fd;">
+            <span class="card-badge blue">Quy Tắc Vàng 1</span>
+            <div class="card-title" style="color:#1d4ed8; font-size:1.1rem;">React Form Handling</div>
+            <ul class="bullet-list" style="margin-bottom:1rem; font-size:0.88rem;">
+              <li>Ngưng dùng <code>useState</code> cho form vừa và lớn.</li>
+              <li>Dùng <strong>React Hook Form</strong> (Uncontrolled ref) để đạt Zero Re-render.</li>
+              <li>Tách biệt Business Logic vào <strong>Zod Schema</strong>.</li>
+              <li>Thu hồi URL xem trước ảnh bằng <code>URL.revokeObjectURL</code>.</li>
+            </ul>
+            <div style="margin-top:auto; font-size:0.75rem; color:#1d4ed8; font-weight:800; padding-top:0.5rem; border-top:1px solid #bfdbfe;">
+              ✨ Zero Re-render • Type Safety
+            </div>
+          </div>
+
+          <div class="content-card danger" style="border:2px solid #fca5a5;">
+            <span class="card-badge rose">Quy Tắc Vàng 2</span>
+            <div class="card-title" style="color:#be123c; font-size:1.1rem;">Error Handling Đa Tầng</div>
+            <ul class="bullet-list" style="margin-bottom:1rem; font-size:0.88rem;">
+              <li>Không ỷ lại duy nhất vào Error Boundary.</li>
+              <li>Dùng <code>try...catch</code> cho API calls và Event Handlers.</li>
+              <li>Dùng <strong>Class Error Boundary</strong> cho Runtime Render errors.</li>
+              <li>Khoanh vùng lỗi nhỏ (Granular Fallback) để diệt trừ màn hình trắng.</li>
+            </ul>
+            <div style="margin-top:auto; font-size:0.75rem; color:#be123c; font-weight:800; padding-top:0.5rem; border-top:1px solid #fecdd3;">
+              🛡️ No White Screen of Death
+            </div>
+          </div>
+
+          <div class="content-card success" style="border:2px solid #86efac;">
+            <span class="card-badge emerald">Quy Tắc Vàng 3</span>
+            <div class="card-title" style="color:#047857; font-size:1.1rem;">i18n & Logical CSS</div>
+            <ul class="bullet-list" style="margin-bottom:1rem; font-size:0.88rem;">
+              <li>Không hardcode văn bản và regex format tiền tệ.</li>
+              <li>Dùng <strong>react-i18next</strong> + <strong>Native Web Intl API</strong> (0 KB bundle).</li>
+              <li>Luôn tư duy bố cục bằng <strong>CSS Logical Properties</strong>.</li>
+              <li>Sẵn sàng lật giao diện 180° khi sang thị trường RTL.</li>
+            </ul>
+            <div style="margin-top:auto; font-size:0.75rem; color:#047857; font-weight:800; padding-top:0.5rem; border-top:1px solid #a7f3d0;">
+              🌍 Ready for Global Scale
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 20 ==================== -->
+    <section class="slide" data-slide="20" data-speaker="sp-both" data-module="Tổng Kết & Mini-Game">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Tương Tác Lớp Học</div>
+        <div class="slide-number-badge">20 / 24</div>
+      </div>
+      <h2 class="slide-title">Thử Thách Kiến Thức: Mini-Game Quizz</h2>
+      <p class="slide-subtitle">Quét mã QR Code hoặc truy cập Quizizz/Kahoot để tranh tài 20 câu hỏi trắc nghiệm</p>
+
+      <div class="slide-body">
+        <div class="grid-2" style="align-items:center;">
+          <!-- Left: Big Crisp SVG QR Code -->
+          <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; background:#ffffff; border:1px solid #e2e8f0; border-radius:16px; padding:2rem; box-shadow:0 10px 25px -5px rgba(0,0,0,0.05);">
+            <svg width="220" height="220" viewBox="0 0 200 200" fill="none" style="background:#fff; padding:10px; border-radius:12px; border:1px solid #e2e8f0;">
+              <!-- Outer frame markers -->
+              <rect x="10" y="10" width="50" height="50" fill="#0f172a" rx="4"/>
+              <rect x="18" y="18" width="34" height="34" fill="#fff" rx="2"/>
+              <rect x="25" y="25" width="20" height="20" fill="#0f172a" rx="2"/>
+
+              <rect x="140" y="10" width="50" height="50" fill="#0f172a" rx="4"/>
+              <rect x="148" y="18" width="34" height="34" fill="#fff" rx="2"/>
+              <rect x="155" y="25" width="20" height="20" fill="#0f172a" rx="2"/>
+
+              <rect x="10" y="140" width="50" height="50" fill="#0f172a" rx="4"/>
+              <rect x="18" y="148" width="34" height="34" fill="#fff" rx="2"/>
+              <rect x="25" y="155" width="20" height="20" fill="#0f172a" rx="2"/>
+
+              <!-- Grid pattern dots -->
+              <rect x="70" y="15" width="12" height="12" fill="#0f172a"/>
+              <rect x="90" y="25" width="12" height="12" fill="#0f172a"/>
+              <rect x="110" y="15" width="12" height="12" fill="#0f172a"/>
+              <rect x="70" y="45" width="12" height="12" fill="#0f172a"/>
+              <rect x="105" y="45" width="12" height="12" fill="#0f172a"/>
+
+              <rect x="20" y="75" width="12" height="12" fill="#0f172a"/>
+              <rect x="40" y="90" width="12" height="12" fill="#0f172a"/>
+              <rect x="15" y="110" width="12" height="12" fill="#0f172a"/>
+              
+              <rect x="70" y="70" width="60" height="60" fill="#2563eb" rx="8"/>
+              <circle cx="100" cy="100" r="14" fill="#fff"/>
+
+              <rect x="145" y="75" width="12" height="12" fill="#0f172a"/>
+              <rect x="170" y="90" width="12" height="12" fill="#0f172a"/>
+              <rect x="150" y="115" width="12" height="12" fill="#0f172a"/>
+
+              <rect x="70" y="145" width="12" height="12" fill="#0f172a"/>
+              <rect x="95" y="165" width="12" height="12" fill="#0f172a"/>
+              <rect x="115" y="145" width="12" height="12" fill="#0f172a"/>
+              <rect x="145" y="145" width="12" height="12" fill="#0f172a"/>
+              <rect x="170" y="165" width="12" height="12" fill="#0f172a"/>
+            </svg>
+            <div style="margin-top:1rem; font-weight:700; color:#0f172a; font-size:1.1rem;">
+              Quét Mã Để Vào Phòng Thi
+            </div>
+            <div style="margin-top:0.25rem; font-family:'JetBrains Mono', monospace; color:#2563eb; font-size:1.3rem; font-weight:800; letter-spacing:0.1em;">
+              PIN: 882 914
+            </div>
+          </div>
+
+          <!-- Right: Info -->
+          <div class="content-card">
+            <span class="card-badge purple">Cơ Cấu Bộ Đề 20 Câu (4 – 5 Phút)</span>
+            <ul class="bullet-list" style="margin-bottom:1.25rem;">
+              <li><strong>10 Câu Lý Thuyết:</strong> Form state, Controlled/Uncontrolled, A11y, Giới hạn Error Boundary, i18n dynamic.</li>
+              <li><strong>5 Câu Soi Code (Spot the Bug):</strong> Bẫy useState() thiếu chuỗi rỗng, cú pháp register v7, quên revoke RAM.</li>
+              <li><strong>5 Câu Tình Huống:</strong> Chọn giải pháp tối ưu cho hệ thống thanh toán quốc tế và chống sập trang.</li>
+            </ul>
+
+            <div class="content-card highlight" style="padding:0.85rem 1rem;">
+              <strong style="color:#1d4ed8; font-size:0.88rem;">🎁 Phần Quà Vinh Danh:</strong>
+              <p style="font-size:0.84rem; color:#334155; margin-top:0.2rem;">
+                Top 3 bạn có điểm số cao nhất và trả lời nhanh nhất sẽ nhận được phần quà đặc biệt từ nhóm thuyết trình!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 21 ==================== -->
+    <section class="slide" data-slide="21" data-speaker="sp-both" data-module="Tổng Kết & Mini-Game">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Giải Mã Đề Thi (Debrief 1/2)</div>
+        <div class="slide-number-badge">21 / 24</div>
+      </div>
+      <h2 class="slide-title">Phân Tích 5 Câu Bẫy Thường Gặp Nhất</h2>
+      <p class="slide-subtitle">Debrief chi tiết các câu hỏi gây mất điểm nhiều nhất trong bài Quizz (Bẫy 1 - 3)</p>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <!-- Trap 1 -->
+          <div class="content-card danger">
+            <span class="card-badge rose">Bẫy 1 • 68% Sai</span>
+            <div class="card-title" style="font-size:1rem; color:#b91c1c;">Cảnh Báo Controlled</div>
+            <p style="font-size:0.83rem; color:#334155; margin-bottom:0.5rem; line-height:1.45;">
+              <strong>Câu hỏi:</strong> Khi khai báo <code>useState()</code> cho input mà không có đối số, tại sao React báo warning?
+            </p>
+            <div style="font-size:0.8rem; background:#fff; padding:0.6rem; border-radius:6px; color:#1d4ed8; border-left:3px solid #2563eb;">
+              <strong>Giải thích:</strong> Vì thiếu <code>''</code> nên frame đầu value là <code>undefined</code> (Uncontrolled). Gõ phím biến thành Defined (Controlled) làm React bất đồng bộ!
+            </div>
+          </div>
+
+          <!-- Trap 2 -->
+          <div class="content-card danger">
+            <span class="card-badge rose">Bẫy 2 • 74% Sai</span>
+            <div class="card-title" style="font-size:1rem; color:#b91c1c;">Error Boundary Scope</div>
+            <p style="font-size:0.83rem; color:#334155; margin-bottom:0.5rem; line-height:1.45;">
+              <strong>Câu hỏi:</strong> Bọc Error Boundary quanh form có bắt được lỗi văng ra trong hàm <code>onSubmit</code> không?
+            </p>
+            <div style="font-size:0.8rem; background:#fff; padding:0.6rem; border-radius:6px; color:#b91c1c; border-left:3px solid #ef4444;">
+              <strong>Giải thích:</strong> <strong>KHÔNG!</strong> Event handler chạy ngoài Render Phase của React. Lỗi trong onSubmit bắt buộc phải dùng <code>try...catch</code>!
+            </div>
+          </div>
+
+          <!-- Trap 3 -->
+          <div class="content-card danger">
+            <span class="card-badge rose">Bẫy 3 • 62% Sai</span>
+            <div class="card-title" style="font-size:1rem; color:#b91c1c;">CSS Physical Vỡ RTL</div>
+            <p style="font-size:0.83rem; color:#334155; margin-bottom:0.5rem; line-height:1.45;">
+              <strong>Câu hỏi:</strong> Tại sao dùng <code>margin-left: 20px</code> lại khiến giao diện tiếng Ả Rập bị dính sát mép?
+            </p>
+            <div style="font-size:0.8rem; background:#fff; padding:0.6rem; border-radius:6px; color:#047857; border-left:3px solid #059669;">
+              <strong>Giải thích:</strong> Vì <code>margin-left</code> là thuộc tính vật lý cố định. Phải dùng <code>margin-inline-start</code> để tự động lật thành margin-right trong RTL.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 22 ==================== -->
+    <section class="slide" data-slide="22" data-speaker="sp-both" data-module="Tổng Kết & Mini-Game">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Giải Mã Đề Thi (Debrief 2/2)</div>
+        <div class="slide-number-badge">22 / 24</div>
+      </div>
+      <h2 class="slide-title">Phân Tích Câu Bẫy Thường Gặp (Tiếp Theo)</h2>
+      <p class="slide-subtitle">Debrief chi tiết các câu hỏi gây mất điểm nhiều nhất trong bài Quizz (Bẫy 4 - 5)</p>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <!-- Trap 4 -->
+          <div class="content-card danger">
+            <span class="card-badge rose">Bẫy 4 • 71% Sai</span>
+            <div class="card-title" style="font-size:1.05rem; color:#b91c1c;">Cú Pháp React Hook Form v7+</div>
+            <p style="font-size:0.85rem; color:#334155; margin-bottom:0.65rem;">
+              <strong>Câu hỏi:</strong> Trong React Hook Form v7 trở lên, cách gán register nào sau đây là chính xác?
+            </p>
+            <div class="code-container" style="font-size:0.8rem;">
+              <div class="code-body">// ❌ SAI CŨ (v6 trở về trước - Đã bị loại bỏ):
+&lt;input ref={register} name="email" /&gt;
+
+// ✅ ĐÚNG CHUẨN v7+: Destructuring toàn bộ props
+&lt;input {...register('email')} /&gt;</div>
+            </div>
+            <p style="font-size:0.82rem; color:#64748b; margin-top:0.5rem;">
+              <code>{...register('email')}</code> truyền cả <code>{ onChange, onBlur, name, ref }</code> để RHF kiểm soát trọn vẹn input.
+            </p>
+          </div>
+
+          <!-- Trap 5 -->
+          <div class="content-card danger">
+            <span class="card-badge rose">Bẫy 5 • 80% Sai</span>
+            <div class="card-title" style="font-size:1.05rem; color:#b91c1c;">Thu Hồi Bộ Nhớ Blob Preview</div>
+            <p style="font-size:0.85rem; color:#334155; margin-bottom:0.65rem;">
+              <strong>Câu hỏi:</strong> Khi unmount component có chứa <code>URL.createObjectURL(file)</code>, việc gì bắt buộc phải thực hiện?
+            </p>
+            <div class="code-container" style="font-size:0.8rem;">
+              <div class="code-body">// ✅ BẮT BUỘC: Gọi revokeObjectURL trong useEffect cleanup
+useEffect(() =&gt; {
+  return () =&gt; {
+    URL.revokeObjectURL(previewUrl);
+  };
+}, [previewUrl]);</div>
+            </div>
+            <p style="font-size:0.82rem; color:#64748b; margin-top:0.5rem;">
+              Không dọn dẹp sẽ khiến ảnh neo vĩnh viễn trong RAM trình duyệt, gây tràn bộ nhớ trên điện thoại!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 23 ==================== -->
+    <section class="slide" data-slide="23" data-speaker="sp-both" data-module="Tổng Kết & Mini-Game">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Phiên Thảo Luận</div>
+        <div class="slide-number-badge">23 / 24</div>
+      </div>
+      <h2 class="slide-title">Q&A - Hỏi Đáp & Phản Biện Chuyên Sâu</h2>
+      <p class="slide-subtitle">Sẵn sàng giải đáp mọi thắc mắc từ Hội đồng Giảng viên và các bạn trong lớp</p>
+
+      <div class="slide-body">
+        <div style="text-align:center; margin-bottom:1.25rem;">
+          <div style="font-size:2.5rem; margin-bottom:0.35rem;">💬 🤔 🎯</div>
+          <p style="font-size:1.15rem; color:#0f172a; font-weight:700;">
+            Kính mời Thầy và các bạn đặt câu hỏi phản biện cho nhóm!
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="content-card highlight">
+            <span class="card-badge blue">Phân Vai: Speaker 1</span>
+            <div class="card-title" style="font-size:1.1rem; color:#1d4ed8;">Biểu Mẫu & Tối Ưu Render</div>
+            <ul class="bullet-list" style="font-size:0.86rem;">
+              <li>Kiến trúc React Hook Form v7+, Resolver & Uncontrolled Ref.</li>
+              <li>Zod Schema: Coercion, Custom Validation, Dependent Refine.</li>
+              <li>A11y Screen Readers (ARIA attributes) & Submit Double Protection.</li>
+              <li>File Upload, FormData Multipart & Browser RAM Memory Leaks.</li>
+            </ul>
+          </div>
+
+          <div class="content-card" style="background:#fdf2f8; border-color:#fbcfe8;">
+            <span class="card-badge rose">Phân Vai: Speaker 2</span>
+            <div class="card-title" style="font-size:1.1rem; color:#be123c;">Xử Lý Lỗi & Bản Địa Hóa</div>
+            <ul class="bullet-list" style="font-size:0.86rem;">
+              <li>Async State Machine, Xử lý mã lỗi HTTP 400, 401, 402, 500.</li>
+              <li>Class Error Boundary, getDerivedStateFromError & Giới hạn kỹ thuật.</li>
+              <li>react-i18next: Interpolation, Pluralization, Namespaces & LocalStorage.</li>
+              <li>Native Web Intl API & Lật giao diện Right-to-Left (RTL) với CSS Logical.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 24 ==================== -->
+    <section class="slide" data-slide="24" data-speaker="sp-both" data-module="Tổng Kết & Mini-Game">
+      <div class="slide-meta">
+        <div class="module-tag"><span class="module-dot"></span> Lời Kết</div>
+        <div class="slide-number-badge">24 / 24</div>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center; text-align:center; max-width:850px; margin:0 auto;">
+        <div style="font-size:3.2rem; margin-bottom:0.75rem;">🎉 🚀 👏</div>
+        <h1 style="font-size:2.8rem; font-weight:800; margin-bottom:0.75rem; color:#0f172a;">
+          Cảm Ơn Thầy & Các Bạn Đã Lắng Nghe!
+        </h1>
+        <p style="font-size:1.15rem; color:#475569; margin-bottom:1.8rem; font-weight:500;">
+          Chúc các bạn tự tin làm chủ Form Handling, Error Boundary & i18n trong các dự án Production thực tế!
+        </p>
+
+        <!-- Project links -->
+        <div class="content-card highlight" style="text-align:left; padding:1.25rem 1.75rem;">
+          <div style="font-weight:700; color:#0f172a; margin-bottom:0.6rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;">
+            <span>📁</span> Kho Lưu Trữ Mã Nguồn & Tài Liệu Bài Giảng
+          </div>
+          <div style="font-family:'JetBrains Mono', monospace; font-size:0.85rem; color:#334155; display:flex; flex-direction:column; gap:0.35rem;">
+            <div>• GitHub Repo: <span style="color:#2563eb; font-weight:600;">https://github.com/react-advanced-demo/global-checkout-portal</span></div>
+            <div>• Speaker 1 (Form Lead): <span style="color:#0f172a; font-weight:600;">speaker1.dev@university.edu.vn</span></div>
+            <div>• Speaker 2 (Error & i18n Lead): <span style="color:#0f172a; font-weight:600;">speaker2.dev@university.edu.vn</span></div>
+          </div>
+        </div>
+
+        <div style="margin-top:1.8rem;">
+          <button class="demo-btn" onclick="goToSlide(1)">
+            🔄 Quay Về Slide Đầu Tiên
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer Navigation Controls -->
+  <footer class="deck-footer">
+    <div class="slide-counter">
+      <span id="currentSlideNum">01</span>
+      <span style="color:var(--text-light);">/</span>
+      <span>24</span>
+    </div>
+
+    <!-- Dots rail -->
+    <div class="slide-dots-rail" id="dotsRail"></div>
+
+    <div class="nav-buttons">
+      <button class="nav-btn" id="btnPrev" title="Slide trước (Mũi tên trái)">
+        ← Trước
+      </button>
+      <button class="nav-btn" id="btnNext" title="Slide tiếp (Mũi tên phải hoặc Space)">
+        Tiếp →
+      </button>
+    </div>
+  </footer>
+
+  <!-- Overview Grid Modal -->
+  <div class="overview-modal" id="overviewModal">
+    <div class="overview-header">
+      <h2 style="font-size:1.5rem; font-weight:800; color:#ffffff;">Tổng Quan 24 Slide Thuyết Trình</h2>
+      <button class="icon-btn" onclick="toggleOverview()">✕</button>
+    </div>
+    <div class="overview-grid" id="overviewGrid"></div>
+  </div>
+
+  <!-- Help Shortcuts Modal -->
+  <div class="help-modal" id="helpModal">
+    <div class="help-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+        <h3 style="font-size:1.2rem; font-weight:700; color:#0f172a;">⌨️ Phím Tắt Điều Khiển</h3>
+        <button class="icon-btn" onclick="toggleHelp()">✕</button>
+      </div>
+      <div class="kbd-row"><span>Chuyển slide tiếp theo</span> <div><kbd>→</kbd> <kbd>Space</kbd> <kbd>PageDown</kbd></div></div>
+      <div class="kbd-row"><span>Quay lại slide trước</span> <div><kbd>←</kbd> <kbd>PageUp</kbd> <kbd>Backspace</kbd></div></div>
+      <div class="kbd-row"><span>Bật / Tắt Toàn màn hình</span> <kbd>F</kbd></div>
+      <div class="kbd-row"><span>Mở lưới Tổng quan 24 Slide</span> <kbd>O</kbd></div>
+      <div class="kbd-row"><span>Bắt đầu / Dừng Đồng hồ 45'</span> <kbd>T</kbd></div>
+      <div class="kbd-row"><span>Về slide đầu / slide cuối</span> <div><kbd>Home</kbd> / <kbd>End</kbd></div></div>
+      <div class="kbd-row"><span>Đóng modal bất kỳ</span> <kbd>Esc</kbd></div>
+    </div>
+  </div>
+
+  <!-- Script Engine -->
+  <script>
+    const TOTAL_SLIDES = 24;
+    let currentSlide = 1;
+    let isOverviewOpen = false;
+    let isHelpOpen = false;
+
+    // Timer: 45 minutes = 2700 seconds
+    let timerDuration = 45 * 60;
+    let timerRunning = false;
+    let timerInterval = null;
+
+    // DOM Elements
+    const slides = document.querySelectorAll('.slide');
+    const progressBar = document.getElementById('progressBar');
+    const currentSlideNum = document.getElementById('currentSlideNum');
+    const dotsRail = document.getElementById('dotsRail');
+    const speakerBadge = document.getElementById('speakerBadge');
+    const overviewModal = document.getElementById('overviewModal');
+    const overviewGrid = document.getElementById('overviewGrid');
+    const helpModal = document.getElementById('helpModal');
+
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+    const btnOverview = document.getElementById('btnOverview');
+    const btnFullscreen = document.getElementById('btnFullscreen');
+    const btnHelp = document.getElementById('btnHelp');
+
+    const timerDisplay = document.getElementById('timerDisplay');
+    const deckTimer = document.getElementById('deckTimer');
+
+    // Init Dots
+    function initDots() {
+      dotsRail.innerHTML = '';
+      slides.forEach((slide, idx) => {
+        const dot = document.createElement('div');
+        dot.className = `slide-dot ${idx === 0 ? 'active' : ''}`;
+        dot.title = `Slide ${idx + 1}: ${slide.querySelector('.slide-title')?.textContent || 'Slide ' + (idx + 1)}`;
+        dot.addEventListener('click', () => goToSlide(idx + 1));
+        dotsRail.appendChild(dot);
+      });
+    }
+
+    // Init Overview Grid
+    function initOverview() {
+      overviewGrid.innerHTML = '';
+      slides.forEach((slide, idx) => {
+        const item = document.createElement('div');
+        item.className = `overview-item ${idx === 0 ? 'current' : ''}`;
+        const title = slide.querySelector('.slide-title')?.textContent || 'Slide ' + (idx + 1);
+        const speaker = slide.getAttribute('data-speaker') || 'sp-both';
+        const speakerLabel = speaker === 'sp-1' ? 'Speaker 1: Form' : speaker === 'sp-2' ? 'Speaker 2: Error & i18n' : 'Cả 2 Speaker';
+
+        item.innerHTML = `
+          <div class="overview-num">SLIDE ${String(idx + 1).padStart(2, '0')}</div>
+          <div class="overview-title">${title}</div>
+          <div class="overview-speaker">${speakerLabel}</div>
+        `;
+        item.addEventListener('click', () => {
+          goToSlide(idx + 1);
+          toggleOverview();
+        });
+        overviewGrid.appendChild(item);
+      });
+    }
+
+    // Go to specific slide
+    function goToSlide(n) {
+      if (n < 1 || n > TOTAL_SLIDES) return;
+      currentSlide = n;
+
+      slides.forEach(slide => {
+        const slideIndex = parseInt(slide.getAttribute('data-slide'));
+        if (slideIndex === currentSlide) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      currentSlideNum.textContent = String(currentSlide).padStart(2, '0');
+      const progressPercent = ((currentSlide - 1) / (TOTAL_SLIDES - 1)) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+
+      const dots = dotsRail.querySelectorAll('.slide-dot');
+      dots.forEach((dot, idx) => {
+        if (idx === currentSlide - 1) {
+          dot.classList.add('active');
+          dot.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+
+      const overviewItems = overviewGrid.querySelectorAll('.overview-item');
+      overviewItems.forEach((item, idx) => {
+        if (idx === currentSlide - 1) item.classList.add('current');
+        else item.classList.remove('current');
+      });
+
+      const activeSlide = document.querySelector(`.slide[data-slide="${currentSlide}"]`);
+      const speakerType = activeSlide.getAttribute('data-speaker') || 'sp-both';
+      speakerBadge.className = `speaker-pill ${speakerType}`;
+      if (speakerType === 'sp-1') {
+        speakerBadge.textContent = 'Speaker 1 (Form)';
+      } else if (speakerType === 'sp-2') {
+        speakerBadge.textContent = 'Speaker 2 (Error & i18n)';
+      } else {
+        speakerBadge.textContent = 'Cả 2 Thành Viên';
+      }
+
+      btnPrev.disabled = currentSlide === 1;
+      btnNext.disabled = currentSlide === TOTAL_SLIDES;
+    }
+
+    function nextSlide() {
+      if (currentSlide < TOTAL_SLIDES) goToSlide(currentSlide + 1);
+    }
+    function prevSlide() {
+      if (currentSlide > 1) goToSlide(currentSlide - 1);
+    }
+
+    function toggleOverview() {
+      isOverviewOpen = !isOverviewOpen;
+      overviewModal.classList.toggle('open', isOverviewOpen);
+      btnOverview.classList.toggle('active', isOverviewOpen);
+    }
+
+    function toggleHelp() {
+      isHelpOpen = !isHelpOpen;
+      helpModal.classList.toggle('open', isHelpOpen);
+      btnHelp.classList.toggle('active', isHelpOpen);
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => alert(err.message));
+        btnFullscreen.classList.add('active');
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+          btnFullscreen.classList.remove('active');
+        }
+      }
+    }
+
+    // Timer
+    function updateTimerDisplay() {
+      const minutes = Math.floor(timerDuration / 60);
+      const seconds = timerDuration % 60;
+      timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      if (timerDuration <= 300) {
+        timerDisplay.style.color = '#ef4444';
+      } else {
+        timerDisplay.style.color = 'var(--amber-color)';
+      }
+    }
+
+    function toggleTimer() {
+      if (timerRunning) {
+        clearInterval(timerInterval);
+        timerRunning = false;
+        document.getElementById('timerIcon').textContent = '⏸️';
+      } else {
+        timerRunning = true;
+        document.getElementById('timerIcon').textContent = '⏱️';
+        timerInterval = setInterval(() => {
+          if (timerDuration > 0) {
+            timerDuration--;
+            updateTimerDisplay();
+          } else {
+            clearInterval(timerInterval);
+            timerRunning = false;
+            alert("⏰ Đã hết thời lượng thuyết trình 45 phút!");
+          }
+        }, 1000);
+      }
+    }
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (isHelpOpen) toggleHelp();
+        if (isOverviewOpen) toggleOverview();
+        return;
+      }
+
+      if (isHelpOpen || isOverviewOpen) return;
+
+      switch (e.key) {
+        case 'ArrowRight':
+        case ' ':
+        case 'PageDown':
+          e.preventDefault();
+          nextSlide();
+          break;
+        case 'ArrowLeft':
+        case 'Backspace':
+        case 'PageUp':
+          e.preventDefault();
+          prevSlide();
+          break;
+        case 'Home':
+          e.preventDefault();
+          goToSlide(1);
+          break;
+        case 'End':
+          e.preventDefault();
+          goToSlide(TOTAL_SLIDES);
+          break;
+        case 'o':
+        case 'O':
+          e.preventDefault();
+          toggleOverview();
+          break;
+        case 'f':
+        case 'F':
+          e.preventDefault();
+          toggleFullscreen();
+          break;
+        case 't':
+        case 'T':
+          e.preventDefault();
+          toggleTimer();
+          break;
+        case '?':
+          e.preventDefault();
+          toggleHelp();
+          break;
+      }
+    });
+
+    // Touch swipe
+    let touchStartX = 0;
+    window.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
+    window.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].screenX;
+      if (touchEndX < touchStartX - 50) nextSlide();
+      if (touchEndX > touchStartX + 50) prevSlide();
+    }, false);
+
+    btnPrev.addEventListener('click', prevSlide);
+    btnNext.addEventListener('click', nextSlide);
+    btnOverview.addEventListener('click', toggleOverview);
+    btnFullscreen.addEventListener('click', toggleFullscreen);
+    btnHelp.addEventListener('click', toggleHelp);
+    deckTimer.addEventListener('click', toggleTimer);
+
+    initDots();
+    initOverview();
+    goToSlide(1);
+  </script>
+</body>
+</html>
