@@ -1,0 +1,1648 @@
+<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+<meta charset="utf-8">
+<title>TÀI LIỆU CHUYÊN SÂU: GIẢI MÃ 20 CÂU QUIZZ REACT & CHỨNG MINH DEMO THỰC CHIẾN</title>
+<style>
+  @page {
+    size: A4;
+    margin: 20mm 18mm 20mm 18mm;
+    mso-header-margin: 10mm;
+    mso-footer-margin: 10mm;
+  }
+  body {
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    color: #1e293b;
+    background-color: #ffffff;
+  }
+  h1 {
+    font-size: 19pt;
+    font-weight: 800;
+    color: #0f172a;
+    border-bottom: 2.5pt solid #2563eb;
+    padding-bottom: 8pt;
+    margin-top: 0;
+    margin-bottom: 10pt;
+    text-transform: uppercase;
+    letter-spacing: -0.5pt;
+  }
+  h2 {
+    font-size: 13.5pt;
+    font-weight: 700;
+    color: #0f172a;
+    background-color: #f1f5f9;
+    border-left: 5pt solid #2563eb;
+    padding: 6pt 10pt;
+    margin-top: 20pt;
+    margin-bottom: 10pt;
+  }
+  h3 {
+    font-size: 11.5pt;
+    font-weight: 700;
+    color: #1d4ed8;
+    margin-top: 10pt;
+    margin-bottom: 4pt;
+  }
+  .doc-header {
+    background: #f8fafc;
+    border: 1pt solid #cbd5e1;
+    border-radius: 6pt;
+    padding: 12pt 16pt;
+    margin-bottom: 18pt;
+  }
+  .doc-header table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .doc-header td {
+    padding: 3pt 6pt;
+    font-size: 10.5pt;
+  }
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10pt;
+    margin-bottom: 16pt;
+    font-size: 9.5pt;
+  }
+  .summary-table th {
+    background-color: #1e293b;
+    color: #ffffff;
+    font-weight: 700;
+    text-align: left;
+    padding: 6pt 8pt;
+    border: 1pt solid #cbd5e1;
+  }
+  .summary-table td {
+    padding: 5pt 8pt;
+    border: 1pt solid #e2e8f0;
+    vertical-align: top;
+  }
+  .summary-table tr:nth-child(even) {
+    background-color: #f8fafc;
+  }
+  .question-card {
+    border: 1.5pt solid #cbd5e1;
+    border-radius: 6pt;
+    padding: 12pt 14pt;
+    margin-bottom: 20pt;
+    background-color: #ffffff;
+    page-break-inside: avoid;
+  }
+  .q-badge {
+    display: inline-block;
+    background-color: #2563eb;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 9.5pt;
+    padding: 2pt 8pt;
+    border-radius: 4pt;
+    margin-bottom: 6pt;
+  }
+  .q-badge.trap {
+    background-color: #dc2626;
+  }
+  .q-title {
+    font-size: 12pt;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 8pt;
+    line-height: 1.4;
+  }
+  .options-container {
+    background-color: #f8fafc;
+    border: 1pt solid #e2e8f0;
+    border-radius: 4pt;
+    padding: 8pt 12pt;
+    margin-bottom: 10pt;
+  }
+  .opt-item {
+    padding: 2.5pt 0;
+    font-size: 10pt;
+    color: #334155;
+  }
+  .opt-item.correct {
+    color: #15803d;
+    font-weight: 700;
+  }
+  .correct-banner {
+    background-color: #f0fdf4;
+    border: 1pt solid #86efac;
+    border-left: 4pt solid #16a34a;
+    border-radius: 4pt;
+    padding: 6pt 10pt;
+    margin-bottom: 10pt;
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: #166534;
+  }
+  .tech-analysis {
+    background-color: #ffffff;
+    border: 1pt solid #e2e8f0;
+    border-radius: 4pt;
+    padding: 8pt 12pt;
+    margin-bottom: 10pt;
+  }
+  .tech-analysis ul {
+    margin-top: 4pt;
+    margin-bottom: 6pt;
+    padding-left: 18pt;
+  }
+  .tech-analysis li {
+    margin-bottom: 4pt;
+  }
+  .distractor-box {
+    background-color: #fff1f2;
+    border: 1pt solid #fecdd3;
+    border-radius: 4pt;
+    padding: 8pt 12pt;
+    margin-bottom: 10pt;
+    font-size: 10pt;
+  }
+  .distractor-box .title {
+    font-weight: 700;
+    color: #9f1239;
+    margin-bottom: 4pt;
+  }
+  .code-demo-box {
+    background-color: #f0f9ff;
+    border: 1pt solid #bae6fd;
+    border-left: 4pt solid #0284c7;
+    border-radius: 4pt;
+    padding: 8pt 12pt;
+    margin-bottom: 8pt;
+    font-size: 10pt;
+  }
+  .code-demo-box .demo-title {
+    font-weight: 700;
+    color: #0369a1;
+    margin-bottom: 4pt;
+  }
+  .code-snippet {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 9pt;
+    background-color: #0f172a;
+    color: #f8fafc;
+    padding: 6pt 10pt;
+    border-radius: 4pt;
+    margin: 4pt 0;
+    white-space: pre-wrap;
+    line-height: 1.45;
+  }
+  .speaker-script {
+    background-color: #faf5ff;
+    border: 1pt solid #e9d5ff;
+    border-left: 4pt solid #9333ea;
+    border-radius: 4pt;
+    padding: 6pt 10pt;
+    font-size: 10pt;
+    color: #581c87;
+    font-style: italic;
+  }
+  .speaker-script strong {
+    font-style: normal;
+    color: #6b21a8;
+  }
+</style>
+</head>
+<body>
+
+<h1>TÀI LIỆU CHUYÊN SÂU: PHÂN TÍCH 20 CÂU QUIZZ REACT & HƯỚNG DẪN DEMO CODE THỰC CHIẾN</h1>
+
+<div class="doc-header">
+  <table>
+    <tr>
+      <td width="55%"><strong>Dự án kiểm chứng:</strong> Global Stay Portal (React 18 + TS + Vite)</td>
+      <td width="45%"><strong>Mã đề thi:</strong> React_Prs (Wayground / Quizizz 20 câu)</td>
+    </tr>
+    <tr>
+      <td><strong>Repository GitHub:</strong> <code>https://github.com/tiendatt083/demo_react.git</code></td>
+      <td><strong>Môi trường Demo:</strong> <code>http://localhost:5173/</code></td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>Quy chuẩn tài liệu:</strong> Phân tích bản chất kỹ thuật sâu (Under-the-hood), mổ xẻ bẫy phương án sai, đối chiếu số dòng code và kịch bản thực hành trực tiếp.</td>
+    </tr>
+  </table>
+</div>
+
+<h2>I. BẢNG TRA CỨU NHANH ĐÁP ÁN & ĐIỂM CHẠM CODE DEMO</h2>
+
+<table class="summary-table">
+  <thead>
+    <tr>
+      <th width="5%">STT</th>
+      <th width="32%">Chủ đề & Nội dung câu hỏi</th>
+      <th width="28%">Đáp án đúng</th>
+      <th width="35%">Vị trí File & Điểm chạm Code Demo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>01</strong></td>
+      <td>Ý nghĩa trạng thái <code>touched</code> của trường form</td>
+      <td><strong>b) Đã từng focus vào rồi blur ra ngoài</strong></td>
+      <td><code>src/components/BookingForm.tsx</code> (dòng 24: <code>touchedFields</code>)</td>
+    </tr>
+    <tr>
+      <td><strong>02</strong></td>
+      <td>API tạo URL xem trước ảnh phía Client</td>
+      <td><strong>b) <code>URL.createObjectURL(file)</code></strong></td>
+      <td><code>src/components/BookingForm.tsx</code> (dòng 55: tạo Object URL RAM)</td>
+    </tr>
+    <tr>
+      <td><strong>03</strong> ⚠️</td>
+      <td>Error Boundary bắt lỗi mạng trong <code>onSubmit</code>?</td>
+      <td><strong>b) SAI</strong> (Chỉ bắt lỗi Render/Lifecycle)</td>
+      <td><code>src/App.tsx</code> (dòng 76: bắt lỗi 409 bằng <code>try/catch</code>)</td>
+    </tr>
+    <tr>
+      <td><strong>04</strong> ⚠️</td>
+      <td>Form lớn: Controlled hiệu năng hơn Uncontrolled?</td>
+      <td><strong>b) SAI</strong> (Uncontrolled triệt tiêu re-render)</td>
+      <td><code>src/components/BookingForm.tsx</code> (dòng 42: Re-render counter)</td>
+    </tr>
+    <tr>
+      <td><strong>05</strong></td>
+      <td>Mô hình FSM quản lý trạng thái xử lý bất đồng bộ</td>
+      <td><strong>b) <code>idle &rarr; loading &rarr; error / success</code></strong></td>
+      <td><code>src/components/BookingForm.tsx</code> (dòng 184: <code>isSubmitting</code>)</td>
+    </tr>
+    <tr>
+      <td><strong>06</strong></td>
+      <td>Schema Validation Resolver chuẩn trong TypeScript</td>
+      <td><strong>b) Zod</strong> (Static Type Inference)</td>
+      <td><code>src/schemas/bookingSchema.ts</code> (dòng 7-23: <code>bookingSchema</code>)</td>
+    </tr>
+    <tr>
+      <td><strong>07</strong> ⚠️</td>
+      <td>Trình tự xử lý lỗi runtime của Error Boundary</td>
+      <td><strong>a) 2 &rarr; 1 &rarr; 4 &rarr; 3</strong></td>
+      <td><code>src/components/ErrorBoundary.tsx</code> (dòng 24-34)</td>
+    </tr>
+    <tr>
+      <td><strong>08</strong></td>
+      <td>Tính năng xử lý số ít / số nhiều trong i18n</td>
+      <td><strong>b) Pluralization</strong></td>
+      <td><code>src/i18n/locales/en.json</code> (<code>nightCount_one/other</code>)</td>
+    </tr>
+    <tr>
+      <td><strong>09</strong></td>
+      <td>Hỗ trợ LTR và RTL nên ưu tiên thuộc tính CSS nào?</td>
+      <td><strong>a) ĐÚNG</strong> (Dùng CSS Logical Properties)</td>
+      <td><code>src/index.css</code> & <code>BookingForm.tsx</code> (<code>marginInlineEnd</code>)</td>
+    </tr>
+    <tr>
+      <td><strong>10</strong></td>
+      <td>Đối tượng Native JS định dạng tiền tệ và số</td>
+      <td><strong>c) <code>Intl.NumberFormat</code></strong></td>
+      <td><code>src/utils/formatters.ts</code> (dòng 33: định dạng VND, USD, CNY)</td>
+    </tr>
+    <tr>
+      <td><strong>11</strong> ⚠️</td>
+      <td>Cảnh báo khi <code>useState&lt;string&gt;()</code> gắn vào <code>value</code></td>
+      <td><strong>b) Warning: Uncontrolled input to be controlled</strong></td>
+      <td><code>src/components/BookingForm.tsx</code> (dòng 38: đối chứng <code>useState('')</code>)</td>
+    </tr>
+    <tr>
+      <td><strong>12</strong> ⚠️</td>
+      <td>Cú pháp <code>&lt;input ref={register} /&gt;</code> trong RHF v7+</td>
+      <td><strong>b) SAI</strong> (Chuẩn là <code>{...register('name')}</code>)</td>
+      <td><code>src/components/BookingForm.tsx</code> (dòng 100, 108: Spread operator)</td>
+    </tr>
+    <tr>
+      <td><strong>13</strong></td>
+      <td>Quy trình thực thi khi người dùng bấm Submit</td>
+      <td><strong>a) 2 &rarr; 4 &rarr; 1 &rarr; (5 hoặc 3)</strong></td>
+      <td><code>src/components/BookingForm.tsx</code> (<code>handleSubmit</code> pipe)</td>
+    </tr>
+    <tr>
+      <td><strong>14</strong></td>
+      <td>Xử lý chuỗi <code>"5"</code> của <code>z.coerce.number().min(1)</code></td>
+      <td><strong>b) Tự ép thành số 5 và pass validation</strong></td>
+      <td><code>src/schemas/bookingSchema.ts</code> (dòng 16: ép kiểu <code>nights</code>)</td>
+    </tr>
+    <tr>
+      <td><strong>15</strong></td>
+      <td>Lệnh ngăn trình duyệt reload trang trong React Form</td>
+      <td><strong>b) <code>event.preventDefault()</code></strong></td>
+      <td><code>src/components/BookingForm.tsx</code> (Tích hợp trong RHF engine)</td>
+    </tr>
+    <tr>
+      <td><strong>16</strong></td>
+      <td>Vai trò thành phần <code>&lt;Controller /&gt;</code> trong RHF</td>
+      <td><strong>b) Adapter kết nối UI components không expose ref</strong></td>
+      <td>RHF Controller Adapter Pattern cho MUI/AntD</td>
+    </tr>
+    <tr>
+      <td><strong>17</strong></td>
+      <td>Chức năng chính của <code>URL.revokeObjectURL()</code></td>
+      <td><strong>c) Thu hồi URL và giải phóng RAM, chống rò rỉ bộ nhớ</strong></td>
+      <td><code>src/components/BookingForm.tsx</code> (dòng 48, 64: thu hồi Blob RAM)</td>
+    </tr>
+    <tr>
+      <td><strong>18</strong></td>
+      <td>Ý nghĩa của Interpolation (Nội suy) trong i18n</td>
+      <td><strong>b) Chèn động biến vào placeholder chuỗi mẫu</strong></td>
+      <td><code>src/App.tsx</code> (dòng 64: <code>t('dynamicGreeting', { name, count })</code>)</td>
+    </tr>
+    <tr>
+      <td><strong>19</strong></td>
+      <td>Mục đích giải quyết của CSS Logical Properties</td>
+      <td><strong>b) Tự thích ứng hướng đọc LTR/RTL không cần override</strong></td>
+      <td><code>src/i18n/config.ts</code> (dòng 39: lật 180&deg; RTL khi chọn <code>zh</code>)</td>
+    </tr>
+    <tr>
+      <td><strong>20</strong></td>
+      <td>Mục đích chính của <code>componentDidCatch</code></td>
+      <td><strong>b) Thực hiện Side Effects: ghi log lỗi gửi về Sentry</strong></td>
+      <td><code>src/components/ErrorBoundary.tsx</code> (dòng 31: <code>componentDidCatch</code>)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>II. CHI TIẾT 20 CÂU QUIZZ: PHÂN TÍCH CHUYÊN SÂU & HƯỚNG DẪN DEMO</h2>
+
+<!-- ==================== CÂU 1 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge">CÂU 01 • KIẾN THỨC CHUẨN</span></div>
+  <div class="q-title">Câu 1: Trạng thái touched của một trường nhập liệu (field) trong form thể hiện điều gì?</div>
+  
+  <div class="options-container">
+    <div class="opt-item">a) Dữ liệu trong trường đó đã bị thay đổi so với giá trị mặc định ban đầu.</div>
+<div class="opt-item correct"><strong>b) Người dùng đã từng nhấp/focus vào trường đó và sau đó chuyển focus ra ngoài (blur).</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+<div class="opt-item">c) Người dùng đang trực tiếp gõ phím trong trường đó.</div>
+<div class="opt-item">d) Dữ liệu đã vượt qua tất cả các hàm validate thành công.</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án b) — Người dùng đã từng nhấp/focus vào trường đó và sau đó chuyển focus ra ngoài (blur).
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Cơ chế hoạt động của Field State Lifecycle trong Form Engine:</strong>
+<ul>
+  <li>Trong các thư viện quản lý form hiện đại (như React Hook Form, Formik), mỗi ô nhập liệu được theo dõi qua 3 cờ trạng thái độc lập: <code>isTouched</code>, <code>isDirty</code>, và <code>isValid</code>.</li>
+  <li>Cờ <code>touched</code> (hoặc <code>isTouched</code>) chỉ chuyển từ <code>false</code> sang <code>true</code> khi sự kiện <code>onBlur</code> của phần tử DOM được kích hoạt. Điều này xác nhận rằng người dùng đã đưa con trỏ chuột vào ô nhập liệu (focus) và sau đó rời đi (blur).</li>
+  <li><strong>Ý nghĩa sống còn trong thiết kế trải nghiệm người dùng (UX):</strong> Giúp trì hoãn việc hiển thị thông báo lỗi (validation error message). Nếu hiển thị lỗi ngay khi người dùng chưa chạm vào ô hoặc vừa mới gõ phím đầu tiên, người dùng sẽ cảm thấy bị ức chế. Quy chuẩn UX yêu cầu: <code>showError = isTouched && hasError</code>.</li>
+</ul>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao các phương án còn lại là sai:</strong>
+<ul>
+  <li><strong>Phương án a SAI:</strong> "Dữ liệu bị thay đổi so với giá trị mặc định" là định nghĩa của cờ <code>dirty</code> (<code>isDirty</code>). Kể cả khi người dùng nhập dữ liệu rồi xóa đi để đưa về giá trị rỗng ban đầu, <code>isDirty</code> có thể trở về <code>false</code> nhưng <code>isTouched</code> vẫn vĩnh viễn là <code>true</code>.</li>
+  <li><strong>Phương án c SAI:</strong> "Đang trực tiếp gõ phím" tương ứng với trạng thái <code>active/focused</code> của DOM (CSS <code>:focus</code>) kết hợp với sự kiện <code>onChange / onInput</code>.</li>
+  <li><strong>Phương án d SAI:</strong> "Vượt qua tất cả các hàm validate thành công" là định nghĩa của trạng thái <code>valid</code> (<code>isValid</code>), hoàn toàn độc lập với tương tác focus/blur của người dùng.</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Thao tác Demo trong Project:</strong>
+<ul>
+  <li><strong>File:</strong> <code>src/components/BookingForm.tsx</code> (dòng 24):
+    <div class="code-snippet">const { register, handleSubmit, formState: { errors, touchedFields } } = useForm<BookingFormInput>({ ... });</div>
+  </li>
+  <li><strong>Thao tác Demo trên Web (<code>http://localhost:5173/</code>):</strong>
+    Mở form đặt phòng, click chuột vào ô "Họ và tên khách" rồi lập tức click chuột ra ngoài vùng trống của trang (kích hoạt <code>blur</code>). Ngay lập tức, <code>touchedFields.guestName</code> trở thành <code>true</code> và câu thông báo lỗi Zod <em>"Họ và tên không được để trống"</em> màu đỏ hiện lên.
+  </li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'Trạng thái touched đại diện cho sự kiện onBlur — tức người dùng đã vào rồi rời khỏi ô nhập. Trong UX chuyên nghiệp, chúng ta luôn dựa vào touched để chỉ kích hoạt cảnh báo lỗi sau khi người dùng đã kết thúc tương tác tại ô đó, tránh làm phiền họ khi đang gõ dở.'
+  </div>
+</div>
+
+<!-- ==================== CÂU 2 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge">CÂU 02 • KIẾN THỨC CHUẨN</span></div>
+  <div class="q-title">Câu 2: Khi thực hiện tải ảnh lên và muốn hiển thị bản xem trước (Preview) tức thì cho người dùng ở phía client, API nào của trình duyệt được khuyên dùng để tạo URL tạm thời từ đối tượng File?</div>
+  
+  <div class="options-container">
+    <div class="opt-item">a) JSON.stringify(file)</div>
+<div class="opt-item correct"><strong>b) URL.createObjectURL(file)</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+<div class="opt-item">c) window.localStorage.setItem('preview', file)</div>
+<div class="opt-item">d) navigator.clipboard.write(file)</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án b) — URL.createObjectURL(file)
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Cơ chế phân giải nhị phân của Web File API:</strong>
+<ul>
+  <li>Đối tượng <code>File</code> trong JavaScript kế thừa từ <code>Blob</code> (Binary Large Object) và được lưu trữ trực tiếp trên bộ nhớ RAM nhị phân của trình duyệt.</li>
+  <li>Phương thức <code>URL.createObjectURL(blob/file)</code> tạo ra một định danh tài nguyên duy nhất có giao thức nội bộ dạng <code>blob:http://localhost:5173/uuid-string</code>. Chuỗi URL này đóng vai trò là một con trỏ (pointer) trực tiếp tới vùng nhớ RAM đó.</li>
+  <li><strong>Hiệu năng tuyệt đối:</strong> Thời gian sinh URL diễn ra gần như tức thì (độ phức tạp $O(1)$) vì trình duyệt không phải đọc tuần tự hay mã hóa lại tệp tin. Thẻ <code>&lt;img src={url} /&gt;</code> có thể render hình ảnh ngay lập tức.</li>
+  <li><strong>So sánh với <code>FileReader.readAsDataURL()</code>:</strong> <code>readAsDataURL()</code> bắt buộc CPU phải đọc tuần tự toàn bộ mảng byte và mã hóa thành chuỗi Base64 dài dòng, làm dung lượng phình to thêm $33%$ và gây nghẽn Main Thread nếu ảnh nặng 5-10MB.</li>
+</ul>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao các phương án còn lại là sai:</strong>
+<ul>
+  <li><strong>Phương án a SAI:</strong> Đối tượng <code>File</code> chứa dữ liệu nhị phân không thể tuần tự hóa (non-serializable). Khi chạy <code>JSON.stringify(file)</code>, kết quả chỉ là <code>"{}"</code> hoặc các thuộc tính siêu dữ liệu rỗng, thẻ <code>&lt;img&gt;</code> hoàn toàn không thể hiển thị ảnh.</li>
+  <li><strong>Phương án c SAI:</strong> <code>localStorage</code> chỉ lưu trữ chuỗi văn bản UTF-16 và bị giới hạn nghiêm ngặt ở mức ~5MB. Ép đối tượng nhị phân vào <code>localStorage</code> sẽ biến thành chuỗi vô nghĩa <code>"[object File]"</code> và gây lỗi tràn bộ nhớ (QuotaExceededError).</li>
+  <li><strong>Phương án d SAI:</strong> <code>navigator.clipboard.write()</code> là API thao tác với khay nhớ tạm của hệ điều hành (Copy/Paste), hoàn toàn không phục vụ mục đích nhúng URL hiển thị lên DOM.</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Thao tác Demo trong Project:</strong>
+<ul>
+  <li><strong>File:</strong> <code>src/components/BookingForm.tsx</code> (dòng 55-60):
+    <div class="code-snippet">const file = e.target.files?.[0];
+if (file) {
+  const url = URL.createObjectURL(file);
+  setPreviewUrl(url); // Truyền trực tiếp vào thẻ &lt;img src={previewUrl} /&gt;
+}</div>
+  </li>
+  <li><strong>Thao tác Demo trên Web:</strong>
+    Tại mục "Ảnh hộ chiếu / CCCD", bấm "Choose File" và chọn một ảnh bất kỳ. Ngay lập tức ảnh xuất hiện trong khung Preview sắc nét với thời gian phản hồi $0 	ext{ms}$, không cần gửi bất kỳ request nào lên server.
+  </li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'Để preview ảnh tức thì với chi phí tài nguyên thấp nhất, chuẩn W3C khuyên dùng URL.createObjectURL. API này tạo một con trỏ trực tiếp đến vùng RAM nhị phân của file, vượt trội hoàn toàn so với việc convert sang chuỗi Base64 cồng kềnh.'
+  </div>
+</div>
+
+<!-- ==================== CÂU 3 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge trap">CÂU 03 • BẪY KINH ĐIỂN</span></div>
+  <div class="q-title">Câu 3: Nhận định sau ĐÚNG hay SAI: 'Một Class Component được thiết lập làm Error Boundary có thể tự động bắt được lỗi mạng (Network Error / 500 Server Error) ném ra từ lệnh fetch bên trong hàm xử lý sự kiện onSubmit của thẻ &lt;form&gt;.'</div>
+  
+  <div class="options-container">
+    <div class="opt-item">a) ĐÚNG</div>
+<div class="opt-item correct"><strong>b) SAI</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+<div class="opt-item">c) Chỉ đúng nếu bọc thêm React.StrictMode</div>
+<div class="opt-item">d) Chỉ đúng khi form dùng phương thức POST</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án b) — SAI
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Giới hạn kiến trúc cốt lõi của React Error Boundary:</strong>
+<ul>
+  <li>Error Boundary là Class Component cài đặt phương thức <code>static getDerivedStateFromError</code> hoặc <code>componentDidCatch</code>.</li>
+  <li>Theo đặc tả chính thức của React, Error Boundary <strong>CHỈ BẮT ĐƯỢC</strong> các ngoại lệ runtime phát sinh đồng bộ trong:
+    <ol>
+      <li>Quá trình tính toán Render JSX (hàm <code>render()</code> của component con).</li>
+      <li>Các phương thức vòng đời (Lifecycle Methods: <code>componentDidMount</code>, <code>componentDidUpdate</code>, v.v.).</li>
+      <li>Hàm khởi tạo (<code>constructor</code>) của toàn bộ cây component con nằm bên dưới nó.</li>
+    </ol>
+  </li>
+  <li>Error Boundary <strong>HOÀN TOÀN KHÔNG BẮT ĐƯỢC</strong>:
+    <ol>
+      <li>Lỗi trong các hàm xử lý sự kiện (Event Handlers: <code>onClick</code>, <code>onSubmit</code>, <code>onChange</code>).</li>
+      <li>Mã bất đồng bộ (Asynchronous code: <code>setTimeout</code>, <code>requestAnimationFrame</code>, <code>fetch</code>, <code>axios</code>).</li>
+      <li>Quá trình Server-Side Rendering (SSR).</li>
+      <li>Lỗi do chính bản thân component Error Boundary ném ra.</li>
+    </ol>
+  </li>
+  <li><strong>Lý do kiến trúc:</strong> Event handlers và async callbacks chạy bên ngoài chu kỳ render của React Reconciler (chạy trong Event Loop Task Queue của trình duyệt). Khi sự kiện submit ném lỗi mạng, cây Virtual DOM không hề bị hỏng cấu trúc, React vẫn biết chính xác giao diện hiện tại đang toàn vẹn, do đó React không kích hoạt Error Boundary.</li>
+  <li><strong>Giải pháp chuẩn:</strong> Lỗi gọi API trong submit form bắt buộc phải được bọc trong khối <code>try...catch</code> hoặc xử lý qua trạng thái lỗi của các thư viện như TanStack Query.</li>
+</ul>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao các phương án còn lại là sai:</strong>
+<ul>
+  <li><strong>Phương án a SAI:</strong> Đây là bẫy nhận thức phổ biến nhất. Rất nhiều lập trình viên lầm tưởng Error Boundary là một tấm lưới hứng trọn vẹn mọi lỗi phát sinh trong ứng dụng.</li>
+  <li><strong>Phương án c SAI:</strong> <code>React.StrictMode</code> chỉ kích hoạt cơ chế double-invoke ở môi trường dev để phát hiện Side Effects tiềm ẩn, hoàn toàn không can thiệp hay mở rộng phạm vi của Error Boundary sang Event Handlers hay Async Tasks.</li>
+  <li><strong>Phương án d SAI:</strong> Phương thức HTTP (<code>GET</code>, <code>POST</code>, <code>PUT</code>) thuộc giao thức mạng, không có bất kỳ liên hệ nào tới cơ chế Reconciler của React.</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Thao tác Demo trong Project:</strong>
+<ul>
+  <li><strong>File:</strong> <code>src/App.tsx</code> (dòng 76-88):
+    <div class="code-snippet">const handleFormSubmit = async (data: BookingFormInput) => {
+  try {
+    await fakeApiBooking(data); // Ném lỗi 409 nếu số đêm > 10
+  } catch (err: any) {
+    setApiError(err.message); // BẮT BUỘC dùng try/catch, Error Boundary không tự bắt lỗi này!
+  }
+};</div>
+  </li>
+  <li><strong>Thao tác Demo trên Web:</strong>
+    Nhập số đêm = 12 (> 10 đêm để kích hoạt mock lỗi 409 Conflict), điền form và bấm Submit. Màn hình xuất hiện khung đỏ <em>"Lỗi 409: Phòng đã kín lịch"</em> do <code>try/catch</code> xử lý, giao diện form vẫn nguyên vẹn chứ KHÔNG bị Error Boundary làm sập thành Fallback UI.
+  </li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'Error Boundary chỉ bảo vệ chu kỳ render và lifecycle của cây component. Nó hoàn toàn bất lực trước lỗi bất đồng bộ và event handler như onSubmit. Với các lệnh fetch API, chúng ta bắt buộc phải sử dụng cấu trúc try/catch truyền thống.'
+  </div>
+</div>
+
+<!-- ==================== CÂU 4 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge trap">CÂU 04 • BẪY KINH ĐIỂN</span></div>
+  <div class="q-title">Câu 4: Nhận định sau ĐÚNG hay SAI: 'Trong một form lớn có hàng chục trường nhập liệu, việc sử dụng hoàn toàn Controlled Components (gắn mỗi input với một useState) luôn mang lại hiệu năng cao hơn và tiêu tốn ít tài nguyên render hơn Uncontrolled Components.'</div>
+  
+  <div class="options-container">
+    <div class="opt-item">a) ĐÚNG</div>
+<div class="opt-item correct"><strong>b) SAI</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án b) — SAI
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Bản chất so sánh hiệu năng giữa Controlled và Uncontrolled Components:</strong>
+<ul>
+  <li><strong>Controlled Components (Kiểm soát qua <code>useState</code>):</strong>
+    Mỗi khi người dùng gõ một ký tự, sự kiện <code>onChange</code> kích hoạt $ightarrow$ gọi <code>setState</code> $ightarrow$ đưa component vào hàng đợi re-render $ightarrow$ React chạy Re-render toàn bộ hàm Component cha $ightarrow$ chạy thuật toán Reconciliation (so sánh Virtual DOM) $ightarrow$ ghi đè lại giá trị <code>value</code> vào Real DOM.
+    Nếu form có 30-50 trường hoặc chứa nhiều component con lồng ghép, thao tác gõ phím liên tục sẽ kích hoạt hàng trăm lượt render thừa thãi, gây nghẽn Main Thread, tụt khung hình (drop FPS) và tạo ra hiện tượng giật lag nhập liệu (input lag).
+  </li>
+  <li><strong>Uncontrolled Components (Kiểm soát qua DOM Ref / React Hook Form):</strong>
+    Dữ liệu được lưu trữ trực tiếp trong Real DOM của trình duyệt. React không can thiệp vào quá trình nhập liệu của người dùng. Khi người dùng gõ phím, **số lượt re-render của component bằng 0**. Dữ liệu chỉ được trích xuất một lần duy nhất khi người dùng nhấn nút Submit thông qua tham chiếu Ref.
+  </li>
+  <li>React Hook Form tối ưu hiệu năng vượt trội nhờ kiến trúc Uncontrolled kết hợp micro-subscriptions: cô lập trạng thái ở cấp độ trường, chỉ re-render những phần tử thực sự cần thay đổi giao diện.</li>
+</ul>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao nhận định là SAI:</strong>
+<ul>
+  <li>Nhận định cho rằng Controlled Component "luôn mang lại hiệu năng cao hơn" là hoàn toàn phản khoa học về mặt kiến trúc render của React. Controlled Component chỉ phù hợp với các form đơn giản (1-3 trường) hoặc khi cần format văn bản tức thì theo từng ký tự, nhưng là thảm họa hiệu năng đối với các form quy mô lớn nếu không áp dụng các kỹ thuật memoization cực đoan.</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Thao tác Demo trong Project:</strong>
+<ul>
+  <li><strong>File:</strong> <code>src/components/BookingForm.tsx</code> (dòng 42-45 & dòng 160-175):
+    <div class="code-snippet">const renderCounter = useRef(0);
+renderCounter.current += 1; // Đo lường chính xác số lần Form re-render</div>
+  </li>
+  <li><strong>Thao tác Demo trên Web:</strong>
+    <ol>
+      <li>Gõ liên tục vào các ô Uncontrolled của RHF ("Họ tên", "Email"): Nhìn lên thanh chỉ số, <code>Form Re-render count</code> <strong>hoàn toàn đứng yên</strong>, tốc độ mượt mà $60 	ext{FPS}$.</li>
+      <li>Chuyển xuống ô màu vàng "Ghi chú đặc biệt (Ô đối chứng Re-render useState)": Gõ thử vài ký tự, mỗi phím bấm làm số đếm re-render nhảy vọt liên tục, chứng minh trực quan sự tốn kém tài nguyên của Controlled Component.</li>
+    </ol>
+  </li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'Với form quy mô lớn, Controlled Component gắn với useState là nguyên nhân số một gây nghẽn render vì mỗi phím bấm đều re-render cả cây component. Uncontrolled Component lưu state trực tiếp tại DOM, giúp số lần re-render tiệm cận bằng 0, mang lại hiệu năng tối ưu.'
+  </div>
+</div>
+
+<!-- ==================== CÂU 5 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge">CÂU 05 • KIẾN THỨC CHUẨN</span></div>
+  <div class="q-title">Câu 5: Mô hình quản lý trạng thái xử lý bất đồng bộ (API Call / Submit Form) cơ bản và đầy đủ nhất gồm các trạng thái nào?</div>
+  
+  <div class="options-container">
+    <div class="opt-item">a) init và done</div>
+<div class="opt-item correct"><strong>b) idle (chờ), loading (đang xử lý), error (thất bại), success (thành công)</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+<div class="opt-item">c) valid, invalid, expired</div>
+<div class="opt-item">d) compile, build, deploy</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án b) — idle (chờ), loading (đang xử lý), error (thất bại), success (thành công)
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Mô hình Máy trạng thái hữu hạn (Finite State Machine - FSM) trong xử lý bất đồng bộ:</strong>
+<ul>
+  <li>Bất kỳ tác vụ bất đồng bộ nào trong ứng dụng web (HTTP Request, Database Query, Form Submission) đều tuân theo chu trình chuyển đổi trạng thái gồm 4 pha nghiêm ngặt:
+    <ol>
+      <li><strong><code>idle</code> (Chờ / Nghỉ):</strong> Trạng thái ban đầu khi component vừa mount, chưa có tác vụ mạng nào được kích hoạt. Form sẵn sàng đón nhận tương tác.</li>
+      <li><strong><code>loading</code> (hoặc <code>pending</code> - Đang xử lý):</strong> Tác vụ đã được gửi đi và đang chờ server phản hồi. Giao diện cần: Khóa nút submit (disable) để ngăn chặn gửi trùng lặp (double submit), hiển thị spinner loading hoặc thanh tiến trình.</li>
+      <li><strong><code>error</code> (hoặc <code>rejected</code> - Thất bại):</strong> Tác vụ ném ra ngoại lệ (mã lỗi HTTP 4xx, 5xx, timeout, mất mạng). Giao diện hiển thị thông điệp cảnh báo rõ ràng và mở lại quyền tương tác để người dùng thử lại (retry).</li>
+      <li><strong><code>success</code> (hoặc <code>fulfilled</code> - Thành công):</strong> Máy chủ xử lý hoàn tất và trả về mã 2xx. Giao diện tiến hành reset form, hiển thị thông báo thành công hoặc điều hướng trang (redirect).</li>
+    </ol>
+  </li>
+  <li>Đây là cấu trúc chuẩn mực được triển khai ở tầng lõi của các thư viện bất đồng bộ hàng đầu như TanStack Query (React Query), RTK Query và Apollo Client.</li>
+</ul>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao các phương án còn lại là sai:</strong>
+<ul>
+  <li><strong>Phương án a SAI:</strong> Chỉ có <code>init</code> và <code>done</code> là thiếu sót nghiêm trọng; không thể hiện được quá trình đang xử lý (<code>loading</code>) và không phân biệt được kết quả kết thúc là thành công hay phát sinh lỗi.</li>
+  <li><strong>Phương án c SAI:</strong> <code>valid, invalid, expired</code> là các trạng thái kiểm tra tính hợp lệ của dữ liệu (Validation Status) hoặc trạng thái của Token/Session, không phải vòng đời của một tác vụ bất đồng bộ.</li>
+  <li><strong>Phương án d SAI:</strong> <code>compile, build, deploy</code> là các bước trong quy trình CI/CD đóng gói phần mềm (DevOps).</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Thao tác Demo trong Project:</strong>
+<ul>
+  <li><strong>File:</strong> <code>src/components/BookingForm.tsx</code> (dòng 24 & 184):
+    <div class="code-snippet">const { formState: { isSubmitting } } = useForm();
+// Disable nút bấm và đổi nhãn hiển thị khi đang trong trạng thái loading:
+&lt;button type="submit" disabled={isSubmitting}&gt;
+  {isSubmitting ? 'Đang gửi dữ liệu...' : 'Xác Nhận Đặt Phòng Ngay'}
+&lt;/button&gt;</div>
+  </li>
+  <li><strong>Thao tác Demo trên Web:</strong>
+    Điền form hợp lệ và bấm Submit: Trong $1.5 	ext{giây}$ mô phỏng gọi API, nút Submit tự động chuyển sang màu xám mờ, con trỏ chuột đổi thành biểu tượng cấm (disabled), ngăn chặn bấm đúp, chứng minh trực quan chuyển đổi từ <code>idle &rarr; loading &rarr; success</code>.
+  </li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'Mô hình FSM bất đồng bộ chuẩn mực bắt buộc phải có 4 trạng thái: idle, loading, error và success. Thiếu bất kỳ trạng thái nào cũng sẽ dẫn đến các lỗi nguy hiểm về mặt trải nghiệm như bấm trùng đơn hàng hoặc màn hình đơ không phản hồi.'
+  </div>
+</div>
+
+<!-- ==================== CÂU 6 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge">CÂU 06 • KIẾN THỨC CHUẨN</span></div>
+  <div class="q-title">Câu 6: Thư viện nào sau đây thường được tích hợp làm Schema Validation Resolver phổ biến nhất với React Hook Form trong các dự án TypeScript hiện đại?</div>
+  
+  <div class="options-container">
+    <div class="opt-item">a) Moment.js</div>
+<div class="opt-item correct"><strong>b) Zod</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+<div class="opt-item">c) Lodash-es</div>
+<div class="opt-item">d) Redux Thunk</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án b) — Zod
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Bản chất kỹ thuật của Zod & Type Inference trong TypeScript:</strong>
+<ul>
+  <li><strong>Khái niệm Schema Validation:</strong> Là kỹ thuật định nghĩa cấu trúc dữ liệu, các ràng buộc kiểu (types), giá trị giới hạn (min, max, regex, format) tại một nơi duy nhất (Single Source of Truth).</li>
+  <li><strong>Ưu thế áp đảo của Zod trong hệ sinh thái TypeScript:</strong>
+    <ol>
+      <li><strong>Tự động suy luận kiểu tĩnh (Static Type Inference):</strong> Thông qua cú pháp <code>type FormData = z.infer&lt;typeof schema&gt;</code>, lập trình viên không bao giờ phải viết lại một <code>interface</code> hay <code>type</code> thủ công lần thứ hai. Khi schema thay đổi, TypeScript types tự động cập nhật đồng bộ.</li>
+      <li><strong>Hỗ trợ Data Coercion (Ép kiểu thông minh):</strong> Khả năng chuyển đổi tự động chuỗi sang số hoặc ngày tháng (<code>z.coerce.number()</code>, <code>z.coerce.date()</code>).</li>
+      <li><strong>Tích hợp chính thức qua <code>@hookform/resolvers/zod</code>:</strong> Cung cấp cầu nối resolver hiệu năng cao, tự động bắt lỗi và chuẩn hóa cấu trúc lỗi trả về cho object <code>formState.errors</code> của React Hook Form.</li>
+    </ol>
+  </li>
+</ul>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao các phương án còn lại là sai:</strong>
+<ul>
+  <li><strong>Phương án a SAI:</strong> <code>Moment.js</code> là thư viện thao tác ngày giờ đã lỗi thời (chuyển sang maintenance mode do kích thước bundle quá nặng và cấu trúc mutable).</li>
+  <li><strong>Phương án c SAI:</strong> <code>Lodash-es</code> là thư viện tiện ích thao tác mảng, đối tượng, chuỗi (như <code>debounce</code>, <code>cloneDeep</code>), không phải thư viện xác thực dữ liệu.</li>
+  <li><strong>Phương án d SAI:</strong> <code>Redux Thunk</code> là middleware xử lý các side effect bất đồng bộ trong Redux Store.</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Thao tác Demo trong Project:</strong>
+<ul>
+  <li><strong>File:</strong> <code>src/schemas/bookingSchema.ts</code> (dòng 7-23) & <code>src/components/BookingForm.tsx</code> (dòng 25):
+    <div class="code-snippet">import { zodResolver } from '@hookform/resolvers/zod';
+import { bookingSchema, BookingFormInput } from '../schemas/bookingSchema';
+
+const { register, handleSubmit } = useForm<BookingFormInput>({
+  resolver: zodResolver(bookingSchema), // Tích hợp Zod resolver
+});</div>
+  </li>
+  <li><strong>Thao tác Demo trên Web:</strong>
+    Để trống toàn bộ form và bấm "Xác Nhận Đặt Phòng Ngay". Zod lập tức chặn luồng submit ngay tại Client, hiển thị thông báo lỗi chi tiết cho từng ô nhập liệu mà không tốn bất kỳ byte mạng nào gửi lên server.
+  </li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'Zod là chuẩn mực số một trong TypeScript hiện đại nhờ khả năng suy luận kiểu tự động z.infer. Khi kết hợp với zodResolver trong React Hook Form, chúng ta có một hệ thống validate chặt chẽ từ runtime đến compile-time mà không cần định nghĩa type thủ công.'
+  </div>
+</div>
+
+<!-- ==================== CÂU 7 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge trap">CÂU 07 • BẪY KINH ĐIỂN</span></div>
+  <div class="q-title">Câu 7: Hãy sắp xếp đúng trình tự các bước diễn ra khi một component con bên trong Error Boundary gặp lỗi runtime render:
+• (1) Phương thức static getDerivedStateFromError(error) được gọi để cập nhật state.
+• (2) Một component con ném ra lỗi cú pháp JavaScript khi đang render.
+• (3) Phương thức componentDidCatch(error, errorInfo) được gọi để ghi log ra dịch vụ giám sát (ví dụ Sentry).
+• (4) Giao diện hiển thị thay thế (Fallback UI) được render ra màn hình.</div>
+  
+  <div class="options-container">
+    <div class="opt-item correct"><strong>a) 2 - 1 - 4 - 3</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+<div class="opt-item">b) 1 - 2 - 3 - 4</div>
+<div class="opt-item">c) 3 - 1 - 2 - 4</div>
+<div class="opt-item">d) 2 - 3 - 1 - 4</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án a) — 2 - 1 - 4 - 3
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Kiến trúc hai pha (Render Phase vs Commit Phase) trong xử lý lỗi của React Reconciler:</strong>
+<ul>
+  <li><strong>Bước 2 (Error Trigger):</strong> Trong quá trình tính toán Virtual DOM, một component con gặp ngoại lệ JavaScript (ví dụ: <code>TypeError: Cannot read properties of null</code>). Lỗi này làm gián đoạn chu kỳ render.</li>
+  <li><strong>Bước 1 (Render Phase - State Update):</strong> React bắt được lỗi và lập tức gọi phương thức tĩnh:
+    <code>static getDerivedStateFromError(error)</code>.
+    Phương thức này chạy **đồng bộ** ngay trong Render Phase, nhận vào đối tượng lỗi và trả về state mới (<code>{ hasError: true }</code>). Mục đích là chuẩn bị state để React chuyển hướng render.</li>
+  <li><strong>Bước 4 (Render Phase - Fallback UI):</strong> Dựa trên state <code>hasError === true</code>, hàm <code>render()</code> của Error Boundary được thực thi, tạo ra cây Virtual DOM thay thế (Fallback UI) và vẽ lên màn hình thay cho component bị hỏng.</li>
+  <li><strong>Bước 3 (Commit Phase - Side Effects):</strong> Sau khi Fallback UI đã được cập nhật thành công lên Real DOM (trong Commit Phase), React mới gọi:
+    <code>componentDidCatch(error, errorInfo)</code>.
+    Vì thuộc Commit Phase, đây là nơi an toàn và duy nhất được phép kích hoạt Side Effects (ghi log ra console, gửi stack trace về Sentry, Datadog).</li>
+</ul>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao các phương án còn lại là sai:</strong>
+<ul>
+  <li><strong>Phương án b SAI:</strong> Bước (1) không thể chạy trước khi có component con ném lỗi (2).</li>
+  <li><strong>Phương án c SAI:</strong> Đặt <code>componentDidCatch</code> (3) lên đầu tiên là sai hoàn toàn vì phương thức này chỉ chạy sau khi cây DOM đã commit xong Fallback UI.</li>
+  <li><strong>Phương án d SAI:</strong> Đặt <code>componentDidCatch</code> (3) trước <code>getDerivedStateFromError</code> (1) là nhầm lẫn nghiêm trọng giữa Render Phase và Commit Phase. Trong Render Phase, React tuyệt đối cấm kích hoạt Side Effects.</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Thao tác Demo trong Project:</strong>
+<ul>
+  <li><strong>File:</strong> <code>src/components/ErrorBoundary.tsx</code> (dòng 24-34):
+    <div class="code-snippet">// Bước 1: Render Phase
+public static getDerivedStateFromError(error: Error): State {
+  return { hasError: true, error };
+}
+// Bước 3: Commit Phase (Sau khi Fallback UI ở dòng 40 đã xuất hiện)
+public componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+  console.error('[ErrorBoundary Logger]', error, errorInfo);
+}</div>
+  </li>
+  <li><strong>Thao tác Demo trên Web:</strong>
+    Bấm nút <em>"Mô phỏng lỗi sập Component con (Crash Demo)"</em>: Component con ném lỗi <code>null.map()</code> (Bước 2) $ightarrow$ Khung cảnh báo màu đỏ Fallback UI hiện ra trên màn hình (Bước 1 & 4) $ightarrow$ Mở F12 Console thấy dòng log từ <code>componentDidCatch</code> in ra đầy đủ thông tin stack trace (Bước 3).
+  </li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'Thứ tự chuẩn là 2-1-4-3. Khi component con ném lỗi ở bước 2, getDerivedStateFromError chạy ngay ở render phase để set hasError ở bước 1, React vẽ Fallback UI ở bước 4, và cuối cùng sau khi commit DOM, componentDidCatch mới chạy ở bước 3 để gửi log về Sentry.'
+  </div>
+</div>
+
+<!-- ==================== CÂU 8 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge">CÂU 08 • KIẾN THỨC CHUẨN</span></div>
+  <div class="q-title">Câu 8: Tính năng xử lý 'Số ít / Số nhiều' dựa theo biến số lượng (ví dụ: 1 book vs 5 books) trong các thư viện quốc tế hóa (như i18next) được gọi là gì?</div>
+  
+  <div class="options-container">
+    <div class="opt-item">a) Interpolation</div>
+<div class="opt-item correct"><strong>b) Pluralization</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+<div class="opt-item">c) Memoization</div>
+<div class="opt-item">d) Transliteration</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án b) — Pluralization
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Quy chuẩn Pluralization theo chuẩn Unicode CLDR:</strong>
+<ul>
+  <li><strong>Pluralization (Số nhiều hóa):</strong> Là cơ chế xử lý quy tắc biến đổi ngữ pháp của danh từ và tính từ theo số lượng trong từng ngôn ngữ.</li>
+  <li>Các ngôn ngữ trên thế giới có quy tắc số nhiều rất đa dạng theo định nghĩa của Unicode Common Locale Data Repository (CLDR):
+    <ul>
+      <li>Tiếng Anh: 2 dạng cơ bản (<code>one</code> cho số lượng = 1, và <code>other</code> cho số lượng $
+eq 1$).</li>
+      <li>Tiếng Ả Rập: Có tới 6 dạng khác biệt (<code>zero</code>, <code>one</code>, <code>two</code>, <code>few</code>, <code>many</code>, <code>other</code>).</li>
+      <li>Tiếng Việt / Tiếng Trung: Ngôn ngữ phi biến hình (không thêm 's' hay 'es'), nhưng có thể thay đổi từ chỉ số lượng hoặc danh từ phụ trợ.</li>
+    </ul>
+  </li>
+  <li>Trong <code>i18next</code>, tính năng này được kích hoạt tự động bằng cách truyền biến <code>count</code> vào hàm <code>t()</code>. Thư viện tự động tra cứu key có hậu tố tương ứng như <code>_one</code> hoặc <code>_other</code>.</li>
+</ul>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao các phương án còn lại là sai:</strong>
+<ul>
+  <li><strong>Phương án a SAI:</strong> <code>Interpolation</code> (Nội suy) là kỹ thuật thế chỗ biến động vào chuỗi mẫu (ví dụ chèn <code>{{name}}</code>), không tự quyết định quy tắc ngữ pháp số ít/số nhiều.</li>
+  <li><strong>Phương án c SAI:</strong> <code>Memoization</code> là kỹ thuật tối ưu hóa thuật toán bằng cách lưu trữ kết quả tính toán (như <code>useMemo</code>, <code>useCallback</code>), không liên quan đến ngôn ngữ.</li>
+  <li><strong>Phương án d SAI:</strong> <code>Transliteration</code> (Chuyển tự) là quá trình chuyển đổi ký tự giữa các hệ thống chữ viết khác nhau dựa trên ngữ âm (ví dụ chuyển chữ Hán hoặc chữ Nga sang ký tự Latinh).</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Thao tác Demo trong Project:</strong>
+<ul>
+  <li><strong>File:</strong> <code>src/i18n/locales/en.json</code>:
+    <div class="code-snippet">"nightCount_one": "{{count}} night",
+"nightCount_other": "{{count}} nights"</div>
+  </li>
+  <li><strong>Thao tác Demo trên Web:</strong>
+    Chuyển ngôn ngữ sang English. Nhập số đêm = 1, giao diện hiển thị <code>1 night</code> (dạng số ít <code>_one</code>). Tăng số đêm lên 3, giao diện lập tức tự động đổi thành <code>3 nights</code> (dạng số nhiều <code>_other</code> có chữ 's').
+  </li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'Xử lý số ít và số nhiều trong i18n được gọi chuẩn xác là Pluralization. Cơ chế này tự động ánh xạ số lượng truyền vào với quy tắc ngữ pháp của từng quốc gia theo chuẩn Unicode CLDR.'
+  </div>
+</div>
+
+<!-- ==================== CÂU 9 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge">CÂU 09 • KIẾN THỨC CHUẨN</span></div>
+  <div class="q-title">Câu 9: Nhận định sau ĐÚNG hay SAI: 'Để hỗ trợ giao diện đa ngôn ngữ chuyển đổi mượt mà giữa LTR (như tiếng Việt, Anh) và RTL (như tiếng Ả Rập), lập trình viên nên ưu tiên dùng các thuộc tính như margin-inline-start thay vì dùng cứng margin-left.'</div>
+  
+  <div class="options-container">
+    <div class="opt-item correct"><strong>a) ĐÚNG</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+<div class="opt-item">b) SAI</div>
+<div class="opt-item">c) Chỉ áp dụng cho thẻ <button></div>
+<div class="opt-item">d) Chỉ áp dụng khi dùng CSS-in-JS</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án a) — ĐÚNG
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Kiến trúc CSS Logical Properties so với Physical Properties:</strong>
+<ul>
+  <li><strong>Physical Properties (Thuộc tính vật lý - <code>left, right, top, bottom</code>):</strong>
+    Bị gắn cứng vĩnh viễn với các cạnh vật lý của màn hình thiết bị. Nếu viết <code>margin-left: 16px</code>, khoảng cách này luôn luôn nằm ở bên trái. Khi tài liệu chuyển sang ngôn ngữ RTL (Right-to-Left như Ả Rập, Do Thái), lề này bị ngược hướng đọc của người dùng, dẫn đến vỡ bố cục giao diện.
+  </li>
+  <li><strong>Logical Properties (Thuộc tính logic - <code>inline-start, inline-end, block-start, block-end</code>):</strong>
+    Tuân theo chiều dòng chảy (Writing Modes) và hướng đọc (Directionality) của tài liệu:
+    <ul>
+      <li>Ở chế độ LTR (Left-to-Right): <code>inline-start</code> tự động ứng với bên <strong>Trái</strong>.</li>
+      <li>Ở chế độ RTL (Right-to-Left): <code>inline-start</code> tự động đảo chiều thành bên <strong>Phải</strong>.</li>
+    </ul>
+    Lập trình viên chỉ cần viết CSS một lần duy nhất. Khi thẻ <code>&lt;html dir="rtl"&gt;</code> được áp dụng, toàn bộ giao diện tự động đối xứng $180^circ$ mà không cần viết thêm các class override cồng kềnh.
+  </li>
+</ul>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao các phương án còn lại là sai:</strong>
+<ul>
+  <li><strong>Phương án b SAI:</strong> Nhận định trong đề là hoàn toàn chính xác theo khuyến nghị chuẩn của W3C.</li>
+  <li><strong>Phương án c SAI:</strong> CSS Logical Properties áp dụng cho toàn bộ các phần tử HTML trên cây DOM (<code>div, p, span, form, input...</code>), không hề bị giới hạn ở thẻ <code>&lt;button&gt;</code>.</li>
+  <li><strong>Phương án d SAI:</strong> Đây là tính năng CSS nguyên bản (Native CSS Specification), được hỗ trợ trên $100%$ các trình duyệt hiện đại mà không cần bất kỳ thư viện CSS-in-JS nào.</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Thao tác Demo trong Project:</strong>
+<ul>
+  <li><strong>File:</strong> <code>src/components/BookingForm.tsx</code> (dòng 92 & 104) & <code>src/index.css</code>:
+    <div class="code-snippet">style={{ marginInlineEnd: '8px', textAlign: 'start' }}</div>
+  </li>
+  <li><strong>Thao tác Demo trên Web:</strong>
+    Bấm vào nút chọn ngôn ngữ <strong>"中文" (RTL Demo)</strong>. Toàn bộ bố cục form lập tức tự động đảo chiều từ phải sang trái một cách hoàn hảo, các nhãn form và khoảng cách dạt sang bên phải mà không hề xảy ra lỗi đè chữ hay tràn viền.
+  </li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'Nhận định này hoàn toàn ĐÚNG. Thay vì cố định bằng margin-left vật lý, CSS Logical Properties như margin-inline-start tự động thích ứng với chiều đọc LTR và RTL của tài liệu, giúp hỗ trợ đa ngôn ngữ quốc tế mà không cần viết lại CSS.'
+  </div>
+</div>
+
+<!-- ==================== CÂU 10 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge">CÂU 10 • KIẾN THỨC CHUẨN</span></div>
+  <div class="q-title">Câu 10: Đối tượng chuẩn nào có sẵn trong trình duyệt (Native JavaScript) giúp định dạng tiền tệ và số theo chuẩn địa phương mà không cần nạp thêm thư viện bên ngoài?</div>
+  
+  <div class="options-container">
+    <div class="opt-item">a) Math.toCurrency()</div>
+<div class="opt-item">b) Number.prototype.localize()</div>
+<div class="opt-item correct"><strong>c) Intl.NumberFormat</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+<div class="opt-item">d) window.CurrencyLocale</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án c) — Intl.NumberFormat
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Tiêu chuẩn ECMAScript Internationalization API (ECMA-402):</strong>
+<ul>
+  <li><code>Intl.NumberFormat</code> là hàm khởi tạo chuẩn được tích hợp trực tiếp vào JavaScript Engine của mọi trình duyệt hiện đại.</li>
+  <li><strong>Các tính năng vượt trội:</strong>
+    <ol>
+      <li><strong>Định dạng tiền tệ chuẩn ISO 4217:</strong> Tự động gắn ký hiệu tiền tệ hợp lệ (<code>₫</code> cho VND, <code>$</code> cho USD, <code>¥</code> cho CNY/JPY, <code>€</code> cho EUR) và tự động đặt ký hiệu ở trước hoặc sau con số theo đúng quy chuẩn ngôn ngữ học của từng quốc gia.</li>
+      <li><strong>Định dạng dấu phân cách:</strong> Tự động áp dụng chuẩn phân cách hàng nghìn và hàng thập phân (Việt Nam dùng <code>300.000 ₫</code>; Hoa Kỳ dùng <code>$15.00</code>).</li>
+      <li><strong>Zero-bundle overhead:</strong> Chạy trực tiếp ở tầng mã C++ của trình duyệt với hiệu năng cực cao, tiết kiệm dung lượng bundle vì không cần cài các thư viện ngoài như <code>numeral.js</code> hay <code>accounting.js</code>.</li>
+    </ol>
+  </li>
+</ul>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao các phương án còn lại là sai:</strong>
+<ul>
+  <li><strong>Phương án a SAI:</strong> Đối tượng <code>Math</code> trong JavaScript chỉ chứa các hằng số và hàm giải tích toán học (<code>Math.PI, Math.round, Math.sqrt...</code>), hoàn toàn không có phương thức <code>toCurrency()</code>.</li>
+  <li><strong>Phương án b SAI:</strong> Prototype của kiểu Number chỉ có <code>toLocaleString()</code>, không tồn tại phương thức <code>localize()</code>.</li>
+  <li><strong>Phương án d SAI:</strong> <code>window.CurrencyLocale</code> là một định danh tự bịa, không có trong bất kỳ đặc tả Web API nào.</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Thao tác Demo trong Project:</strong>
+<ul>
+  <li><strong>File:</strong> <code>src/utils/formatters.ts</code> (dòng 33-38):
+    <div class="code-snippet">export const formatRoomPrice = (totalNights: number, currency: string, locale: string): string => {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+  }).format(safeNights * pricePerNight);
+};</div>
+  </li>
+  <li><strong>Thao tác Demo trên Web:</strong>
+    Bấm chuyển đổi giữa 3 nút ngôn ngữ:
+    <ul>
+      <li>Tiếng Việt &rarr; Hiển thị: <code>300.000 ₫</code></li>
+      <li>English &rarr; Hiển thị: <code>$15.00</code></li>
+      <li>中文 &rarr; Hiển thị: <code>¥105.00</code></li>
+    </ul>
+  </li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'Intl.NumberFormat là API có sẵn trong mọi trình duyệt theo chuẩn ECMAScript. Nó giúp định dạng chuẩn xác tiền tệ và số theo từng quốc gia mà không tốn thêm bất kỳ kilobyte thư viện ngoài nào.'
+  </div>
+</div>
+
+<!-- ==================== CÂU 11 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge trap">CÂU 11 • BẪY KINH ĐIỂN</span></div>
+  <div class="q-title">Câu 11: Cho đoạn code:
+const [userName, setUserName] = useState<string>();
+return (
+  <input value={userName} onChange={(e) => setUserName(e.target.value)} />
+);
+Trình duyệt / React DevTools sẽ ném ra cảnh báo gì trong Console?</div>
+  
+  <div class="options-container">
+    <div class="opt-item">a) Error: Maximum update depth exceeded</div>
+<div class="opt-item correct"><strong>b) Warning: A component is changing an uncontrolled input to be controlled</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+<div class="opt-item">c) TypeError: Cannot read property 'target' of null</div>
+<div class="opt-item">d) ReferenceError: userName is not defined</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án b) — Warning: A component is changing an uncontrolled input to be controlled
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Cơ chế chuyển đổi trạng thái Uncontrolled sang Controlled trong React:</strong>
+<ul>
+  <li>Trong React, một phần tử <code>&lt;input&gt;</code> được coi là:
+    <ul>
+      <li><strong>Uncontrolled:</strong> Khi thuộc tính <code>value</code> nhận giá trị <code>undefined</code> hoặc <code>null</code>. Trình duyệt tự giữ quyền quản lý giá trị nhập liệu.</li>
+      <li><strong>Controlled:</strong> Khi thuộc tính <code>value</code> nhận một giá trị chuỗi hoặc số xác định (chuỗi rỗng <code>""</code> cũng là một giá trị xác định). React nắm toàn quyền kiểm soát giá trị của ô input.</li>
+    </ul>
+  </li>
+  <li>Trong đoạn code đề bài: <code>useState&lt;string&gt;()</code> không truyền tham số khởi tạo, do đó giá trị mặc định ban đầu của <code>userName</code> là <code>undefined</code>. Ở lần render đầu tiên, input đóng vai trò là **Uncontrolled**.</li>
+  <li>Khi người dùng gõ ký tự đầu tiên: Hàm <code>setUserName(e.target.value)</code> được gọi, gán một chuỗi ký tự xác định vào state. Ở lần render thứ hai, <code>value</code> chuyển từ <code>undefined</code> sang một chuỗi xác định, biến input thành **Controlled**.</li>
+  <li>React coi việc thay đổi bản chất component giữa chừng trong vòng đời là một hành vi lỗi nguy hiểm và in ra cảnh báo đỏ:
+    <em>'Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value...'</em></li>
+  <li><strong>Cách khắc phục:</strong> Luôn khởi tạo giá trị ban đầu rõ ràng: <code>useState&lt;string&gt;('')</code>.</li>
+</ul>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao các phương án còn lại là sai:</strong>
+<ul>
+  <li><strong>Phương án a SAI:</strong> <code>Maximum update depth exceeded</code> chỉ xuất hiện khi gọi <code>setState</code> trực tiếp trong thân hàm component hoặc <code>useEffect</code> không có mảng dependency, gây vòng lặp render vô tận.</li>
+  <li><strong>Phương án c SAI:</strong> Đối tượng sự kiện <code>e</code> và <code>e.target</code> luôn được React SyntheticEvent đảm bảo tồn tại khi người dùng tương tác, không thể là <code>null</code>.</li>
+  <li><strong>Phương án d SAI:</strong> Biến <code>userName</code> đã được khai báo tường minh bằng cú pháp destructuring của <code>useState</code>, không thể ném ra <code>ReferenceError</code>.</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Thực hành Phòng tránh trong Project:</strong>
+<ul>
+  <li><strong>File:</strong> <code>src/components/BookingForm.tsx</code> (dòng 38):
+    <div class="code-snippet">// Khởi tạo tường minh chuỗi rỗng '' để phòng chống cảnh báo Uncontrolled sang Controlled:
+const [specialNotes, setSpecialNotes] = useState('');</div>
+  </li>
+  <li><strong>Kiểm chứng:</strong> Nhờ khởi tạo <code>''</code> thay vì để trống <code>undefined</code>, mở tab F12 Console khi gõ vào ô ghi chú sẽ hoàn toàn sạch sẽ, không có bất kỳ dòng cảnh báo vàng hay đỏ nào xuất hiện.</li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'Khi gọi useState mà không truyền giá trị khởi tạo, state ban đầu nhận undefined khiến input bị coi là Uncontrolled. Khi gõ phím, state có giá trị biến nó thành Controlled. Sự tráo đổi giữa chừng này kích hoạt cảnh báo kinh điển của React. Giải pháp là luôn khởi tạo useState với chuỗi rỗng.'
+  </div>
+</div>
+
+<!-- ==================== CÂU 12 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge trap">CÂU 12 • BẪY KINH ĐIỂN</span></div>
+  <div class="q-title">Câu 12: Cho đoạn code:
+const { register, handleSubmit } = useForm();
+return (
+  <form onSubmit={handleSubmit(onSubmit)}>
+    <input name="email" ref={register} />
+  </form>
+);
+Cú pháp gán ref={register} như trên có đúng chuẩn trong phiên bản React Hook Form hiện đại (v7+) không?</div>
+  
+  <div class="options-container">
+    <div class="opt-item">a) ĐÚNG</div>
+<div class="opt-item correct"><strong>b) SAI</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án b) — SAI
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Bước nhảy vọt kiến trúc từ RHF v6 lên RHF v7+:</strong>
+<ul>
+  <li><strong>Ở phiên bản cũ (React Hook Form v6 trở về trước):</strong>
+    <code>register</code> là một hàm callback nhận trực tiếp ref của phần tử DOM: <code>&lt;input name="email" ref={register} /&gt;</code>.
+  </li>
+  <li><strong>Ở phiên bản hiện đại (React Hook Form v7 và v8):</strong>
+    Cú pháp cũ đã bị khai tử hoàn toàn vì không tối ưu cho TypeScript và khó mở rộng.
+    Trong RHF v7+, hàm <code>register('fieldName')</code> được thiết kế để **trả về một Object** chứa 4 thuộc tính cốt lõi:
+    <div class="code-snippet">{
+  name: 'email',
+  ref: (instance) => { ... },
+  onChange: (event) => { ... },
+  onBlur: (event) => { ... }
+}</div>
+  </li>
+  <li>Do đó, cú pháp chuẩn mực duy nhất bắt buộc phải sử dụng toán tử mở rộng (Spread Operator):
+    <code>&lt;input {...register('email')} /&gt;</code>
+  </li>
+  <li>Nếu truyền <code>ref={register}</code> như đề bài: Bạn đang truyền trực tiếp một hàm generator vào thuộc tính <code>ref</code>, trong khi phần tử DOM không hề nhận được <code>name</code>, <code>onChange</code> hay <code>onBlur</code>. RHF sẽ không thể liên kết trường này vào form state.</li>
+</ul>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao đáp án là SAI:</strong>
+<ul>
+  <li>Đây là câu hỏi bẫy phiên bản cực kỳ phổ biến trong các buổi phỏng vấn và bài thi trắc nghiệm React. Rất nhiều tài liệu cũ trên mạng vẫn dùng cú pháp v6. Trong môi trường TypeScript của React 18 / 19, cú pháp <code>ref={register}</code> sẽ báo lỗi kiểu ngay lập tức ở thời điểm biên dịch.</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Thao tác Demo trong Project:</strong>
+<ul>
+  <li><strong>File:</strong> <code>src/components/BookingForm.tsx</code> (dòng 100 & 108):
+    <div class="code-snippet">// Cú pháp chuẩn RHF v7+ trong dự án thực tế:
+&lt;input id="guestName" {...register('guestName')} /&gt;
+&lt;input id="email" {...register('email')} /&gt;</div>
+  </li>
+  <li>Kiểm tra file <code>package.json</code>: Dự án đang chạy phiên bản <code>"react-hook-form": "^7.53.0"</code>, minh chứng cho việc bắt buộc phải dùng cú pháp Spread Operator.</li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'Cú pháp ref={register} chỉ đúng ở bản v6 cũ. Từ RHF v7 trở lên, register('name') trả về một object chứa cả ref, name, onChange và onBlur, nên bắt buộc phải dùng cú pháp spread {...register('email')}.'
+  </div>
+</div>
+
+<!-- ==================== CÂU 13 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge">CÂU 13 • KIẾN THỨC CHUẨN</span></div>
+  <div class="q-title">Câu 13: Sắp xếp quy trình thực thi chuẩn trong React Hook Form khi người dùng bấm nút Submit:
+• (1) Kích hoạt validation schema (Zod/Yup resolver).
+• (2) Người dùng kích hoạt sự kiện click vào button type="submit".
+• (3) Gọi hàm callback onSubmit(data) với dữ liệu đã được parse sạch.
+• (4) Ngăn chặn hành vi mặc định của trình duyệt (event.preventDefault()).
+• (5) Kiểm tra nếu có lỗi: cập nhật object errors và dừng luồng xử lý.</div>
+  
+  <div class="options-container">
+    <div class="opt-item correct"><strong>a) 2 - 4 - 1 - (5 hoặc 3)</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+<div class="opt-item">b) 1 - 2 - 3 - 4 - 5</div>
+<div class="opt-item">c) 5 - 4 - 3 - 2 - 1</div>
+<div class="opt-item">d) 2 - 3 - 4 - 1 - 5</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án a) — 2 - 4 - 1 - (5 hoặc 3)
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Luồng điều phối tuần tự của hàm `handleSubmit` trong RHF:</strong>
+<ol>
+  <li><strong>Bước 2 (User Action):</strong> Người dùng click vào nút có <code>type="submit"</code> hoặc nhấn phím Enter, kích hoạt sự kiện <code>submit</code> của HTML Form.</li>
+  <li><strong>Bước 4 (Event Interception):</strong> Hàm <code>handleSubmit</code> của React Hook Form đóng vai trò là Higher-Order Function chặn sự kiện và gọi ngay lập tức <code>event.preventDefault()</code>. Thao tác này nhằm ngăn trình duyệt thực hiện hành vi mặc định là gửi HTTP request đồng bộ và tải lại (reload) trang web.</li>
+  <li><strong>Bước 1 (Schema Validation):</strong> RHF trích xuất dữ liệu thô từ các DOM refs và truyền qua resolver (như Zod Schema). Schema thực hiện ép kiểu và kiểm tra các ràng buộc logic.</li>
+  <li><strong>Bước 5 hoặc 3 (Branching Logic - Phân nhánh kết quả):</strong>
+    <ul>
+      <li><strong>Trường hợp phát sinh lỗi (Bước 5):</strong> Nếu dữ liệu không thỏa mãn schema, luồng thực thi lập tức dừng lại; RHF cập nhật đối tượng <code>formState.errors</code> để hiển thị thông báo lỗi màu đỏ ra UI. Hàm <code>onSubmit</code> của lập trình viên hoàn toàn không được gọi.</li>
+      <li><strong>Trường hợp hợp lệ (Bước 3):</strong> Nếu vượt qua validation, RHF chuyển tiếp dữ liệu đã được parse sạch và chuẩn hóa kiểu vào hàm callback của lập trình viên: <code>onSubmit(data)</code> để gửi API.</li>
+    </ul>
+  </li>
+</ol>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao các phương án còn lại là sai:</strong>
+<ul>
+  <li><strong>Phương án b SAI:</strong> Không thể chạy validation (1) trước khi người dùng thực hiện thao tác click Submit (2).</li>
+  <li><strong>Phương án c SAI:</strong> Đảo ngược hoàn toàn quy trình xử lý sự kiện trong trình duyệt.</li>
+  <li><strong>Phương án d SAI:</strong> Gọi <code>onSubmit(data)</code> (3) trước khi ngăn chặn reload trang (4) và trước khi validate (1) sẽ làm gửi dữ liệu lỗi lên máy chủ và gây reload trang.</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Thao tác Demo trong Project:</strong>
+<ul>
+  <li><strong>File:</strong> <code>src/components/BookingForm.tsx</code> (dòng 24 & 184):
+    <div class="code-snippet">&lt;form onSubmit={handleSubmit(handleValidSubmit)}&gt;</div>
+  </li>
+  <li><strong>Thao tác Demo trên Web:</strong>
+    Để trống ô Họ tên và bấm nút Submit: Trang web không hề bị reload (Bước 4 thành công), hàm gọi API không hề chạy (Bước 3 bị chặn lại), và danh sách lỗi Zod xuất hiện ngay lập tức (Bước 5 kích hoạt).
+  </li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'Quy trình chuẩn mực là 2-4-1-(5 hoặc 3). Khi click submit ở bước 2, RHF lập tức gọi preventDefault ở bước 4 để chặn reload trang, sau đó chạy validation ở bước 1. Nếu có lỗi sẽ dừng lại cập nhật errors ở bước 5, nếu hợp lệ mới kích hoạt callback onSubmit ở bước 3.'
+  </div>
+</div>
+
+<!-- ==================== CÂU 14 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge">CÂU 14 • KIẾN THỨC CHUẨN</span></div>
+  <div class="q-title">Câu 14: Cho định nghĩa Zod Schema:
+const orderSchema = z.object({
+  quantity: z.coerce.number().min(1, "Số lượng tối thiểu là 1")
+});
+Nếu form gửi lên giá trị chuỗi "5" (từ một <input type="text" />), Zod sẽ xử lý như thế nào?</div>
+  
+  <div class="options-container">
+    <div class="opt-item">a) Ném ra lỗi Expected number, received string.</div>
+<div class="opt-item correct"><strong>b) Tự động ép kiểu chuỗi "5" thành số nguyên 5 và vượt qua validation.</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+<div class="opt-item">c) Giữ nguyên kiểu chuỗi "5" và gán lỗi cảnh báo.</div>
+<div class="opt-item">d) Chuyển đổi thành giá trị NaN.</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án b) — Tự động ép kiểu chuỗi "5" thành số nguyên 5 và vượt qua validation.
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Cơ chế Data Coercion của Zod:</strong>
+<ul>
+  <li>Mọi phần tử nhập liệu HTML (kể cả thẻ <code>&lt;input type="number"&gt;</code>) khi đọc qua thuộc tính <code>e.target.value</code> của trình duyệt **luôn luôn trả về kiểu dữ liệu là chuỗi văn bản (<code>string</code>)**.</li>
+  <li>Nếu ta sử dụng cú pháp nghiêm ngặt <code>z.number()</code>: Zod sẽ so sánh <code>typeof value === 'number'</code>. Khi nhận chuỗi <code>"5"</code>, Zod sẽ ném ra lỗi kiểm định: <code>Expected number, received string</code>.</li>
+  <li>Tuy nhiên, khi sử dụng <code>z.coerce.number()</code>: Zod sẽ ngầm bọc giá trị nhận vào qua hàm chuyển đổi kiểu nguyên thủy của JavaScript: <code>Number(value)</code>.
+    Cụ thể: <code>Number("5")</code> trả về số thực $5$.
+    Sau đó, Zod tiếp tục chạy qua bộ quy tắc <code>.min(1)</code>. Do $5 ge 1$, dữ liệu hoàn toàn thỏa mãn schema.
+  </li>
+  <li>Kết quả trả về trong object dữ liệu sau khi validate thành công là số nguyên $5$ (kiểu <code>number</code>), sẵn sàng cho các phép toán mà không sợ bị nối chuỗi.</li>
+</ul>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao các phương án còn lại là sai:</strong>
+<ul>
+  <li><strong>Phương án a SAI:</strong> Đây là hành vi của <code>z.number()</code> tiêu chuẩn, không phải của <code>z.coerce.number()</code>.</li>
+  <li><strong>Phương án c SAI:</strong> Zod không bao giờ giữ nguyên chuỗi sau khi đã chạy qua toán tử ép kiểu <code>coerce</code>.</li>
+  <li><strong>Phương án d SAI:</strong> Hàm <code>Number("5")</code> chuyển đổi hoàn hảo thành số $5$. Chỉ khi chuỗi chứa các ký tự không thể ép kiểu (ví dụ <code>"abc"</code>) thì mới trả về giá trị <code>NaN</code>.</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Thao tác Demo trong Project:</strong>
+<ul>
+  <li><strong>File:</strong> <code>src/schemas/bookingSchema.ts</code> (dòng 16-20):
+    <div class="code-snippet">nights: z.coerce
+  .number({ invalid_type_error: 'Số đêm phải là một chữ số' })
+  .int('Số đêm phải là số nguyên')
+  .min(1, 'Số đêm lưu trú tối thiểu là 1 đêm')</div>
+  </li>
+  <li><strong>Thao tác Demo trên Web:</strong>
+    Nhập số <code>5</code> vào ô "Số đêm lưu trú". Mặc dù DOM gửi lên chuỗi <code>"5"</code>, Zod tự ép thành số $5$, nhân với giá phòng tính ra tổng tiền chính xác mà không gặp bất kỳ lỗi xung đột kiểu nào.
+  </li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'Nhờ có z.coerce.number, Zod tự động gọi hàm Number("5") để ép chuỗi thành số 5 trước khi validate. Điều này giải quyết triệt để vấn đề input HTML luôn trả về string, giúp dữ liệu pass validation trơn tru.'
+  </div>
+</div>
+
+<!-- ==================== CÂU 15 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge">CÂU 15 • KIẾN THỨC CHUẨN</span></div>
+  <div class="q-title">Câu 15: Trong hàm xử lý onSubmit của React Form, câu lệnh nào dùng để ngăn trình duyệt tự động tải lại trang (reload)?</div>
+  
+  <div class="options-container">
+    <div class="opt-item">a) event.stopImmediatePropagation()</div>
+<div class="opt-item correct"><strong>b) event.preventDefault()</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+<div class="opt-item">c) event.stopPropagation()</div>
+<div class="opt-item">d) return false;</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án b) — event.preventDefault()
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Hành vi mặc định của HTML Form và kiến trúc Single Page Application (SPA):</strong>
+<ul>
+  <li>Theo đặc tả nguyên bản của HTML, khi sự kiện submit của thẻ <code>&lt;form&gt;</code> được kích hoạt, trình duyệt sẽ gom toàn bộ các input thành chuỗi query/body và phát đi một HTTP request đồng bộ tới địa chỉ <code>action</code>, dẫn đến việc **tải lại toàn bộ trang web (Full Page Reload)**.</li>
+  <li>Trong các ứng dụng React (SPA), toàn bộ vòng đời và trạng thái được quản lý trên bộ nhớ RAM. Nếu trang web bị tải lại, toàn bộ React Virtual DOM và state sẽ bị xóa sạch về trạng thái ban đầu.</li>
+  <li>Phương thức <code>event.preventDefault()</code> thuộc tiêu chuẩn W3C Event API có nhiệm vụ thông báo cho trình duyệt hủy bỏ hành vi mặc định của sự kiện đó, cho phép mã JavaScript tiếp tục điều khiển luồng dữ liệu ngầm thông qua AJAX/Fetch mà không làm chớp trắng màn hình.</li>
+</ul>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao các phương án còn lại là sai:</strong>
+<ul>
+  <li><strong>Phương án a SAI:</strong> <code>event.stopImmediatePropagation()</code> ngăn chặn các event listeners khác gắn trên cùng một phần tử được kích hoạt, hoàn toàn không ngăn được hành vi reload mặc định của thẻ form.</li>
+  <li><strong>Phương án c SAI:</strong> <code>event.stopPropagation()</code> chỉ ngăn chặn sự kiện nổi bọt (Event Bubbling) lên các phần tử cha trên cây DOM, trang web vẫn sẽ bị reload bình thường.</li>
+  <li><strong>Phương án d SAI:</strong> Cú pháp <code>return false;</code> chỉ có tác dụng trong mã HTML inline cổ xưa hoặc thư viện jQuery. Trong hệ thống SyntheticEvent của React, câu lệnh này bị phớt lờ hoàn toàn.</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Thao tác Demo trong Project:</strong>
+<ul>
+  <li><strong>File:</strong> <code>src/components/BookingForm.tsx</code>: Hàm <code>handleSubmit</code> của React Hook Form tự động bọc lệnh <code>event.preventDefault()</code> bên dưới. Nếu không có cơ chế này, mỗi lần bạn nhấn nút Đặt phòng, trang web sẽ tải lại từ đầu và mất sạch toàn bộ số đêm, ảnh preview và thông báo lỗi.</li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'event.preventDefault() là câu lệnh tiêu chuẩn để chặn hành vi reload mặc định của thẻ form trong HTML. Trong React SPA, lệnh này giữ cho trang web không bị tải lại, bảo toàn toàn bộ state và dữ liệu trên RAM.'
+  </div>
+</div>
+
+<!-- ==================== CÂU 16 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge">CÂU 16 • KIẾN THỨC CHUẨN</span></div>
+  <div class="q-title">Câu 16: Trong React Hook Form, thành phần <Controller /> được thiết kế nhằm thực hiện chức năng chính nào?</div>
+  
+  <div class="options-container">
+    <div class="opt-item">a) Tự động mã hóa dữ liệu form trước khi gửi lên API để chống tấn công XSS.</div>
+<div class="opt-item correct"><strong>b) Đóng vai trò là cầu nối (Adapter) để quản lý và đồng bộ state với các UI component tùy chỉnh (như Ant Design, Material UI) không expose trực tiếp native ref.</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+<div class="opt-item">c) Tạo hiệu ứng chuyển cảnh loading khi người dùng bấm submit form.</div>
+<div class="opt-item">d) Thay thế hoàn toàn thẻ <form> mặc định của HTML nhằm ngăn chặn tải lại trang.</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án b) — Đóng vai trò là cầu nối (Adapter) để quản lý và đồng bộ state với các UI component tùy chỉnh (như Ant Design, Material UI) không expose trực tiếp native ref.
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Mẫu thiết kế Adapter (Adapter Pattern) của thành phần `<Controller />`:</strong>
+<ul>
+  <li>React Hook Form đạt hiệu năng cao nhất khi làm việc trực tiếp với các phần tử HTML nguyên thủy thông qua thuộc tính <code>ref</code> (như <code>&lt;input ref={...} /&gt;</code>).</li>
+  <li>Tuy nhiên, các thư viện UI Component cao cấp (như Material UI <code>Select</code>, Ant Design <code>DatePicker</code>, <code>react-select</code>) thường che giấu thẻ input thật bên trong nhiều lớp thẻ <code>div</code> và chỉ cung cấp các props kiểm soát trạng thái như <code>value</code> và <code>onChange(val)</code>, **không để lộ native DOM ref ra ngoài**.</li>
+  <li>Thành phần <code>&lt;Controller /&gt;</code> được sinh ra để hiện thực hóa Adapter Pattern:
+    Nó nhận vào <code>control</code> và <code>name</code> từ <code>useForm</code>, sau đó cung cấp một Render Prop <code>render={({ field }) => ...}</code> chứa đầy đủ các thuộc tính <code>value, onChange, onBlur, ref</code>. Nhờ đó, Custom UI Component có thể đồng bộ hóa hai chiều hoàn hảo với trạng thái của React Hook Form.</li>
+</ul>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao các phương án còn lại là sai:</strong>
+<ul>
+  <li><strong>Phương án a SAI:</strong> Phòng chống tấn công XSS là nhiệm vụ của cơ chế khử khuẩn dữ liệu (Sanitization) và kiến trúc tự động escape chuỗi của React JSX, không phải vai trò của Controller.</li>
+  <li><strong>Phương án c SAI:</strong> Hiệu ứng chuyển cảnh loading do cờ <code>isSubmitting</code> kết hợp với CSS/Animation đảm nhận.</li>
+  <li><strong>Phương án d SAI:</strong> Thẻ <code>&lt;form&gt;</code> chuẩn của HTML vẫn được giữ nguyên để bảo đảm tính ngữ nghĩa (Semantic HTML) và khả năng tiếp cận (Accessibility - a11y).</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Minh họa Kiến trúc trong React:</strong>
+<ul>
+  <li>Khi cần tích hợp một thư viện như <code>react-select</code> vào hệ thống, ta bắt buộc phải sử dụng Controller:
+    <div class="code-snippet">&lt;Controller
+  name="roomType"
+  control={control}
+  render={({ field }) => (
+    &lt;CustomDropdown {...field} options={roomOptions} /&gt;
+  )}
+/&gt;</div>
+  </li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'Controller là một Adapter cầu nối. Nó được sinh ra để tích hợp React Hook Form với các thư viện UI tùy chỉnh như MUI hay Ant Design — những component không để lộ native ref mà bắt buộc phải quản lý qua value và onChange.'
+  </div>
+</div>
+
+<!-- ==================== CÂU 17 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge">CÂU 17 • KIẾN THỨC CHUẨN</span></div>
+  <div class="q-title">Câu 17: Chức năng chính của phương thức URL.revokeObjectURL() khi xử lý upload file ảnh trong React là gì?</div>
+  
+  <div class="options-container">
+    <div class="opt-item">a) Xóa vĩnh viễn file gốc trên thiết bị của người dùng để tiết kiệm ổ cứng.</div>
+<div class="opt-item">b) Tự động nén dung lượng ảnh trước khi đẩy lên máy chủ lưu trữ.</div>
+<div class="opt-item correct"><strong>c) Thu hồi URL tham chiếu tạm thời và giải phóng vùng nhớ nhị phân (Blob) trong RAM của trình duyệt, tránh gây rò rỉ bộ nhớ (Memory Leak).</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+<div class="opt-item">d) Tạo mã hash MD5 để kiểm tra tính toàn vẹn của tệp tin.</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án c) — Thu hồi URL tham chiếu tạm thời và giải phóng vùng nhớ nhị phân (Blob) trong RAM của trình duyệt, tránh gây rò rỉ bộ nhớ (Memory Leak).
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Cơ chế quản lý vòng đời bộ nhớ RAM của DOM Blob URLs:</strong>
+<ul>
+  <li>Mỗi khi gọi <code>URL.createObjectURL(blob)</code>, trình duyệt sẽ giữ một tham chiếu nội bộ cố định tới đối tượng nhị phân trong bộ nhớ RAM và cấp phát một chuỗi định danh <code>blob:...</code>.</li>
+  <li>**Nguy cơ Memory Leak (Rò rỉ bộ nhớ):** Cơ chế thu gom rác tự động của trình duyệt (Garbage Collector) **tuyệt đối không thể giải phóng vùng nhớ nhị phân này** chừng nào chuỗi URL tham chiếu vẫn còn tồn tại trong bảng đăng ký của trang (vùng nhớ chỉ tự mất đi khi đóng tab hoặc tải lại trang).</li>
+  <li>Nếu người dùng thực hiện tải nhiều ảnh lớn liên tục (mỗi ảnh 5-10MB), việc không thu hồi URL cũ sẽ khiến dung lượng RAM trình duyệt tăng liên tục, dẫn đến đơ lag hoặc crash hoàn toàn tab ứng dụng trên thiết bị di động.</li>
+  <li>Phương thức <code>URL.revokeObjectURL(url)</code> có vai trò cắt đứt liên kết tham chiếu này, báo hiệu cho Garbage Collector tiến hành thu hồi mảng byte nhị phân khỏi RAM ngay lập tức.</li>
+</ul>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao các phương án còn lại là sai:</strong>
+<ul>
+  <li><strong>Phương án a SAI:</strong> Do nguyên lý cô lập an toàn Sandbox của trình duyệt, JavaScript chạy trên web tuyệt đối không có quyền can thiệp hay xóa file gốc trên ổ đĩa cứng của người dùng.</li>
+  <li><strong>Phương án b SAI:</strong> Nén ảnh yêu cầu xử lý pixel qua Canvas API hoặc Web Workers.</li>
+  <li><strong>Phương án d SAI:</strong> Tạo mã hash kiểm tra tính toàn vẹn là nhiệm vụ của Web Crypto API (<code>crypto.subtle.digest</code>).</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Thao tác Demo trong Project:</strong>
+<ul>
+  <li><strong>File:</strong> <code>src/components/BookingForm.tsx</code> (dòng 47-50 & 63-66):
+    <div class="code-snippet">useEffect(() => {
+  return () => {
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl); // Dọn dẹp RAM khi component unmount
+    }
+  };
+}, [previewUrl]);
+
+const handleClearPhoto = () => {
+  if (previewUrl) URL.revokeObjectURL(previewUrl); // Giải phóng RAM khi bấm Xóa ảnh
+  setPreviewUrl(null);
+};</div>
+  </li>
+  <li><strong>Thao tác Demo trên Web:</strong>
+    Chọn 1 ảnh xem trước, sau đó bấm nút "Xóa ảnh này". Hàm <code>URL.revokeObjectURL</code> lập tức được gọi ngầm để giải phóng vùng nhớ Blob khỏi RAM.
+  </li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'createObjectURL giữ một con trỏ tới vùng RAM nhị phân của file. Nếu không thu hồi bằng revokeObjectURL, Garbage Collector sẽ không thể dọn dẹp, gây rò rỉ bộ nhớ nghiêm trọng. Luôn luôn gọi revokeObjectURL khi đổi ảnh mới hoặc khi component unmount.'
+  </div>
+</div>
+
+<!-- ==================== CÂU 18 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge">CÂU 18 • KIẾN THỨC CHUẨN</span></div>
+  <div class="q-title">Câu 18: Trong các thư viện quốc tế hóa như react-i18next, khái niệm Interpolation (Nội suy) có ý nghĩa và chức năng gì?</div>
+  
+  <div class="options-container">
+    <div class="opt-item">a) Dịch tự động giao diện bằng trí tuệ nhân tạo (AI Machine Translation).</div>
+<div class="opt-item correct"><strong>b) Chèn động các giá trị biến (ví dụ: tên người dùng, số lượng, ngày tháng) vào các vị trí được đánh dấu sẵn trong chuỗi dịch mẫu.</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+<div class="opt-item">c) Tự động chuyển đổi định dạng tiền tệ sang tỷ giá hối đoái thời gian thực.</div>
+<div class="opt-item">d) Gộp tất cả các file JSON ngôn ngữ thành một file tĩnh duy nhất để tải nhanh hơn.</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án b) — Chèn động các giá trị biến (ví dụ: tên người dùng, số lượng, ngày tháng) vào các vị trí được đánh dấu sẵn trong chuỗi dịch mẫu.
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Bản chất của Interpolation trong công cụ i18n:</strong>
+<ul>
+  <li>Trong quá trình bản địa hóa phần mềm, không bao giờ được nối chuỗi thủ công bằng toán tử cộng (ví dụ: <code>"Xin chào " + name + ", bạn có " + count + " phòng"</code>). Lý do: Cấu trúc ngữ pháp giữa các ngôn ngữ rất khác nhau; trong tiếng Nhật hoặc tiếng Đức, động từ và tân ngữ có thể bị đảo trật tự hoàn toàn về cuối câu.</li>
+  <li><strong>Interpolation (Nội suy)</strong> giải quyết triệt để vấn đề này bằng cách cho phép định nghĩa các vị trí giữ chỗ (placeholders) có cấu trúc ngoặc nhọn kép trong file JSON ngôn ngữ:
+    <code>"welcomeMessage": "Chào mừng {{name}}, bạn đã đặt {{count}} đêm!"</code>
+  </li>
+  <li>Khi chạy hàm <code>t('welcomeMessage', { name: 'Alex', count: 3 })</code>, thư viện sẽ tự động phân tích và tiêm chính xác các giá trị tương ứng vào đúng vị trí ngữ pháp của từng ngôn ngữ, tạo ra câu văn tự nhiên tuyệt đối.</li>
+</ul>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao các phương án còn lại là sai:</strong>
+<ul>
+  <li><strong>Phương án a SAI:</strong> Dịch tự động bằng AI là tính năng của các dịch vụ đám mây (Google Cloud Translation, DeepL API).</li>
+  <li><strong>Phương án c SAI:</strong> Quy đổi tỷ giá hối đoái thuộc về các dịch vụ tài chính (Exchange Rate API).</li>
+  <li><strong>Phương án d SAI:</strong> Đóng gói các file JSON thành một file duy nhất là nhiệm vụ của công cụ build (Webpack/Vite Bundle).</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Thao tác Demo trong Project:</strong>
+<ul>
+  <li><strong>File:</strong> <code>src/i18n/locales/vi.json</code> (dòng 4) & <code>src/App.tsx</code> (dòng 64):
+    <div class="code-snippet">// JSON: "dynamicGreeting": "Chào mừng {{name}}, phòng trọ này đã có {{count}} lượt khách đặt hôm nay!"
+&lt;p&gt;{t('dynamicGreeting', { name: 'Alex Johnson', count: 24 })}&lt;/p&gt;</div>
+  </li>
+  <li><strong>Thao tác Demo trên Web:</strong>
+    Quan sát dòng chữ màu xanh lá ngay dưới tiêu đề chính trên web: Tên <em>"Alex Johnson"</em> và con số <em>"24"</em> được nhúng động chuẩn xác vào giữa câu văn. Khi đổi sang English hoặc 中文, trật tự câu văn tự động thích ứng hoàn hảo.
+  </li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'Interpolation cho phép chèn động các biến như tên hay số lượng vào vị trí {{placeholder}} trong file dịch JSON. Điều này ngăn chặn việc ghép chuỗi sai ngữ pháp khi chuyển đổi giữa các ngôn ngữ có trật tự từ khác nhau.'
+  </div>
+</div>
+
+<!-- ==================== CÂU 19 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge">CÂU 19 • KIẾN THỨC CHUẨN</span></div>
+  <div class="q-title">Câu 19: Trong việc xử lý đa ngôn ngữ, các thuộc tính CSS Logical Properties (như margin-inline-start, padding-inline-end) ra đời nhằm giải quyết vấn đề gì?</div>
+  
+  <div class="options-container">
+    <div class="opt-item">a) Giúp CSS tự động kiểm tra lỗi chính tả của các ngôn ngữ khác nhau.</div>
+<div class="opt-item correct"><strong>b) Tự động thích ứng hướng cách lề theo chiều đọc của tài liệu (tự chuyển thành lề trái ở LTR và lề phải ở RTL) mà không cần viết lại CSS để override.</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+<div class="opt-item">c) Tăng tốc độ render của trình duyệt khi nạp font chữ tiếng Ả Rập hoặc Do Thái.</div>
+<div class="opt-item">d) Đảm bảo kích thước chữ luôn hiển thị đồng đều trên mọi kích cỡ màn hình.</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án b) — Tự động thích ứng hướng cách lề theo chiều đọc của tài liệu (tự chuyển thành lề trái ở LTR và lề phải ở RTL) mà không cần viết lại CSS để override.
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Nguyên lý tư duy hướng dòng chảy (Flow-relative Direction) của CSS Logical Properties:</strong>
+<ul>
+  <li>Trước đây, CSS bị trói buộc vào tư duy vật lý màn hình (Physical Dimensions: <code>left, right, top, bottom</code>). Khi xây dựng giao diện đa ngôn ngữ có cả LTR và RTL, lập trình viên buộc phải viết gấp đôi số lượng CSS để ghi đè (override):
+    <div class="code-snippet">.box { margin-right: 15px; }
+[dir="rtl"] .box { margin-right: 0; margin-left: 15px; }</div>
+  </li>
+  <li>CSS Logical Properties thay đổi hoàn toàn cuộc chơi bằng cách định nghĩa khoảng cách dựa trên chiều dòng chảy của văn bản:
+    <ul>
+      <li><code>inline-start</code>: Điểm bắt đầu dòng đọc (Trái ở LTR, Phải ở RTL).</li>
+      <li><code>inline-end</code>: Điểm kết thúc dòng đọc (Phải ở LTR, Trái ở RTL).</li>
+      <li><code>block-start / block-end</code>: Chiều dọc từ trên xuống dưới.</li>
+    </ul>
+  </li>
+  <li>Chỉ cần viết một thuộc tính duy nhất: <code>margin-inline-end: 15px;</code>, trình duyệt sẽ tự động lật khoảng cách sang bên trái khi tài liệu mang thuộc tính <code>dir="rtl"</code> mà không tốn thêm bất kỳ dòng code ghi đè nào.</li>
+</ul>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao các phương án còn lại là sai:</strong>
+<ul>
+  <li><strong>Phương án a SAI:</strong> CSS là ngôn ngữ tạo kiểu dáng, hoàn toàn không có khả năng nhận thức ngữ nghĩa hay kiểm tra chính tả.</li>
+  <li><strong>Phương án c SAI:</strong> Tốc độ render font phụ thuộc vào kích thước tệp font WOFF2 và thuộc tính <code>font-display</code>.</li>
+  <li><strong>Phương án d SAI:</strong> Kích thước chữ đồng đều trên các kích thước màn hình là nhiệm vụ của Responsive Typography (sử dụng <code>clamp()</code> hoặc media queries).</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Thao tác Demo trong Project:</strong>
+<ul>
+  <li><strong>File:</strong> <code>src/i18n/config.ts</code> (dòng 39) & <code>src/components/BookingForm.tsx</code>:
+    <div class="code-snippet">document.documentElement.dir = (lng === 'zh') ? 'rtl' : 'ltr';</div>
+  </li>
+  <li><strong>Thao tác Demo trên Web:</strong>
+    Bấm nút chuyển ngôn ngữ sang **中文 (RTL Demo)**: Toàn bộ cấu trúc form lật đối xứng $180^circ$ ngay trước mắt, khoảng cách giữa nhãn và ô input tự động đảo chiều chính xác mà không hề bị vỡ bố cục.
+  </li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'CSS Logical Properties ra đời để thay thế tư duy trái phải vật lý bằng tư duy chiều đọc tài liệu. Nhờ đó, giao diện tự động thích ứng với cả ngôn ngữ LTR và RTL mà lập trình viên không cần viết thêm các class override cồng kềnh.'
+  </div>
+</div>
+
+<!-- ==================== CÂU 20 ==================== -->
+<div class="question-card">
+  <div><span class="q-badge">CÂU 20 • KIẾN THỨC CHUẨN</span></div>
+  <div class="q-title">Câu 20: Trong kiến trúc Class Component Error Boundary, phương thức lifecycle componentDidCatch(error, errorInfo) được sinh ra với mục đích chính là gì?</div>
+  
+  <div class="options-container">
+    <div class="opt-item">a) Ngăn chặn triệt để và hủy bỏ lỗi runtime để component không bị crash.</div>
+<div class="opt-item correct"><strong>b) Thực hiện các tác vụ phụ (Side effects) như ghi nhận thông tin chi tiết của lỗi và gửi log đến các dịch vụ giám sát hạ tầng (như Sentry, Datadog, LogRocket).</strong> ✅ (ĐÁP ÁN ĐÚNG)</div>
+<div class="opt-item">c) Trả về giao diện JSX thay thế (Fallback UI) để người dùng xem khi có lỗi.</div>
+<div class="opt-item">d) Tự động gọi lại (retry) API vừa bị lỗi mạng.</div>
+
+  </div>
+
+  <div class="correct-banner">
+    ĐÁP ÁN CHÍNH XÁC: Phương án b) — Thực hiện các tác vụ phụ (Side effects) như ghi nhận thông tin chi tiết của lỗi và gửi log đến các dịch vụ giám sát hạ tầng (như Sentry, Datadog, LogRocket).
+  </div>
+
+  <div class="tech-analysis">
+    <h3>1. Bản chất Kỹ thuật & Cơ chế hoạt động (Under The Hood):</h3>
+    <strong>Phân định trách nhiệm giữa getDerivedStateFromError và componentDidCatch:</strong>
+<ul>
+  <li>Kiến trúc Error Boundary của React phân tách rạch ròi giữa việc **hiển thị giao diện lỗi** và việc **thực hiện tác vụ phụ (Side Effects)**:
+    <ol>
+      <li><code>static getDerivedStateFromError(error)</code>: Thuộc <strong>Render Phase</strong>. Hàm này là pure function, tuyệt đối cấm kích hoạt Side Effects. Nhiệm vụ duy nhất là cập nhật state (ví dụ <code>{ hasError: true }</code>) để React kịp thời render ra Fallback UI.</li>
+      <li><code>componentDidCatch(error, errorInfo)</code>: Thuộc <strong>Commit Phase</strong>. Được kích hoạt sau khi Fallback UI đã được vẽ xong lên Real DOM.</li>
+    </ol>
+  </li>
+  <li>Tham số <code>errorInfo</code> trong <code>componentDidCatch</code> chứa thuộc tính vô giá là <code>componentStack</code> — mô tả chính xác cây phân cấp component và số dòng code nơi phát sinh lỗi.</li>
+  <li>Do nằm ở Commit Phase, đây là nơi duy nhất được React cho phép thực hiện các Side Effects: Gửi HTTP Request ngầm để truyền toàn bộ error stack trace về các nền tảng giám sát hệ thống (Sentry, LogRocket, Datadog) giúp đội ngũ kỹ sư nhận diện và khắc phục sự cố tức thì.</li>
+</ul>
+  </div>
+
+  <div class="distractor-box">
+    <div class="title">2. Mổ xẻ chi tiết các Phương án sai (Distractor Analysis):</div>
+    <strong>Mổ xẻ vì sao các phương án còn lại là sai:</strong>
+<ul>
+  <li><strong>Phương án a SAI:</strong> Lỗi runtime một khi đã xảy ra thì không thể hủy bỏ hay làm biến mất; Error Boundary chỉ có thể cô lập lỗi để không làm sập toàn bộ ứng dụng.</li>
+  <li><strong>Phương án c SAI:</strong> Việc trả về JSX Fallback UI là nhiệm vụ của hàm <code>render()</code> kết hợp với state từ <code>getDerivedStateFromError</code>, <code>componentDidCatch</code> không trả về JSX.</li>
+  <li><strong>Phương án d SAI:</strong> <code>componentDidCatch</code> chỉ bắt lỗi render của component con, hoàn toàn không tự động retry các API mạng bị lỗi.</li>
+</ul>
+  </div>
+
+  <div class="code-demo-box">
+    <div class="demo-title">3. Điểm chạm Code thực tế & Hướng dẫn Demo trên Project:</div>
+    <strong>Vị trí Code & Thao tác Demo trong Project:</strong>
+<ul>
+  <li><strong>File:</strong> <code>src/components/ErrorBoundary.tsx</code> (dòng 31-34):
+    <div class="code-snippet">public componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+  // Gửi log lỗi và component stack trace về hạ tầng giám sát:
+  console.error('[ErrorBoundary Logger]', error);
+  console.info('[Component Stack Trace]', errorInfo.componentStack);
+}</div>
+  </li>
+  <li><strong>Thao tác Demo trên Web:</strong>
+    Bấm nút <em>"Mô phỏng lỗi sập Component con (Crash Demo)"</em>. Mở tab Console trong DevTools (F12): Bạn sẽ thấy dòng log chi tiết từ <code>componentDidCatch</code> in ra toàn bộ cây phân cấp component stack trace của <code>FaultyRoomDetails</code>.
+  </li>
+</ul>
+  </div>
+
+  <div class="speaker-script">
+    🎙️ <strong>Kịch bản diễn đạt súc tích:</strong> 'componentDidCatch chạy ở commit phase và được sinh ra chuyên biệt để xử lý Side Effects — cụ thể là thu thập error stack trace gửi về các hệ thống giám sát như Sentry. Trả về giao diện lỗi là việc của getDerivedStateFromError, không phải của componentDidCatch.'
+  </div>
+</div>
+
+</body>
+</html>
