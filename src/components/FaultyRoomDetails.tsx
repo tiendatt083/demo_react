@@ -58,7 +58,7 @@ export const FaultyRoomDetails: React.FC<FaultyRoomDetailsProps> = ({ triggerCra
               color: '#334155',
             }}
           >
-            <span style={{ display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10b981', marginRight: '0.5rem' }} />
+            <span style={{ display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10b981', marginInlineEnd: '0.5rem' }} />
             <span>{amenity.name}</span>
           </div>
         ))}

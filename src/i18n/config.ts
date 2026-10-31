@@ -30,15 +30,16 @@ i18n
     },
   });
 
-// Đảm bảo cấu trúc giao diện luôn cố định LTR (trái sang phải) cho tất cả ngôn ngữ
+// Tự động đảo chiều RTL (180 độ từ phải sang trái) khi chọn tiếng Trung theo kịch bản Slide 18
 if (typeof document !== 'undefined') {
-  document.documentElement.dir = 'ltr';
+  document.documentElement.dir = i18n.language === 'zh' ? 'rtl' : 'ltr';
   document.documentElement.lang = i18n.language || 'vi';
 }
 
 i18n.on('languageChanged', (lng: string) => {
   if (typeof document !== 'undefined') {
-    document.documentElement.dir = 'ltr'; // Giữ nguyên hướng LTR, không đảo cấu trúc
+    // Khi chọn 'zh' (tiếng Trung), lật giao diện sang RTL (phải sang trái) để demo
+    document.documentElement.dir = lng === 'zh' ? 'rtl' : 'ltr';
     document.documentElement.lang = lng;
   }
 });

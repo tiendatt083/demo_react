@@ -22,15 +22,3 @@ export interface BookingFormInput {
   /** Ảnh chụp CCCD hoặc Hộ chiếu để làm thủ tục nhận phòng quốc tế */
   passportPhoto: FileList | File;
 }
-
-/**
- * Thông tin chi tiết hiển thị cho từng lựa chọn phòng
- */
-export interface RoomOption {
-  id: RoomType;
-  titleKey: string;
-  descriptionKey: string;
-  pricePerNightUSD: number;
-  badgeKey?: string;
-}
-

@@ -1,3 +1,5 @@
+import { RoomType } from '../types/booking';
+
 /**
  * Bảng đơn giá phòng theo đêm:
  * - standard: 300,000 VND / $15 USD / ¥100 CNY
@@ -23,8 +25,9 @@ export const ROOM_RATES = {
  * - lang === 'zh' => Đơn vị tiền tệ CNY (zh-CN)
  * - lang === 'en' => Đơn vị tiền tệ USD (en-US)
  */
-export function formatRoomPrice(totalNights: number, roomType: string, lang: string): string {
-  const safeNights = Number.isFinite(totalNights) && totalNights > 0 ? totalNights : 0;
+export function formatRoomPrice(totalNights: number | string, roomType: RoomType | string, lang: string): string {
+  const numNights = Number(totalNights);
+  const safeNights = Number.isFinite(numNights) && numNights > 0 ? numNights : 0;
   const rateKey = roomType === 'vip_studio' ? 'vip_studio' : 'standard_room';
 
   let currency = 'USD';

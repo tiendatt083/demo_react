@@ -30,10 +30,10 @@ export const App: React.FC = () => {
         maxWidth: '860px',
         margin: '0 auto',
         color: '#1f2937',
-        textAlign: 'left', // Cố định cấu trúc LTR cho tất cả ngôn ngữ
+        textAlign: 'start', // Tự động căn theo start (trái với VI/EN, phải với ZH-RTL)
       }}
     >
-      {/* 1. Thanh chọn ngôn ngữ: Label bên trái, các nút bên phải (cố định cho tất cả ngôn ngữ) */}
+      {/* 1. Thanh chọn ngôn ngữ: Tự động đảo chiều theo LTR / RTL */}
       <div
         style={{
           display: 'flex',

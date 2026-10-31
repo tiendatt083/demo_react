@@ -29,6 +29,7 @@ export const BookingForm: React.FC = () => {
     control,
     watch,
     reset,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<BookingFormValues>({
     resolver: zodResolver(bookingSchema),
@@ -44,7 +45,7 @@ export const BookingForm: React.FC = () => {
 
   // 4. Theo dõi giá trị thời gian thực để tính tiền
   const [watchedNights, watchedRoomType] = watch(['nights', 'roomType']);
-  const estimatedPrice = formatRoomPrice(watchedNights || 1, watchedRoomType || 'standard_room', currentLang);
+  const estimatedPrice = formatRoomPrice(watchedNights ?? 1, watchedRoomType || 'standard_room', currentLang);
   const checkinDateFormatted = formatCheckinDate(new Date(), currentLang);
 
   // 5. Xử lý Preview ảnh & Cleanup tránh Memory Leak
@@ -72,6 +73,7 @@ export const BookingForm: React.FC = () => {
     };
   }, [previewUrl]);
 
+  // Xóa ảnh đã chọn và đồng bộ lại với React Hook Form
   const handleClearPhoto = () => {
     if (previewUrl) {
       URL.revokeObjectURL(previewUrl);
@@ -80,6 +82,7 @@ export const BookingForm: React.FC = () => {
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
+    setValue('passportPhoto', undefined as unknown as FileList, { shouldValidate: true });
   };
 
   // 6. Xử lý Submit form
@@ -116,7 +119,7 @@ export const BookingForm: React.FC = () => {
         borderRadius: '12px',
         padding: '1.75rem',
         boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.05)',
-        textAlign: 'left',
+        textAlign: 'start', // Hỗ trợ đảo chiều chuẩn khi chuyển LTR <-> RTL
       }}
     >
       {/* Huy hiệu đếm Re-render tối giản */}
@@ -246,7 +249,7 @@ export const BookingForm: React.FC = () => {
               type="number"
               min={1}
               placeholder={t('placeholders.nights')}
-              {...register('nights')}
+              {...register('nights', { valueAsNumber: true })}
               style={{
                 width: '100%',
                 padding: '0.6rem 0.75rem',

@@ -7,7 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Dependencies
+# Dependencies & Build
 node_modules
 dist
 dist-ssr
@@ -38,3 +38,6 @@ tmp/
 temp/
 Thumbs.db
 
+# Microsoft Office temporary & companion files
+~$*
+*_files/
