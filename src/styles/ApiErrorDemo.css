@@ -1,0 +1,132 @@
+/* ==========================================================================
+   API ERROR DEMO STYLES (src/styles/ApiErrorDemo.css)
+   Theo kiến trúc MVC: View Styling cho demo lỗi API / Network
+   ========================================================================== */
+
+.api-demo {
+  display: grid;
+  gap: 0.9rem;
+}
+
+/* 1. Dãy chọn kịch bản phản hồi server */
+.api-scenarios {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.api-scenarios-legend {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-bottom: 0.4rem;
+}
+
+.api-scenarios-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.api-scenario-btn {
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+  color: #4b5563;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.api-scenario-btn.active {
+  border: 1.5px solid #b45309;
+  background-color: #fef3c7;
+  color: #92400e;
+  font-weight: 600;
+}
+
+.api-scenario-btn:disabled {
+  cursor: not-allowed;
+}
+
+/* 2. Nút thanh toán & trạng thái máy trạng thái */
+.api-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.api-pay-btn {
+  padding: 0.5rem 1rem;
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.api-pay-btn:disabled {
+  background-color: #93c5fd;
+  cursor: wait;
+}
+
+.api-status {
+  font-size: 0.8rem;
+  font-family: Consolas, Monaco, 'Courier New', monospace;
+}
+
+.api-status-idle { color: #64748b; }
+.api-status-loading { color: #2563eb; }
+.api-status-success { color: #059669; }
+.api-status-error { color: #dc2626; }
+
+/* 3. Banner phản hồi */
+.api-banner {
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.api-banner-success {
+  background-color: #ecfdf5;
+  border: 1px solid #6ee7b7;
+  color: #065f46;
+}
+
+.api-banner-error {
+  background-color: #fef2f2;
+  border: 1px solid #f87171;
+  color: #991b1b;
+}
+
+.api-banner-hint {
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+}
+
+.api-retry-btn {
+  margin-top: 0.6rem;
+  padding: 0.35rem 0.8rem;
+  background-color: #ffffff;
+  color: #991b1b;
+  border: 1px solid #f87171;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* 4. Nút đẩy lỗi async vào Error Boundary */
+.api-escalate-btn {
+  justify-self: start;
+  padding: 0.35rem 0.8rem;
+  background-color: transparent;
+  color: #b45309;
+  border: 1px dashed #f59e0b;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}

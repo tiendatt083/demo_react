@@ -79,58 +79,24 @@
   font-weight: 500;
 }
 
-/* 3. Khu vực kiểm thử Error Boundary (Fault Injection) */
-.fault-test-card {
+/* 3. Khu vực demo lỗi API / Network */
+.api-demo-card {
   margin-top: 2.5rem;
   padding: 1.5rem;
-  background-color: #f8fafc;
-  border: 1px solid #e2e8f0;
+  background-color: #fffbeb;
+  border: 1px solid #fde68a;
   border-radius: 12px;
 }
 
-.fault-test-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.fault-test-title {
+.api-demo-title {
   font-size: 1.05rem;
   font-weight: 700;
-  color: #1e293b;
+  color: #92400e;
   margin: 0;
 }
 
-.fault-test-desc {
-  margin: 0.25rem 0 0 0;
+.api-demo-desc {
+  margin: 0.25rem 0 1rem 0;
   font-size: 0.825rem;
-  color: #64748b;
+  color: #78716c;
 }
-
-.fault-btn {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: opacity 0.15s ease;
-}
-
-.fault-btn:hover {
-  opacity: 0.9;
-}
-
-.fault-btn-crash {
-  background-color: #dc2626;
-  color: #ffffff;
-}
-
-.fault-btn-reset {
-  background-color: #059669;
-  color: #ffffff;
-}
-
