@@ -1078,7 +1078,7 @@
             <span class="card-badge emerald">Phần 3</span>
             <div class="card-title">Localization Layer</div>
             <ul class="bullet-list">
-              <li><strong>react-i18next:</strong> Đa ngôn ngữ (VI, EN, AR) thời gian thực.</li>
+              <li><strong>react-i18next:</strong> Đa ngôn ngữ (VI, EN, ZH) thời gian thực.</li>
               <li><strong>Native Intl API:</strong> Chuẩn hóa tiền tệ (₫, $, €) & ngày tháng.</li>
               <li><strong>CSS Logical Properties:</strong> Tự động lật giao diện RTL 180°.</li>
               <li><strong>Zero Bundle Overhead:</strong> Tận dụng sẵn API trình duyệt.</li>
@@ -1208,13 +1208,18 @@
               </p>
             </div>
             <div class="code-container">
-              <div class="code-body">
-                // ❌ SAI:
-                const [name, setName] = useState(); // undefined!
-                &lt;input value={name} onChange={...} /&gt;
+              <div class="code-header">src/components/BookingForm.tsx</div>
+              <div class="code-body"><span class="code-token-cm">// ❌ SAI: Khởi tạo undefined gây lỗi đổi trạng
+                  thái</span>
+                <span class="code-token-kw">const</span> [specialNotes, setSpecialNotes] = <span
+                  class="code-token-fn">useState</span>();
+                &lt;input value={specialNotes} onChange={e =&gt; setSpecialNotes(e.target.value)} /&gt;
 
-                // ✅ ĐÚNG: Luôn khởi tạo chuỗi rỗng
-                const [name, setName] = useState('');</div>
+                <span class="code-token-cm">// ✅ ĐÚNG: Khởi tạo chuỗi rỗng (thực tế dự án)</span>
+                <span class="code-token-kw">const</span> [specialNotes, setSpecialNotes] = <span
+                  class="code-token-fn">useState</span>&lt;<span class="code-token-type">string</span>&gt;(<span
+                  class="code-token-str">''</span>);
+              </div>
             </div>
           </div>
         </div>
@@ -1308,23 +1313,29 @@
               Screen Reader cho người khiếm thị bắt buộc cần các thuộc tính ARIA:
             </p>
             <div class="code-container">
-              <div class="code-header">AccessibleField.jsx</div>
-              <div class="code-body">&lt;label htmlFor="email-input"&gt;Địa chỉ Email&lt;/label&gt;
+              <div class="code-header">src/components/BookingForm.tsx</div>
+              <div class="code-body">&lt;label htmlFor=<span class="code-token-str">"email"</span> className=<span
+                  class="code-token-str">"form-label"</span>&gt;
+                {t(<span class="code-token-str">'labels.email'</span>)} &lt;span className=<span
+                  class="code-token-str">"required-star"</span>&gt;*&lt;/span&gt;
+                &lt;/label&gt;
                 &lt;input
-                id="email-input"
-                type="email"
+                id=<span class="code-token-str">"email"</span>
+                type=<span class="code-token-str">"email"</span>
                 <span class="code-token-prop">aria-invalid</span>={errors.email ? <span
                   class="code-token-str">"true"</span> : <span class="code-token-str">"false"</span>}
                 <span class="code-token-prop">aria-describedby</span>={errors.email ? <span
-                  class="code-token-str">"email-err"</span> : undefined}
+                  class="code-token-str">"email-error"</span> : undefined}
                 {...register(<span class="code-token-str">"email"</span>)}
+                className={`form-control ${errors.email ? <span class="code-token-str">'form-control-error'</span> :
+                <span class="code-token-str">''</span>}`}
                 /&gt;
 
                 {errors.email &amp;&amp; (
-                &lt;p id=<span class="code-token-str">"email-err"</span> <span class="code-token-prop">role</span>=<span
-                  class="code-token-str">"alert"</span> <span class="code-token-prop">aria-live</span>=<span
-                  class="code-token-str">"assertive"</span>&gt;
-                {errors.email.message}
+                &lt;p id=<span class="code-token-str">"email-error"</span> <span
+                  class="code-token-prop">role</span>=<span class="code-token-str">"alert"</span> className=<span
+                  class="code-token-str">"field-error-text"</span>&gt;
+                {t(errors.email.message as string)}
                 &lt;/p&gt;
                 )}
               </div>
@@ -1371,23 +1382,28 @@
           <div class="content-card highlight">
             <span class="card-badge amber">Zod Validation Schema</span>
             <div class="code-container">
-              <div class="code-header">bookingSchema.ts</div>
+              <div class="code-header">src/schemas/bookingSchema.ts</div>
               <div class="code-body"><span class="code-token-kw">export const</span> bookingSchema = z.object({
-                guestName: z.string().min(2, <span class="code-token-str">'val_guest_name_min'</span>),
+                guestName: z.string().trim().min(2, <span class="code-token-str">'val_guest_name_min'</span>),
+                email: z.string().trim().email(<span class="code-token-str">'val_email_invalid'</span>),
 
-                <span class="code-token-cm">// 1. Tự động ép kiểu chuỗi HTML sang number</span>
+                <span class="code-token-cm">// 1. Tự động ép kiểu chuỗi text input sang number (z.coerce)</span>
                 nights: z.coerce.number().min(1, <span class="code-token-str">'val_nights_min'</span>),
+                roomType: z.enum(ROOM_TYPES),
 
-                roomType: z.enum([<span class="code-token-str">'standard_room'</span>, <span
-                  class="code-token-str">'vip_studio'</span>]),
-                password: z.string().min(8),
-                confirmPassword: z.string()
-                })
-                <span class="code-token-cm">// 2. Dependent Validation: Kiểm tra logic chéo giữa 2 trường</span>
-                .refine((data) =&gt; data.password === data.confirmPassword, {
-                message: <span class="code-token-str">'Mật khẩu không khớp'</span>,
-                path: [<span class="code-token-str">'confirmPassword'</span>]
+                <span class="code-token-cm">// 2. Custom validation &amp; kiểm tra dung lượng/định dạng file
+                  (.refine)</span>
+                passportPhoto: z.custom&lt;FileList | File&gt;()
+                .refine((val) =&gt; extractFile(val) !== <span class="code-token-kw">null</span>, <span
+                  class="code-token-str">'val_passport_required'</span>)
+                .refine((val) =&gt; extractFile(val)?.size &lt;= MAX_FILE_SIZE, <span
+                  class="code-token-str">'val_passport_max_size'</span>)
+                .refine((val) =&gt; ACCEPTED_IMAGE_TYPES.includes(extractFile(val)?.type), <span
+                  class="code-token-str">'val_passport_invalid_type'</span>)
                 });
+
+                <span class="code-token-kw">export type</span> <span class="code-token-type">BookingFormValues</span> =
+                z.infer&lt;<span class="code-token-kw">typeof</span> bookingSchema&gt;;
               </div>
             </div>
           </div>
@@ -1474,22 +1490,23 @@
           <div class="content-card highlight">
             <span class="card-badge emerald">Giải Pháp Dọn Dẹp Bắt Buộc</span>
             <div class="code-container">
-              <div class="code-header">AvatarUpload.tsx</div>
+              <div class="code-header">src/components/BookingForm.tsx</div>
               <div class="code-body"><span class="code-token-kw">const</span> [previewUrl, setPreviewUrl] = <span
                   class="code-token-fn">useState</span>&lt;<span class="code-token-type">string | null</span>&gt;(<span
                   class="code-token-kw">null</span>);
 
-                <span class="code-token-kw">const</span> handleFileChange = (e) =&gt; {
+                <span class="code-token-kw">const</span> handleFileChange = (e:
+                React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {
                 <span class="code-token-kw">const</span> file = e.target.files?.[0];
                 <span class="code-token-kw">if</span> (file) {
-                <span class="code-token-cm">// 1. Thu hồi URL cũ trước khi tạo URL mới</span>
+                <span class="code-token-cm">// 1. Thu hồi Object URL cũ trước khi tạo URL mới</span>
                 <span class="code-token-kw">if</span> (previewUrl) URL.<span
                   class="code-token-fn">revokeObjectURL</span>(previewUrl);
                 setPreviewUrl(URL.<span class="code-token-fn">createObjectURL</span>(file));
                 }
                 };
 
-                <span class="code-token-cm">// 2. Cleanup function khi unmount component</span>
+                <span class="code-token-cm">// 2. Cleanup function khi unmount hoặc đổi ảnh để chống Memory Leak</span>
                 <span class="code-token-fn">useEffect</span>(() =&gt; {
                 <span class="code-token-kw">return</span> () =&gt; {
                 <span class="code-token-kw">if</span> (previewUrl) URL.<span
@@ -1587,29 +1604,28 @@
           </div>
         </div>
 
-        <div class="content-card">
-          <span class="card-badge purple">Async State Machine Architecture</span>
+                <div class="content-card">
+          <span class="card-badge purple">Async Handling & API Feedback trong Project</span>
           <p style="font-size:0.85rem; color:#334155; margin-bottom:0.5rem;">
-            Dùng Union Type duy nhất để loại trừ triệt để tình trạng vừa <code>loading=true</code> vừa có
-            <code>error</code>:
+            Quản lý trạng thái submit bất đồng bộ và trả về Actionable Error Feedback trực tiếp từ <code>src/components/BookingForm.tsx</code>:
           </p>
           <div class="code-container">
-            <div class="code-body"><span class="code-token-kw">type</span> <span
-                class="code-token-type">AsyncStatus</span> = <span class="code-token-str">'idle'</span> | <span
-                class="code-token-str">'loading'</span> | <span class="code-token-str">'error'</span> | <span
-                class="code-token-str">'success'</span>;
+            <div class="code-header">src/components/BookingForm.tsx</div>
+            <div class="code-body"><span class="code-token-kw">const</span> [apiError, setApiError] = <span class="code-token-fn">useState</span>&lt;<span class="code-token-type">string | null</span>&gt;(<span class="code-token-kw">null</span>);
+<span class="code-token-kw">const</span> [successMessage, setSuccessMessage] = <span class="code-token-fn">useState</span>&lt;<span class="code-token-type">string | null</span>&gt;(<span class="code-token-kw">null</span>);
+<span class="code-token-kw">const</span> { formState: { isSubmitting } } = <span class="code-token-fn">useForm</span>&lt;<span class="code-token-type">BookingFormValues</span>&gt;();
 
-              <span class="code-token-kw">const</span> [status, setStatus] = <span
-                class="code-token-fn">useState</span>&lt;<span class="code-token-type">AsyncStatus</span>&gt;(<span
-                class="code-token-str">'idle'</span>);
-
-              <span class="code-token-cm">// Trả về Actionable Feedback rõ ràng cho người dùng thay vì báo chung
-                chung</span>
-              <span class="code-token-kw">if</span> (err.status === 402) setApiError(<span class="code-token-str">"Số dư
-                tài khoản không đủ để đặt cọc."</span>);
-              <span class="code-token-kw">else if</span> (err.status === 409) setApiError(<span
-                class="code-token-str">"Phòng này vừa được khách khác đặt trước."</span>);
-            </div>
+<span class="code-token-kw">const</span> onSubmit = <span class="code-token-kw">async</span> (data: BookingFormValues) =&gt; {
+  setApiError(<span class="code-token-kw">null</span>);
+  <span class="code-token-kw">try</span> {
+    <span class="code-token-cm">// Giả lập API: reject lỗi ROOM_OCCUPIED_409 nếu số đêm &gt; 10</span>
+    <span class="code-token-kw">await</span> fakeApiBooking(data);
+    setSuccessMessage(t(<span class="code-token-str">'messages.success'</span>));
+  } <span class="code-token-kw">catch</span> {
+    <span class="code-token-cm">// Trả về Actionable Feedback rõ ràng cho người dùng</span>
+    setApiError(t(<span class="code-token-str">'messages.apiError'</span>));
+  }
+};</div>
           </div>
         </div>
       </div>
@@ -1633,27 +1649,31 @@
               React chưa có Hook tương đương cho 2 phương thức vòng đời này:
             </p>
             <div class="code-container">
+              <div class="code-header">src/components/ErrorBoundary.tsx</div>
               <div class="code-body"><span class="code-token-kw">export class</span> <span
                   class="code-token-type">ErrorBoundary</span> <span class="code-token-kw">extends</span>
-                React.Component {
-                state = { hasError: <span class="code-token-kw">false</span>, error: <span
-                  class="code-token-kw">null</span> };
+                Component&lt;ErrorBoundaryProps, ErrorBoundaryState&gt; {
+                <span class="code-token-kw">public</span> state: ErrorBoundaryState = { hasError: <span
+                  class="code-token-kw">false</span>, error: <span class="code-token-kw">null</span> };
 
-                <span class="code-token-cm">// 1. Cập nhật state để render Fallback UI</span>
-                <span class="code-token-kw">static</span> <span
-                  class="code-token-fn">getDerivedStateFromError</span>(error) {
+                <span class="code-token-cm">// 1. Cập nhật state để render Fallback UI khi có lỗi render component
+                  con</span>
+                <span class="code-token-kw">public static</span> <span
+                  class="code-token-fn">getDerivedStateFromError</span>(error: Error): ErrorBoundaryState {
                 <span class="code-token-kw">return</span> { hasError: <span class="code-token-kw">true</span>, error };
                 }
 
-                <span class="code-token-cm">// 2. Gửi log lỗi lên hệ thống Sentry/LogRocket</span>
-                <span class="code-token-fn">componentDidCatch</span>(error, info) {
-                <span class="code-token-fn">logToMonitoring</span>(error, info.componentStack);
+                <span class="code-token-cm">// 2. Ghi nhận chi tiết lỗi vào log hệ thống</span>
+                <span class="code-token-kw">public</span> <span class="code-token-fn">componentDidCatch</span>(error:
+                Error, errorInfo: ErrorInfo): <span class="code-token-type">void</span> {
+                console.<span class="code-token-fn">error</span>(<span class="code-token-str">'[ErrorBoundary] Lỗi
+                  render:'</span>, error, errorInfo);
                 }
 
-                render() {
+                <span class="code-token-kw">public</span> render(): ReactNode {
                 <span class="code-token-kw">if</span> (<span class="code-token-kw">this</span>.state.hasError) {
-                <span class="code-token-kw">return</span> &lt;<span class="code-token-type">ErrorFallbackUI</span>
-                /&gt;;
+                <span class="code-token-kw">return this</span>.props.fallback ?? &lt;<span
+                  class="code-token-type">ErrorFallbackCard</span> /&gt;;
                 }
                 <span class="code-token-kw">return this</span>.props.children;
                 }
@@ -1755,7 +1775,7 @@
               </li>
               <li>
                 <strong>Localization (l10n):</strong> Quá trình dịch thuật nội dung cho từng địa phương cụ thể (VI, EN,
-                AR).
+                ZH).
               </li>
             </ul>
 
@@ -1772,23 +1792,24 @@
           <div class="content-card highlight">
             <span class="card-badge emerald">Cơ Chế Dynamic Translation</span>
             <div class="code-container" style="margin-bottom:0.75rem;">
-              <div class="code-header">UserGreeting.tsx</div>
-              <div class="code-body"><span class="code-token-kw">import</span> { useTranslation, Trans } <span
+              <div class="code-header">src/App.tsx</div>
+              <div class="code-body"><span class="code-token-kw">import</span> { useTranslation } <span
                   class="code-token-kw">from</span> <span class="code-token-str">'react-i18next'</span>;
-
                 <span class="code-token-kw">const</span> { t, i18n } = <span
                   class="code-token-fn">useTranslation</span>();
 
-                <span class="code-token-cm">// 1. Interpolation: Chèn biến qua {{name}}</span>
-                &lt;h1&gt;{t(<span class="code-token-str">'welcome'</span>, { name: <span
-                  class="code-token-str">'Alex'</span> })}&lt;/h1&gt;
+                <span class="code-token-cm">// 1. Interpolation: Chèn biến động {name} và {count} vào chuỗi dịch</span>
+                &lt;p className=<span class="code-token-str">"portal-greeting"</span>&gt;
+                {t(<span class="code-token-str">'dynamicGreeting'</span>, { name: <span class="code-token-str">'Alex
+                  Johnson'</span>, count: 24 })}
+                &lt;/p&gt;
 
-                <span class="code-token-cm">// 2. Pluralization: Số ít / Số nhiều tự động</span>
-                &lt;p&gt;{t(<span class="code-token-str">'nights_count'</span>, { count: 3 })}&lt;/p&gt;
-
-                <span class="code-token-cm">// 3. Đổi ngôn ngữ thời gian thực</span>
-                &lt;button onClick={() =&gt; i18n.<span class="code-token-fn">changeLanguage</span>(<span
-                  class="code-token-str">'ar'</span>)}&gt;العربية&lt;/button&gt;
+                <span class="code-token-cm">// 2. Đổi ngôn ngữ thời gian thực (vi, en, zh)</span>
+                {SUPPORTED_LANGUAGES.map((lang) =&gt; (
+                &lt;button onClick={() =&gt; i18n.<span class="code-token-fn">changeLanguage</span>(lang.code)}&gt;
+                {lang.label}
+                &lt;/button&gt;
+                ))}
               </div>
             </div>
             <p style="font-size:0.82rem; color:#475569;">
@@ -1822,54 +1843,63 @@
           <div class="content-card highlight">
             <span class="card-badge blue">Web Native Intl API</span>
             <div class="code-container">
-              <div class="code-body"><span class="code-token-cm">// 1. Format Tiền Tệ Tự Động Theo Locale</span>
-                <span class="code-token-kw">export const</span> <span class="code-token-fn">formatCurrency</span> =
-                (amount, locale, currency) =&gt; {
+              <div class="code-header">src/utils/formatters.ts</div>
+              <div class="code-body"><span class="code-token-cm">// 1. Format đơn giá phòng theo tiền tệ quốc gia (VND,
+                  USD, CNY)</span>
+                <span class="code-token-kw">export function</span> <span
+                  class="code-token-fn">formatRoomPrice</span>(nights, roomType, lang): <span
+                  class="code-token-type">string</span> {
                 <span class="code-token-kw">return new</span> Intl.<span
-                  class="code-token-type">NumberFormat</span>(locale, {
+                  class="code-token-type">NumberFormat</span>(targetLocale, {
                 style: <span class="code-token-str">'currency'</span>,
-                currency: currency
-                }).<span class="code-token-fn">format</span>(amount);
-                };
+                currency: lang === <span class="code-token-str">'vi'</span> ? <span class="code-token-str">'VND'</span>
+                : lang === <span class="code-token-str">'zh'</span> ? <span class="code-token-str">'CNY'</span> : <span
+                  class="code-token-str">'USD'</span>,
+                }).<span class="code-token-fn">format</span>(totalAmount);
+                }
 
-                <span class="code-token-cm">// 2. Format Ngày Tháng Chuẩn Bản Địa</span>
-                <span class="code-token-kw">export const</span> <span class="code-token-fn">formatDate</span> = (date,
-                locale) =&gt; {
+                <span class="code-token-cm">// 2. Format ngày nhận phòng chuẩn bản địa</span>
+                <span class="code-token-kw">export function</span> <span
+                  class="code-token-fn">formatCheckinDate</span>(date: Date, lang: string): <span
+                  class="code-token-type">string</span> {
                 <span class="code-token-kw">return new</span> Intl.<span
-                  class="code-token-type">DateTimeFormat</span>(locale, {
+                  class="code-token-type">DateTimeFormat</span>(localeMap[lang], {
                 dateStyle: <span class="code-token-str">'full'</span>
                 }).<span class="code-token-fn">format</span>(date);
-                };
+                }
               </div>
             </div>
           </div>
 
           <!-- Table -->
           <div class="content-card">
-            <span class="card-badge emerald">Bảng So Sánh Hiển Thị</span>
+            <span class="card-badge emerald">Bảng So Sánh Hiển Thị (3 Quốc Gia)</span>
             <table class="spec-table">
               <thead>
                 <tr>
-                  <th>Đầu vào</th>
+                  <th>Dữ liệu</th>
                   <th>vi-VN (VND)</th>
                   <th>en-US (USD)</th>
+                  <th>zh-CN (CNY)</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><strong>1500000</strong></td>
-                  <td><code style="color:#059669; font-weight:700;">1.500.000 ₫</code></td>
-                  <td><code style="color:#2563eb; font-weight:700;">$1,500,000.00</code></td>
+                  <td><strong>Giá phòng</strong></td>
+                  <td><code style="color:#059669; font-weight:700;">300.000 ₫</code></td>
+                  <td><code style="color:#2563eb; font-weight:700;">$15.00</code></td>
+                  <td><code style="color:#dc2626; font-weight:700;">¥100.00</code></td>
                 </tr>
                 <tr>
-                  <td><strong>2026-10-30</strong></td>
-                  <td>30 tháng 10, 2026</td>
-                  <td>October 30, 2026</td>
+                  <td><strong>Check-in</strong></td>
+                  <td>Thứ Hai, 2...</td>
+                  <td>Monday, Nov...</td>
+                  <td>2026年11月2日...</td>
                 </tr>
                 <tr>
-                  <td><strong>Dung lượng thư viện</strong></td>
-                  <td colspan="2" style="text-align:center; color:#d97706; font-weight:800;">
-                    0 KB (Tích hợp sẵn trong trình duyệt)
+                  <td><strong>Dung lượng</strong></td>
+                  <td colspan="3" style="text-align:center; color:#d97706; font-weight:800;">
+                    0 KB (Tích hợp sẵn Native trong Browser)
                   </td>
                 </tr>
               </tbody>
@@ -1886,7 +1916,7 @@
         <div class="slide-number-badge">17 / 22</div>
       </div>
       <h2 class="slide-title">Giao Diện Đảo Chiều (Right-to-Left - RTL)</h2>
-      <p class="slide-subtitle">Hỗ trợ ngôn ngữ tiếng Ả Rập và tư duy bố cục bằng CSS Logical Properties</p>
+      <p class="slide-subtitle">Hỗ trợ giao diện Right-to-Left (RTL) và tư duy bố cục bằng CSS Logical Properties</p>
 
       <div class="slide-body">
         <div class="grid-2">
@@ -1898,13 +1928,18 @@
               động đảo chiều.
             </p>
             <div class="code-container">
-              <div class="code-body"><span class="code-token-cm">// 1. Đổi thuộc tính trên thẻ HTML gốc</span>
-                document.documentElement.dir = <span class="code-token-str">'rtl'</span>; <span class="code-token-cm">//
-                  hoặc 'ltr'</span>
+              <div class="code-header">src/i18n/config.ts</div>
+              <div class="code-body"><span class="code-token-cm">// 1. Khởi tạo thuộc tính dir theo ngôn ngữ</span>
+                document.documentElement.dir = i18n.language === <span class="code-token-str">'zh'</span> ? <span
+                  class="code-token-str">'rtl'</span> : <span class="code-token-str">'ltr'</span>;
 
-                <span class="code-token-cm">// 2. Lắng nghe tự động trong i18next</span>
-                i18n.on(<span class="code-token-str">'languageChanged'</span>, (lng) =&gt; {
-                document.documentElement.dir = i18n.dir(lng);
+                <span class="code-token-cm">// 2. Lắng nghe sự kiện languageChanged để tự động lật bố cục</span>
+                i18n.<span class="code-token-fn">on</span>(<span class="code-token-str">'languageChanged'</span>, (lng:
+                string) =&gt; {
+                <span class="code-token-cm">// Khi chọn 'zh' (tiếng Trung): lật giao diện sang RTL 180°</span>
+                document.documentElement.dir = lng === <span class="code-token-str">'zh'</span> ? <span
+                  class="code-token-str">'rtl'</span> : <span class="code-token-str">'ltr'</span>;
+                document.documentElement.lang = lng;
                 });
               </div>
             </div>
@@ -1981,7 +2016,7 @@
                 từng quốc gia được chọn.</p>
             </div>
             <div class="content-card" style="background:#ffffff;">
-              <span class="card-badge rose">3. Bấm "中文"</span>
+              <span class="card-badge rose">3. Bấm "中文 (简体)" (RTL)</span>
               <p style="font-size:0.85rem; color:#334155;">Giao diện đảo chiều 180° từ phải sang trái, con trỏ và icon
                 tự đảo vị trí chuẩn xác!</p>
             </div>

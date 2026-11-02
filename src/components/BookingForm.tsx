@@ -152,11 +152,13 @@ export const BookingForm: React.FC = () => {
               id="guestName"
               type="text"
               placeholder={t('placeholders.guestName')}
+              aria-invalid={errors.guestName ? 'true' : 'false'}
+              aria-describedby={errors.guestName ? 'guestName-error' : undefined}
               {...register('guestName')}
               className={`form-control ${errors.guestName ? 'form-control-error' : ''}`}
             />
             {errors.guestName && (
-              <p className="field-error-text">
+              <p id="guestName-error" role="alert" className="field-error-text">
                 {t(errors.guestName.message as string)}
               </p>
             )}
@@ -170,11 +172,13 @@ export const BookingForm: React.FC = () => {
               id="email"
               type="email"
               placeholder={t('placeholders.email')}
+              aria-invalid={errors.email ? 'true' : 'false'}
+              aria-describedby={errors.email ? 'email-error' : undefined}
               {...register('email')}
               className={`form-control ${errors.email ? 'form-control-error' : ''}`}
             />
             {errors.email && (
-              <p className="field-error-text">
+              <p id="email-error" role="alert" className="field-error-text">
                 {t(errors.email.message as string)}
               </p>
             )}
