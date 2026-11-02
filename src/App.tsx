@@ -1,26 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { SUPPORTED_LANGUAGES, SupportedLanguage } from './i18n/config';
 import { GlobalErrorBoundary } from './components/ErrorBoundary';
-import { FaultyRoomDetails } from './components/FaultyRoomDetails';
 import { BookingForm } from './components/BookingForm';
+import { ApiErrorDemo } from './components/ApiErrorDemo';
 import './styles/App.css';
 
 export const App: React.FC = () => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language || 'vi';
 
-  // Trạng thái Fault Injection để kiểm thử Error Boundary
-  const [triggerCrash, setTriggerCrash] = useState<boolean>(false);
-  const [faultBoundaryKey, setFaultBoundaryKey] = useState<number>(0);
-
   const handleLanguageChange = (code: SupportedLanguage) => {
     i18n.changeLanguage(code);
-  };
-
-  const handleResetFault = () => {
-    setTriggerCrash(false);
-    setFaultBoundaryKey((prev) => prev + 1);
   };
 
   return (
@@ -61,29 +52,16 @@ export const App: React.FC = () => {
         </GlobalErrorBoundary>
       </main>
 
-      {/* 4. Khu vực lá chắn Error Boundary & Fault Injection */}
-      <section className="fault-test-card">
-        <div className="fault-test-header">
-          <div>
-            <h3 className="fault-test-title">
-              Thử nghiệm Error Boundary (Cô lập sự cố Render)
-            </h3>
-            <p className="fault-test-desc">
-              Bấm nút bên cạnh để bơm lỗi trực tiếp vào component con nhằm kiểm chứng khả năng cô lập lỗi.
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={() => setTriggerCrash(true)}
-            className="fault-btn fault-btn-crash"
-          >
-            {t('buttons.testCrash')}
-          </button>
-        </div>
-
-        {/* Component ErrorBoundary bao bọc FaultyRoomDetails */}
-        <GlobalErrorBoundary key={faultBoundaryKey} onReset={handleResetFault}>
-          <FaultyRoomDetails triggerCrash={triggerCrash} />
+      {/* 4. Demo Tầng 2: Lỗi API / Network với try...catch + Async State Machine */}
+      <section className="api-demo-card">
+        <h3 className="api-demo-title">
+          Thử nghiệm lỗi Server &amp; Mạng (try...catch + Async State Machine)
+        </h3>
+        <p className="api-demo-desc">
+          Chọn mã phản hồi rồi bấm thanh toán. Mỗi mã lỗi có thông báo và hành động riêng, giao diện không bị sập.
+        </p>
+        <GlobalErrorBoundary>
+          <ApiErrorDemo />
         </GlobalErrorBoundary>
       </section>
     </div>
