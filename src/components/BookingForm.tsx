@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { bookingSchema, BookingFormValues } from '../schemas/bookingSchema';
 import { formatRoomPrice, formatCheckinDate } from '../utils/formatters';
+import '../styles/BookingForm.css';
 
 export const BookingForm: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -112,73 +113,28 @@ export const BookingForm: React.FC = () => {
   const { ref: fileRegisterRef, onChange: onRHFFileChange, ...restFileRegister } = register('passportPhoto');
 
   return (
-    <div
-      style={{
-        backgroundColor: '#ffffff',
-        border: '1px solid #e2e8f0',
-        borderRadius: '12px',
-        padding: '1.75rem',
-        boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.05)',
-        textAlign: 'start', // Hỗ trợ đảo chiều chuẩn khi chuyển LTR <-> RTL
-      }}
-    >
-      {/* Huy hiệu đếm Re-render tối giản */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '0.75rem',
-          padding: '0.6rem 0.9rem',
-          backgroundColor: '#f8fafc',
-          border: '1px solid #e2e8f0',
-          borderRadius: '6px',
-          marginBottom: '1.5rem',
-          fontSize: '0.85rem',
-        }}
-      >
-        <span style={{ color: '#334155', fontWeight: 600 }}>
-          {t('renderCountBadge')}: <strong style={{ color: '#2563eb' }}>{renderCount.current}</strong>
+    <div className="form-card">
+      {/* Huy hiệu đếm Re-render */}
+      <div className="render-counter-badge">
+        <span className="render-counter-label">
+          {t('renderCountBadge')}: <strong className="render-counter-number">{renderCount.current}</strong>
         </span>
-        <span style={{ color: '#64748b', fontSize: '0.8rem' }}>
+        <span className="render-counter-note">
           (RHF Uncontrolled Form giảm thiểu re-render tối đa)
         </span>
       </div>
 
       {/* Thông báo Thành công hoặc Lỗi Async */}
       {successMessage && (
-        <div
-          role="status"
-          style={{
-            padding: '0.9rem 1rem',
-            backgroundColor: '#ecfdf5',
-            border: '1px solid #6ee7b7',
-            borderRadius: '6px',
-            color: '#065f46',
-            marginBottom: '1.25rem',
-            fontSize: '0.9rem',
-          }}
-        >
+        <div role="status" className="alert-box alert-box-success">
           {successMessage}
         </div>
       )}
 
       {apiError && (
-        <div
-          role="alert"
-          style={{
-            padding: '0.9rem 1rem',
-            backgroundColor: '#fef2f2',
-            border: '1px solid #f87171',
-            borderRadius: '6px',
-            color: '#991b1b',
-            marginBottom: '1.25rem',
-            fontSize: '0.9rem',
-          }}
-        >
+        <div role="alert" className="alert-box alert-box-error">
           <strong>{apiError}</strong>
-          <div style={{ fontSize: '0.8rem', marginTop: '0.25rem', color: '#b91c1c' }}>
+          <div className="alert-hint">
             {t('apiErrorHint')}
           </div>
         </div>
@@ -187,52 +143,38 @@ export const BookingForm: React.FC = () => {
       {/* Form chính */}
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         {/* Hàng 1: Họ và tên & Email */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '1.25rem' }}>
-          <div>
-            <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.35rem', fontSize: '0.875rem', color: '#374151' }}>
-              {t('labels.guestName')} <span style={{ color: '#dc2626' }}>*</span>
+        <div className="form-grid-row">
+          <div className="form-group">
+            <label htmlFor="guestName" className="form-label">
+              {t('labels.guestName')} <span className="required-star">*</span>
             </label>
             <input
+              id="guestName"
               type="text"
               placeholder={t('placeholders.guestName')}
               {...register('guestName')}
-              style={{
-                width: '100%',
-                padding: '0.6rem 0.75rem',
-                borderRadius: '6px',
-                border: errors.guestName ? '1px solid #dc2626' : '1px solid #d1d5db',
-                boxSizing: 'border-box',
-                outline: 'none',
-                fontSize: '0.9rem',
-              }}
+              className={`form-control ${errors.guestName ? 'form-control-error' : ''}`}
             />
             {errors.guestName && (
-              <p style={{ margin: '0.35rem 0 0 0', color: '#dc2626', fontSize: '0.8rem' }}>
+              <p className="field-error-text">
                 {t(errors.guestName.message as string)}
               </p>
             )}
           </div>
 
-          <div>
-            <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.35rem', fontSize: '0.875rem', color: '#374151' }}>
-              {t('labels.email')} <span style={{ color: '#dc2626' }}>*</span>
+          <div className="form-group">
+            <label htmlFor="email" className="form-label">
+              {t('labels.email')} <span className="required-star">*</span>
             </label>
             <input
+              id="email"
               type="email"
               placeholder={t('placeholders.email')}
               {...register('email')}
-              style={{
-                width: '100%',
-                padding: '0.6rem 0.75rem',
-                borderRadius: '6px',
-                border: errors.email ? '1px solid #dc2626' : '1px solid #d1d5db',
-                boxSizing: 'border-box',
-                outline: 'none',
-                fontSize: '0.9rem',
-              }}
+              className={`form-control ${errors.email ? 'form-control-error' : ''}`}
             />
             {errors.email && (
-              <p style={{ margin: '0.35rem 0 0 0', color: '#dc2626', fontSize: '0.8rem' }}>
+              <p className="field-error-text">
                 {t(errors.email.message as string)}
               </p>
             )}
@@ -240,57 +182,42 @@ export const BookingForm: React.FC = () => {
         </div>
 
         {/* Hàng 2: Số đêm & Hạng phòng (Controller) */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '1.25rem' }}>
-          <div>
-            <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.35rem', fontSize: '0.875rem', color: '#374151' }}>
-              {t('labels.nights')} <span style={{ color: '#dc2626' }}>*</span>
+        <div className="form-grid-row">
+          <div className="form-group">
+            <label htmlFor="nights" className="form-label">
+              {t('labels.nights')} <span className="required-star">*</span>
             </label>
             <input
+              id="nights"
               type="number"
               min={1}
               placeholder={t('placeholders.nights')}
               {...register('nights', { valueAsNumber: true })}
-              style={{
-                width: '100%',
-                padding: '0.6rem 0.75rem',
-                borderRadius: '6px',
-                border: errors.nights ? '1px solid #dc2626' : '1px solid #d1d5db',
-                boxSizing: 'border-box',
-                outline: 'none',
-                fontSize: '0.9rem',
-              }}
+              className={`form-control ${errors.nights ? 'form-control-error' : ''}`}
             />
             {errors.nights ? (
-              <p style={{ margin: '0.35rem 0 0 0', color: '#dc2626', fontSize: '0.8rem' }}>
+              <p className="field-error-text">
                 {t(errors.nights.message as string)}
               </p>
             ) : (
-              <p style={{ margin: '0.35rem 0 0 0', color: '#64748b', fontSize: '0.75rem' }}>
+              <p className="field-hint-text">
                 {t('apiErrorHint')}
               </p>
             )}
           </div>
 
-          <div>
-            <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.35rem', fontSize: '0.875rem', color: '#374151' }}>
-              {t('labels.roomType')} <span style={{ color: '#dc2626' }}>*</span>
+          <div className="form-group">
+            <label htmlFor="roomType" className="form-label">
+              {t('labels.roomType')} <span className="required-star">*</span>
             </label>
             <Controller
               name="roomType"
               control={control}
               render={({ field }) => (
                 <select
+                  id="roomType"
                   {...field}
-                  style={{
-                    width: '100%',
-                    padding: '0.6rem 0.75rem',
-                    borderRadius: '6px',
-                    border: errors.roomType ? '1px solid #dc2626' : '1px solid #d1d5db',
-                    boxSizing: 'border-box',
-                    backgroundColor: '#ffffff',
-                    outline: 'none',
-                    fontSize: '0.9rem',
-                  }}
+                  className={`form-control form-select ${errors.roomType ? 'form-control-error' : ''}`}
                 >
                   <option value="standard_room">{t('rooms.standard_room')}</option>
                   <option value="vip_studio">{t('rooms.vip_studio')}</option>
@@ -298,7 +225,7 @@ export const BookingForm: React.FC = () => {
               )}
             />
             {errors.roomType && (
-              <p style={{ margin: '0.35rem 0 0 0', color: '#dc2626', fontSize: '0.8rem' }}>
+              <p className="field-error-text">
                 {t(errors.roomType.message as string)}
               </p>
             )}
@@ -306,39 +233,27 @@ export const BookingForm: React.FC = () => {
         </div>
 
         {/* Khối Hiển thị Ước tính Tổng tiền theo thời gian thực */}
-        <div
-          style={{
-            backgroundColor: '#f8fafc',
-            border: '1px solid #e2e8f0',
-            borderRadius: '8px',
-            padding: '1rem',
-            marginBottom: '1.25rem',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '0.75rem',
-          }}
-        >
+        <div className="price-card">
           <div>
-            <div style={{ fontSize: '0.85rem', color: '#64748b' }}>
+            <div className="price-date-info">
               {t('checkinDate')}: <strong>{checkinDateFormatted}</strong>
             </div>
-            <div style={{ fontSize: '0.95rem', fontWeight: 600, color: '#334155', marginTop: '0.2rem' }}>
+            <div className="price-label-text">
               {t('priceEstimate')}:
             </div>
           </div>
-          <div style={{ fontSize: '1.35rem', fontWeight: 800, color: '#059669' }}>
+          <div className="price-total-amount">
             {estimatedPrice}
           </div>
         </div>
 
         {/* Hàng 3: Upload Ảnh CCCD/Hộ chiếu */}
-        <div style={{ marginBottom: '1.25rem' }}>
-          <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.35rem', fontSize: '0.875rem', color: '#374151' }}>
-            {t('labels.passportPhoto')} <span style={{ color: '#dc2626' }}>*</span>
+        <div className="form-group">
+          <label htmlFor="passportPhoto" className="form-label">
+            {t('labels.passportPhoto')} <span className="required-star">*</span>
           </label>
           <input
+            id="passportPhoto"
             type="file"
             accept="image/jpeg,image/png"
             ref={(node) => {
@@ -350,66 +265,32 @@ export const BookingForm: React.FC = () => {
               handleFileChange(e);
             }}
             {...restFileRegister}
-            style={{
-              display: 'block',
-              width: '100%',
-              padding: '0.45rem',
-              borderRadius: '6px',
-              border: errors.passportPhoto ? '1px solid #dc2626' : '1px solid #d1d5db',
-              boxSizing: 'border-box',
-              fontSize: '0.85rem',
-            }}
+            className={`file-input ${errors.passportPhoto ? 'form-control-error' : ''}`}
           />
-          <p style={{ margin: '0.35rem 0 0 0', color: '#64748b', fontSize: '0.75rem' }}>
+          <p className="field-hint-text">
             {t('passportUploadHint')}
           </p>
           {errors.passportPhoto && (
-            <p style={{ margin: '0.35rem 0 0 0', color: '#dc2626', fontSize: '0.8rem' }}>
+            <p className="field-error-text">
               {t(errors.passportPhoto.message as string)}
             </p>
           )}
 
           {/* Vùng Preview ảnh */}
           {previewUrl && (
-            <div
-              style={{
-                marginTop: '0.75rem',
-                padding: '0.75rem',
-                backgroundColor: '#f8fafc',
-                borderRadius: '6px',
-                border: '1px solid #e2e8f0',
-                display: 'inline-flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                gap: '0.5rem',
-              }}
-            >
-              <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#475569' }}>
+            <div className="preview-container">
+              <span className="preview-title">
                 {t('passportPreview')}:
               </span>
               <img
                 src={previewUrl}
                 alt="Passport/ID Preview"
-                style={{
-                  maxWidth: '220px',
-                  maxHeight: '140px',
-                  borderRadius: '4px',
-                  objectFit: 'cover',
-                  border: '1px solid #cbd5e1',
-                }}
+                className="preview-image"
               />
               <button
                 type="button"
                 onClick={handleClearPhoto}
-                style={{
-                  fontSize: '0.75rem',
-                  color: '#dc2626',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  padding: 0,
-                  textDecoration: 'underline',
-                }}
+                className="preview-delete-btn"
               >
                 Xóa ảnh đã chọn
               </button>
@@ -418,34 +299,19 @@ export const BookingForm: React.FC = () => {
         </div>
 
         {/* Ô đối chứng Re-render: Dùng useState thuần */}
-        <div
-          style={{
-            backgroundColor: '#f8fafc',
-            border: '1px solid #e2e8f0',
-            borderRadius: '6px',
-            padding: '0.85rem',
-            marginBottom: '1.5rem',
-          }}
-        >
-          <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.35rem', fontSize: '0.8rem', color: '#475569' }}>
+        <div className="re-render-test-card">
+          <label htmlFor="specialNotes" className="re-render-test-label">
             {t('labels.specialNotes')}
           </label>
           <input
+            id="specialNotes"
             type="text"
             value={specialNotes}
             onChange={(e) => setSpecialNotes(e.target.value)}
             placeholder={t('placeholders.specialNotes')}
-            style={{
-              width: '100%',
-              padding: '0.5rem 0.75rem',
-              borderRadius: '6px',
-              border: '1px solid #cbd5e1',
-              boxSizing: 'border-box',
-              fontSize: '0.85rem',
-              backgroundColor: '#ffffff',
-            }}
+            className="form-control re-render-test-input"
           />
-          <p style={{ margin: '0.35rem 0 0 0', color: '#64748b', fontSize: '0.75rem' }}>
+          <p className="field-hint-text">
             Quan sát: Mỗi ký tự gõ ở ô này kích hoạt React State Re-render (bộ đếm phía trên nhảy số liên tục).
           </p>
         </div>
@@ -454,36 +320,11 @@ export const BookingForm: React.FC = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          style={{
-            width: '100%',
-            padding: '0.75rem 1.5rem',
-            backgroundColor: isSubmitting ? '#94a3b8' : '#2563eb',
-            color: '#ffffff',
-            border: 'none',
-            borderRadius: '6px',
-            fontSize: '0.95rem',
-            fontWeight: 600,
-            cursor: isSubmitting ? 'not-allowed' : 'pointer',
-            transition: 'background-color 0.15s ease',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '0.5rem',
-          }}
+          className="submit-btn"
         >
           {isSubmitting ? (
             <>
-              <span
-                style={{
-                  display: 'inline-block',
-                  width: '14px',
-                  height: '14px',
-                  border: '2px solid #ffffff',
-                  borderTopColor: 'transparent',
-                  borderRadius: '50%',
-                  animation: 'spin 0.8s linear infinite',
-                }}
-              />
+              <span className="spinner-icon" />
               <span>{t('buttons.processing')}</span>
             </>
           ) : (

@@ -1,0 +1,37 @@
+/* ==========================================================================
+   FAULTY ROOM DETAILS STYLES (src/styles/FaultyRoomDetails.css)
+   Theo kiến trúc MVC: View Styling cho Component Tiện ích phòng
+   ========================================================================== */
+
+.room-details-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 0.75rem 0;
+}
+
+.room-details-title {
+  margin: 0 0 0.5rem 0;
+  color: #1e293b;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.5rem;
+}
+
+.amenity-item {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 0.45rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  font-size: 0.85rem;
+  color: #334155;
+}
+
