@@ -1,0 +1,11 @@
+/* ==========================================================================
+   STYLES AGGREGATOR (src/styles/index.css)
+   Theo kiến trúc MVC: Gom nhóm toàn bộ View CSS Modules
+   ========================================================================== */
+
+@import './global.css';
+@import './App.css';
+@import './BookingForm.css';
+@import './ErrorBoundary.css';
+@import './ApiErrorDemo.css';
+

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/ApiErrorDemo.css';
 
 /** Async State Machine: tại một thời điểm chỉ ở đúng 1 trạng thái */
 export type AsyncStatus = 'idle' | 'loading' | 'error' | 'success';
@@ -64,13 +65,6 @@ const toErrorState = (error: unknown): Extract<AsyncState, { status: 'error' }> 
   return { status: 'error', code: 'NETWORK', message: 'Mất kết nối mạng.', action: 'Kiểm tra Wi-Fi / 4G rồi bấm thử lại.' };
 };
 
-const STATUS_COLORS: Record<AsyncStatus, string> = {
-  idle: '#64748b',
-  loading: '#2563eb',
-  success: '#059669',
-  error: '#dc2626',
-};
-
 export const ApiErrorDemo: React.FC = () => {
   const [scenario, setScenario] = useState<Scenario>(402);
   const [state, setState] = useState<AsyncState>({ status: 'idle' });
@@ -110,128 +104,53 @@ export const ApiErrorDemo: React.FC = () => {
   const isLoading = state.status === 'loading';
 
   return (
-    <div style={{ display: 'grid', gap: '0.9rem' }}>
-      <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
-        <legend style={{ fontSize: '0.8rem', color: '#64748b', marginBottom: '0.4rem' }}>
-          Chọn phản hồi server giả lập:
-        </legend>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
-          {SCENARIOS.map(({ value, label }) => {
-            const isActive = value === scenario;
-            return (
-              <button
-                key={label}
-                type="button"
-                aria-pressed={isActive}
-                disabled={isLoading}
-                onClick={() => setScenario(value)}
-                style={{
-                  padding: '0.3rem 0.7rem',
-                  borderRadius: '999px',
-                  border: isActive ? '1.5px solid #b45309' : '1px solid #d1d5db',
-                  backgroundColor: isActive ? '#fef3c7' : '#ffffff',
-                  color: isActive ? '#92400e' : '#4b5563',
-                  fontWeight: isActive ? 600 : 500,
-                  fontSize: '0.8rem',
-                  cursor: isLoading ? 'not-allowed' : 'pointer',
-                }}
-              >
-                {label}
-              </button>
-            );
-          })}
+    <div className="api-demo">
+      <fieldset className="api-scenarios">
+        <legend className="api-scenarios-legend">Chọn phản hồi server giả lập:</legend>
+        <div className="api-scenarios-group">
+          {SCENARIOS.map(({ value, label }) => (
+            <button
+              key={label}
+              type="button"
+              aria-pressed={value === scenario}
+              disabled={isLoading}
+              onClick={() => setScenario(value)}
+              className={`api-scenario-btn ${value === scenario ? 'active' : ''}`}
+            >
+              {label}
+            </button>
+          ))}
         </div>
       </fieldset>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.6rem' }}>
-        <button
-          type="button"
-          onClick={handlePay}
-          disabled={isLoading}
-          style={{
-            padding: '0.5rem 1rem',
-            backgroundColor: isLoading ? '#93c5fd' : '#2563eb',
-            color: '#ffffff',
-            border: 'none',
-            borderRadius: '6px',
-            fontWeight: 600,
-            fontSize: '0.85rem',
-            cursor: isLoading ? 'wait' : 'pointer',
-          }}
-        >
+      <div className="api-actions">
+        <button type="button" onClick={handlePay} disabled={isLoading} className="api-pay-btn">
           {isLoading ? 'Đang gọi API...' : 'Thanh toán đặt phòng'}
         </button>
-        <span style={{ fontSize: '0.8rem', fontFamily: 'Consolas, monospace' }}>
-          status: <strong style={{ color: STATUS_COLORS[state.status] }}>'{state.status}'</strong>
+        <span className="api-status">
+          status: <strong className={`api-status-${state.status}`}>'{state.status}'</strong>
         </span>
       </div>
 
       <div aria-live="polite">
         {state.status === 'success' && (
-          <div
-            role="status"
-            style={{
-              padding: '0.8rem 1rem',
-              backgroundColor: '#ecfdf5',
-              border: '1px solid #6ee7b7',
-              borderRadius: '6px',
-              color: '#065f46',
-              fontSize: '0.9rem',
-            }}
-          >
+          <div role="status" className="api-banner api-banner-success">
             {state.message}
           </div>
         )}
 
         {state.status === 'error' && (
-          <div
-            role="alert"
-            style={{
-              padding: '0.8rem 1rem',
-              backgroundColor: '#fef2f2',
-              border: '1px solid #f87171',
-              borderRadius: '6px',
-              color: '#991b1b',
-              fontSize: '0.9rem',
-            }}
-          >
+          <div role="alert" className="api-banner api-banner-error">
             <strong>[{state.code}] {state.message}</strong>
-            <div style={{ marginTop: '0.25rem', fontSize: '0.85rem' }}>Gợi ý: {state.action}</div>
-            <button
-              type="button"
-              onClick={handlePay}
-              style={{
-                marginTop: '0.6rem',
-                padding: '0.35rem 0.8rem',
-                backgroundColor: '#ffffff',
-                color: '#991b1b',
-                border: '1px solid #f87171',
-                borderRadius: '6px',
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                cursor: 'pointer',
-              }}
-            >
+            <div className="api-banner-hint">Gợi ý: {state.action}</div>
+            <button type="button" onClick={handlePay} className="api-retry-btn">
               Thử lại
             </button>
           </div>
         )}
       </div>
 
-      <button
-        type="button"
-        onClick={handleEscalate}
-        style={{
-          justifySelf: 'start',
-          padding: '0.35rem 0.8rem',
-          backgroundColor: 'transparent',
-          color: '#b45309',
-          border: '1px dashed #f59e0b',
-          borderRadius: '6px',
-          fontSize: '0.8rem',
-          cursor: 'pointer',
-        }}
-      >
+      <button type="button" onClick={handleEscalate} className="api-escalate-btn">
         Đẩy lỗi async vào Error Boundary
       </button>
     </div>
