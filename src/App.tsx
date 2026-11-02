@@ -1,25 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { SUPPORTED_LANGUAGES, SupportedLanguage } from './i18n/config';
 import { GlobalErrorBoundary } from './components/ErrorBoundary';
-import { FaultyRoomDetails } from './components/FaultyRoomDetails';
 import { BookingForm } from './components/BookingForm';
+import { ApiErrorDemo } from './components/ApiErrorDemo';
 
 export const App: React.FC = () => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language || 'vi';
 
-  // Trạng thái Fault Injection để kiểm thử Error Boundary
-  const [triggerCrash, setTriggerCrash] = useState<boolean>(false);
-  const [faultBoundaryKey, setFaultBoundaryKey] = useState<number>(0);
-
   const handleLanguageChange = (code: SupportedLanguage) => {
     i18n.changeLanguage(code);
-  };
-
-  const handleResetFault = () => {
-    setTriggerCrash(false);
-    setFaultBoundaryKey((prev) => prev + 1);
   };
 
   return (
@@ -92,56 +83,24 @@ export const App: React.FC = () => {
         </GlobalErrorBoundary>
       </main>
 
-      {/* 4. Khu vực lá chắn Error Boundary & Fault Injection */}
+      {/* 4. Demo Tầng 2: Lỗi API / Network với try...catch + Async State Machine */}
       <section
         style={{
-          border: '1px solid #e2e8f0',
+          border: '1px solid #fde68a',
           borderRadius: '8px',
           padding: '1.25rem',
-          backgroundColor: '#f8fafc',
+          backgroundColor: '#fffbeb',
           marginBottom: '1.5rem',
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '0.5rem',
-            flexWrap: 'wrap',
-            gap: '0.5rem',
-          }}
-        >
-          <div>
-            <h3 style={{ margin: 0, color: '#334155', fontSize: '1rem', fontWeight: 600 }}>
-              Thử nghiệm Error Boundary (Cô lập sự cố Render)
-            </h3>
-            <p style={{ margin: '0.2rem 0 0 0', fontSize: '0.8rem', color: '#64748b' }}>
-              Bấm nút bên cạnh để bơm lỗi trực tiếp vào component con nhằm kiểm chứng khả năng cô lập lỗi.
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={() => setTriggerCrash(true)}
-            style={{
-              backgroundColor: '#dc2626',
-              color: '#ffffff',
-              padding: '0.45rem 0.9rem',
-              border: 'none',
-              borderRadius: '6px',
-              fontWeight: 600,
-              fontSize: '0.85rem',
-              cursor: 'pointer',
-              transition: 'background-color 0.15s ease',
-            }}
-          >
-            {t('buttons.testCrash')}
-          </button>
-        </div>
-
-        {/* Component ErrorBoundary bao bọc FaultyRoomDetails */}
-        <GlobalErrorBoundary key={faultBoundaryKey} onReset={handleResetFault}>
-          <FaultyRoomDetails triggerCrash={triggerCrash} />
+        <h3 style={{ margin: 0, color: '#92400e', fontSize: '1rem', fontWeight: 600 }}>
+          Thử nghiệm lỗi Server &amp; Mạng (try...catch + Async State Machine)
+        </h3>
+        <p style={{ margin: '0.2rem 0 1rem 0', fontSize: '0.8rem', color: '#78716c' }}>
+          Chọn mã phản hồi rồi bấm thanh toán. Mỗi mã lỗi có thông báo và hành động riêng, giao diện không bị sập.
+        </p>
+        <GlobalErrorBoundary>
+          <ApiErrorDemo />
         </GlobalErrorBoundary>
       </section>
     </div>
